@@ -300,6 +300,13 @@
     }
 
     /* Hero media should fill the card area */
+    .card{display:flex; flex-direction:column}
+
+    /* Optional: secondary photo slot below CTA */
+    .cardMedia--below{
+      border-top: 1px solid rgba(171,163,241,.12);
+    }
+
     .cardMedia{
       flex: 1 1 auto;
       height: clamp(320px, 32vw, 620px);
@@ -746,8 +753,9 @@
                 <div class="cardMedia">
                   <img loading="lazy" decoding="async" alt="Luma sugarfree matcha soda" src="assets/images/home/hero-matcha.webp" />
                 </div>
-                <div class="ctaRow"><a class="btn" href="#">Order Sugarfree Matcha</a></div>
-              </article>
+                $1
+                <div class="cardMedia cardMedia--below">
+                  <img loading="lazy" decoding="async" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='900'%3E%3Cdefs%3E%3CradialGradient id='g' cx='30%25' cy='18%25' r='120%25'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.28'/%3E%3Cstop offset='70%25' stop-color='%23000000' stop-opacity='.12'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.08'/%3E%3C/radialGradient%3E%3C/defs%3E%
 
               <article class="card">
                 <div class="cardMedia">
