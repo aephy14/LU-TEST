@@ -261,6 +261,7 @@
     .card{
       scroll-snap-align: center;
       flex: 0 0 min(70vw, 520px);
+      height: clamp(420px, 72vh, 640px);
       border-radius: 26px;
       background: rgba(0,0,0,.10);
       border: 1px solid rgba(171,163,241,.14);
@@ -272,8 +273,8 @@
 
     .card img{
       width:100%;
-      height:auto;
-      max-height: min(70vh, 620px);
+      flex: 1 1 auto;
+      height: 100%;
       object-fit: contain;
       display:block;
     }
@@ -419,7 +420,11 @@
       display:block;
       background: rgba(0,0,0,.06);
     }
-    .product .body .ctaRow{margin-top:auto; display:flex; justify-content:flex-end}
+    .product .body .ctaRow{
+      margin-top:auto;
+      display:flex;
+      justify-content:flex-start;
+margin-top:auto; display:flex; justify-content:flex-end}
 
     /* Footer */
     footer{padding: 22px 0 34px; border-top: 1px solid rgba(171,163,241,.12); background: linear-gradient(to top, rgba(0,0,0,.18), rgba(0,0,0,0))}
