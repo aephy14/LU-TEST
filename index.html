@@ -426,6 +426,50 @@
       justify-content:flex-start;
 margin-top:auto; display:flex; justify-content:flex-end}
 
+    /* Newsletter */
+    .newsletter{padding: 48px 0 36px}
+    .newsletter-box{
+      border-radius: 28px;
+      border: 1px solid rgba(171,163,241,.18);
+      background:
+        radial-gradient(700px 420px at 0% 0%, rgba(171,163,241,.22), transparent 55%),
+        linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,.08));
+      padding: 28px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.28);
+      text-align:center;
+    }
+    .newsletter-box h2{
+      font-family:"Baloo 2","Plus Jakarta Sans",system-ui;
+      margin:0 0 8px;
+      font-size: clamp(26px, 3vw, 36px);
+    }
+    .newsletter-box p{
+      margin:0 0 18px;
+      color: var(--text-weak);
+    }
+    .newsletter-form{
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+    .newsletter-form input{
+      min-width: 240px;
+      flex:1 1 260px;
+      border-radius: 999px;
+      border: 1px solid rgba(171,163,241,.22);
+      background: rgba(0,0,0,.12);
+      padding: 14px 18px;
+      font-size: 16px;
+      color: var(--text);
+      outline:none;
+    }
+    .newsletter-form input::placeholder{color: rgba(171,163,241,.55)}
+
+    .newsletter-msg{flex: 1 1 100%; font-size: 14px; color: var(--text-weak); margin-top: 4px}
+    .newsletter-msg.ok{color:#f5e482}
+    .newsletter-msg.err{color:#ff0f39}
+
     /* Footer */
     footer{padding: 22px 0 34px; border-top: 1px solid rgba(171,163,241,.12); background: linear-gradient(to top, rgba(0,0,0,.18), rgba(0,0,0,0))}
 
@@ -581,6 +625,26 @@ margin-top:auto; display:flex; justify-content:flex-end}
           </div>
         </div>
       </div>
+
+      <!-- Newsletter signup -->
+      <section class="newsletter">
+        <div class="wrap wrap-narrow">
+          <div class="newsletter-box">
+            <h2>Join the Luma list</h2>
+            <p>New products, early drops, and functional food ideas. No spam.</p>
+            <form class="newsletter-form" action="https://api.web3forms.com/submit" method="POST">
+              <input type="hidden" name="access_key" value="82bdae8a-79ae-4e1a-a927-596d378240e1" />
+              <input type="hidden" name="subject" value="New Luma Newsletter Signup" />
+              <input type="hidden" name="from_name" value="LumaFood" />
+              <input type="hidden" name="redirect" value="false" />
+              <input type="checkbox" name="botcheck" class="hidden" style="display:none">
+              <input type="email" name="email" required placeholder="Your email" />
+              <div class="newsletter-msg" id="newsletterMsg" aria-live="polite"></div>
+              <button class="btn btn-send" type="submit">Subscribe</button>
+            </form>
+          </div>
+        </div>
+      </section>
     </section>
 
     <!-- PRODUCTS -->
@@ -837,6 +901,37 @@ Address - 25 Gibraltar cres parnell</p>
 
     window.addEventListener('hashchange', parseHash);
     window.addEventListener('load', parseHash);
+  </script>
+  <script>
+    // Newsletter (Web3Forms) – inline success/error handling
+    (function(){
+      const form = document.querySelector('.newsletter-form');
+      const msg = document.getElementById('newsletterMsg');
+      if(!form || !msg) return;
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        msg.textContent = '';
+        msg.className = 'newsletter-msg';
+
+        const fd = new FormData(form);
+        try{
+          const res = await fetch(form.action, { method:'POST', body: fd });
+          const data = await res.json().catch(() => ({}));
+          if(res.ok && (data.success === true || data.message)){
+            msg.textContent = 'Thanks — you\'re on the list.';
+            msg.classList.add('ok');
+            form.reset();
+          }else{
+            msg.textContent = 'Hmm — that didn\'t work. Try again.';
+            msg.classList.add('err');
+          }
+        }catch(err){
+          msg.textContent = 'Network error — please try again.';
+          msg.classList.add('err');
+        }
+      });
+    })();
   </script>
 </body>
 </html>
