@@ -253,10 +253,11 @@
     /* Home product strip */
     .carousel{
       display:flex;
-      gap: 16px;
+      gap: 18px;
       overflow-x:auto;
       scroll-snap-type: x mandatory;
-      padding: 16px;
+      padding: 18px;
+      align-items: stretch;
     }
 
     .carousel::-webkit-scrollbar{height: 10px}
@@ -265,9 +266,7 @@
 
     .card{
       scroll-snap-align: center;
-      flex: 0 0 auto;
-      width: min(92vw, 520px);
-      aspect-ratio: 3 / 4;
+      flex: 0 0 clamp(260px, 30vw, 520px);
       border-radius: 26px;
       background: rgba(0,0,0,.10);
       border: 1px solid rgba(171,163,241,.14);
@@ -292,6 +291,24 @@
       }
     }
 
+    /* Keep media tight to the top (no big dead space) and scale responsively */
+    .cardMedia{
+      height: clamp(220px, 34vw, 520px);
+      padding: 10px 10px 6px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+    }
+
+    .cardMedia img{
+      width:100%;
+      height:100%;
+      object-fit: contain;
+      object-position: center top;
+      display:block;
+    }
+
+    /* Legacy selector (in case any card still uses a direct img) */
     .card img{
       width:100%;
       height:100%;
@@ -367,7 +384,7 @@
       display:inline-block;
       padding-right: 2px;
     }
-    .marquee-track span{flex:0 0 auto}
+    .marquee-track span{flex:0 0 auto; padding-right:72px}
     @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
 
     /* About / Contact */
@@ -545,6 +562,11 @@
       .overlay{display:none}
       .formGrid{grid-template-columns: 1fr}
       .productGrid{grid-template-columns: 1fr}
+
+      /* Make each hero card fit nicely on mobile */
+      .card{flex-basis: min(86vw, 520px)}
+      .cardMedia{height: clamp(240px, 70vw, 520px)}
+      .carousel{padding: 14px; gap: 14px}
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -641,15 +663,15 @@
         <div class="softPanel" aria-label="Featured products">
           <div class="carousel">
             <article class="card">
-              <img loading="lazy" decoding="async" alt="Luma high protein bread" src="assets/images/home/hero-bread.webp" />
+              <div class="cardMedia">$1</div>
               <div class="ctaRow"><a class="btn" href="#/products">Order</a></div>
             </article>
             <article class="card">
-              <img loading="lazy" decoding="async" alt="Luma matcha soda" src="assets/images/home/hero-matcha.webp" />
+              <div class="cardMedia">$1</div>
               <div class="ctaRow"><a class="btn" href="#/products">Order</a></div>
             </article>
             <article class="card">
-              <img loading="lazy" decoding="async" alt="Luma protein ice tea" src="assets/images/home/hero-ice-tea.webp" />
+              <div class="cardMedia">$1</div>
               <div class="ctaRow"><a class="btn" href="#/products">Order</a></div>
             </article>
           </div>
