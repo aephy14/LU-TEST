@@ -253,10 +253,10 @@
     /* Home product strip */
     .carousel{
       display:flex;
-      gap: 24px;
+      gap: 16px;
       overflow-x:auto;
       scroll-snap-type: x mandatory;
-      padding: 24px;
+      padding: 16px;
     }
 
     .carousel::-webkit-scrollbar{height: 10px}
@@ -265,8 +265,9 @@
 
     .card{
       scroll-snap-align: center;
-      flex: 0 0 min(70vw, 520px);
-      height: clamp(420px, 72vh, 640px);
+      flex: 0 0 auto;
+      width: min(92vw, 520px);
+      aspect-ratio: 3 / 4;
       border-radius: 26px;
       background: rgba(0,0,0,.10);
       border: 1px solid rgba(171,163,241,.14);
@@ -275,14 +276,29 @@
       flex-direction:column;
     }
 
+    /* Make the hero products fully responsive on desktop (3-up), keep swipe on mobile */
+    @media (min-width: 980px){
+      .carousel{
+        display:grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+        overflow: visible;
+        scroll-snap-type: none;
+        padding: 18px;
+      }
+      .card{
+        width: 100%;
+        scroll-snap-align: unset;
+      }
+    }
 
     .card img{
       width:100%;
+      height:100%;
       flex: 1 1 auto;
-      height: 100%;
       object-fit: contain;
       object-position: center bottom;
-      padding: 8px 8px 16px;
+      padding: 10px 10px 14px;
       display:block;
     }
 
@@ -395,22 +411,26 @@
       overflow:hidden;
       display:flex;
       flex-direction:column;
-      min-height: clamp(420px, 70vh, 640px);
+      min-height: 0;
     }
 
     .product .imgWrap{
-      padding: 12px;
-      aspect-ratio: 4 / 5;
+      padding: 8px 12px 4px;
+      aspect-ratio: 3 / 4;
       display:flex;
-      align-items:center;
+      align-items:flex-end;
       justify-content:center;
     }
     .product .imgWrap img{
       width:100%;
       height:100%;
       object-fit: contain;
-      object-position: center;
+      object-position: center bottom;
       display:block;
+    }
+
+    .product.bread .imgWrap{
+      aspect-ratio: 4 / 5;
     }
 
     /* Bread hero is wider — crop it to match the can frame */
@@ -443,7 +463,7 @@
       margin-top:auto;
       display:flex;
       justify-content:flex-start;
-margin-top:auto; display:flex; justify-content:flex-end}
+    }
 
     /* Newsletter */
     .newsletter{padding: 48px 0 36px}
@@ -635,12 +655,12 @@ margin-top:auto; display:flex; justify-content:flex-end}
       <div class="marquee" aria-hidden="true">
         <div class="marquee-inner">
           <div class="marquee-track">
-            <span>Enjoy life healthy</span><span>Enjoy life healthy</span><span>Enjoy life healthy</span><span>Enjoy life healthy</span><span>
-            <span>Enjoy life healthy</span><span>Enjoy life healthy</span><span>Enjoy life healthy</span><span>Enjoy life healthy</span><span>
+            <span>Enjoy life healthy</span><span>Enjoy life healthy</span><span>Enjoy life healthy</span><span>Enjoy life healthy</span>
+            <span>Enjoy life healthy</span><span>Enjoy life healthy</span><span>Enjoy life healthy</span><span>Enjoy life healthy</span>
           </div>
           <div class="marquee-track" aria-hidden="true">
-            <span>Enjoy life healthy</span><span>Enjoy life healthy</span><span>Enjoy life healthy</span><span>Enjoy life healthy</span><span>
-            <span>Enjoy life healthy</span><span>Enjoy life healthy</span><span>Enjoy life healthy</span><span>Enjoy life healthy</span><span>
+            <span>Enjoy life healthy</span><span>Enjoy life healthy</span><span>Enjoy life healthy</span><span>Enjoy life healthy</span>
+            <span>Enjoy life healthy</span><span>Enjoy life healthy</span><span>Enjoy life healthy</span><span>Enjoy life healthy</span>
           </div>
         </div>
       </div>
