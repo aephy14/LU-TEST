@@ -79,16 +79,23 @@
     .hamburger:active{transform: translateY(1px)}
     .hamburger:active{transform: translateY(1px)}
 
-    .burger{width:18px; height:12px; position:relative}
+    .burger{
+      width:18px;
+      height:14px;
+      position:relative;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
     .burger span{
-      position:absolute; left:0; right:0;
-      height:3px; border-radius: 3px;
+      position:relative;
+      left:0; right:0;
+      height:2px;
+      border-radius:999px;
       background: var(--text);
       opacity:.9;
     }
-    .burger span:nth-child(1){top:0}
-    .burger span:nth-child(2){top:5px; opacity:.75}
-    .burger span:nth-child(3){bottom:0}
+    
 
     .logo{display:flex; justify-content:center; align-items:center; pointer-events:auto}
     .logo img{
