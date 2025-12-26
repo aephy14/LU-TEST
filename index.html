@@ -266,7 +266,7 @@
       scroll-snap-align: center;
       flex: 1 1 0;
       min-width: 0;
-      aspect-ratio: 3 / 2;
+      /* allow media + CTA to define height */
       border-radius: 26px;
       background:
         radial-gradient(120% 120% at 10% 10%, rgba(255,255,255,.18), transparent 45%),
@@ -297,7 +297,7 @@
     /* Hero media should fill the card area */
     .cardMedia{
       flex: 1 1 auto;
-      height: clamp(240px, 34vw, 560px);
+      height: clamp(320px, 32vw, 620px);
       padding: 0;
       display:flex;
       align-items:stretch;
@@ -316,11 +316,10 @@
     .card img{
       width:100%;
       height:100%;
-      object-fit: contain;
+      object-fit: cover;
       object-position: center;
       display:block;
       border-radius: 18px;
-    }
     }
 
 
@@ -667,19 +666,19 @@
               <div class="cardMedia">
                 <img loading="lazy" decoding="async" alt="Luma high protein bread" src="assets/images/home/hero-bread.jpeg" />
               </div>
-              <div class="ctaRow"><a class="btn" href="#/products">Order</a></div>
+              <div class="ctaRow"><a class="btn" href="#/products">Order Protein Bread</a></div>
             </article>
             <article class="card">
               <div class="cardMedia">
                 <img loading="lazy" decoding="async" alt="Luma matcha soda" src="assets/images/home/hero-matcha.webp" />
               </div>
-              <div class="ctaRow"><a class="btn" href="#/products">Order</a></div>
+              <div class="ctaRow"><a class="btn" href="#/products">Order Matcha Soda</a></div>
             </article>
             <article class="card">
               <div class="cardMedia">
                 <img loading="lazy" decoding="async" alt="Luma protein ice tea" src="assets/images/home/hero-ice-tea.webp" />
               </div>
-              <div class="ctaRow"><a class="btn" href="#/products">Order</a></div>
+              <div class="ctaRow"><a class="btn" href="#/products">Order Protein Ice Tea</a></div>
             </article>
           </div>
         </div>
