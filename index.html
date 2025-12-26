@@ -434,9 +434,12 @@
     .sectionTitle{
       font-family: var(--font-display);
       margin: 26px 0 10px;
-      font-size: clamp(22px, 2.4vw, 30px);
+      font-size: clamp(28px, 3.2vw, 40px);
       letter-spacing: .02em;
     }
+
+    .sectionTitle.matcha{color:#31704e}
+    .sectionTitle.ice-tea{color:#fa2239}
 
     /* Newsletter */
     .newsletter{padding: 48px 0 36px}
@@ -675,7 +678,7 @@
         <div class="hero"><h1>Products</h1></div>
 
         <section class="productSection" aria-label="Matcha">
-          <h2 class="sectionTitle">Matcha</h2>
+          <h2 class="sectionTitle matcha">Matcha</h2>
           <div class="softPanel">
             <div class="carousel two">
               <article class="card">
@@ -702,7 +705,7 @@
         </section>
 
         <section class="productSection" aria-label="Protein Bread">
-          <h2 class="sectionTitle">Protein Bread</h2>
+          <h2 class="sectionTitle">Protein Bread</h2><!-- enlarged via .sectionTitle -->
           <div class="softPanel">
             <div class="carousel two">
               <article class="card">
@@ -729,7 +732,7 @@
         </section>
 
         <section class="productSection" aria-label="Protein Ice Tea">
-          <h2 class="sectionTitle">Protein Ice Tea</h2>
+          <h2 class="sectionTitle ice-tea">Protein Ice Tea</h2>
           <div class="softPanel">
             <div class="carousel two">
               <article class="card">
