@@ -424,6 +424,14 @@
     .formActions{margin-top: 12px; display:flex; justify-content:flex-end}
 
     /* Products */
+    .productSection{margin-top: 18px}
+    .sectionTitle{
+      font-family: var(--font-display);
+      margin: 26px 0 10px;
+      font-size: clamp(22px, 2.4vw, 30px);
+      letter-spacing: .02em;
+    }
+
     .productGrid{margin-top: 10px; display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px}
 
     .product{
@@ -664,7 +672,7 @@
           <div class="carousel">
             <article class="card">
               <div class="cardMedia">
-                <img loading="lazy" decoding="async" alt="Luma high protein bread" src="assets/images/home/hero-bread.webp" />
+                <img loading="lazy" decoding="async" alt="Luma high protein bread" src="assets/images/home/hero-bread.jpeg" />
               </div>
               <div class="ctaRow"><a class="btn" href="#/products">Order Protein Bread</a></div>
             </article>
@@ -724,74 +732,43 @@
       <div class="wrap wrap-narrow">
         <div class="hero"><h1>Products</h1></div>
 
-        <div class="productGrid" aria-label="Product grid">
-          <article class="product bread">
-            <div class="imgWrap">
-              <img loading="lazy" decoding="async" alt="Luma high protein bread" src="assets/images/home/hero-bread.jpeg" />
-            </div>
-            <div class="body">
-              <h3 class="title">Bread</h3>
-              <div class="ingredients">
-                <img loading="lazy" decoding="async" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='600'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.22'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
+        <section class="productSection" aria-label="Matcha products">
+          <h2 class="sectionTitle">Matcha</h2>
+          <div class="productGrid">
+            <article class="product can">
+              <div class="imgWrap">
+                <img loading="lazy" decoding="async" alt="Luma matcha soda sugarfree" src="assets/images/home/hero-matcha.webp" />
               </div>
-              <div class="ctaRow"><a class="btn" href="#">Order</a></div>
-            </div>
-          </article>
+              <div class="body">
+                <h3 class="title">Sugarfree Matcha Soda</h3>
+                <div class="ingredients">
+                  <img loading="lazy" decoding="async" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='600'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%2331704E' stop-opacity='.22'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
+                </div>
+                <div class="ctaRow"><a class="btn" href="#">Order</a></div>
+              </div>
+            </article>
 
-          <article class="product bread">
-            <div class="imgWrap">
-              <img loading="lazy" decoding="async" alt="Luma high protein bread" src="assets/images/home/hero-bread.jpeg" />
-            </div>
-            <div class="body">
-              <h3 class="title">Bread</h3>
-              <div class="ingredients">
-                <img loading="lazy" decoding="async" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='600'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.22'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
+            <article class="product can">
+              <div class="imgWrap">
+                <img loading="lazy" decoding="async" alt="Luma matcha soda with sugar" src="assets/images/home/hero-matcha.webp" />
               </div>
-              <div class="ctaRow"><a class="btn" href="#">Order</a></div>
-            </div>
-          </article>
+              <div class="body">
+                <h3 class="title">Matcha Soda (Sugar)</h3>
+                <div class="ingredients">
+                  <img loading="lazy" decoding="async" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='600'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23F5E482' stop-opacity='.22'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
+                </div>
+                <div class="ctaRow"><a class="btn" href="#">Order</a></div>
+              </div>
+            </article>
+          </div>
+        </section>
 
-          <article class="product can">
-            <div class="imgWrap">
-              <img loading="lazy" decoding="async" alt="Luma protein ice tea" src="assets/images/home/hero-ice-tea.webp" />
-            </div>
-            <div class="body">
-              <h3 class="title">Protein Ice Tea</h3>
-              <div class="ingredients">
-                <img loading="lazy" decoding="async" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='600'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.22'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
-              </div>
-              <div class="ctaRow"><a class="btn" href="#">Order</a></div>
-            </div>
-          </article>
-
-          <article class="product can">
-            <div class="imgWrap">
-              <img loading="lazy" decoding="async" alt="Luma matcha soda" src="assets/images/home/hero-matcha.webp" />
-            </div>
-            <div class="body">
-              <h3 class="title">Matcha Drink</h3>
-              <div class="ingredients">
-                <img loading="lazy" decoding="async" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='600'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.22'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
-              </div>
-              <div class="ctaRow"><a class="btn" href="#">Order</a></div>
-            </div>
-          </article>
-
-          <article class="product">
-            <div class="imgWrap">
-              <img loading="lazy" decoding="async" alt="Luma matcha soda" src="assets/images/home/hero-matcha.webp" />
-            </div>
-            <div class="body">
-              <h3 class="title">Matcha Drink</h3>
-              <div class="ingredients">
-                <img loading="lazy" decoding="async" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='600'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.22'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
-              </div>
-              <div class="ctaRow"><a class="btn" href="#">Order</a></div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
+        <section class="productSection" aria-label="Protein bread products">
+          <h2 class="sectionTitle">Protein Bread</h2>
+          <div class="productGrid">
+            <article class="product bread">
+              <div class="imgWrap">
+                <img loading
 
     <!-- ABOUT -->
     <section class="page" id="page-about" data-route="about">
