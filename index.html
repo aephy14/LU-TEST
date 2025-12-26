@@ -350,17 +350,22 @@
     .marquee-track{
       display:flex;
       flex-wrap:nowrap;
-      gap:72px;
+      gap:96px;
       white-space:nowrap;
       padding:14px 0;
       will-change:transform;
-      animation: marquee 32s linear infinite;
-      font-family: "Baloo 2", "Plus Jakarta Sans", system-ui;
+      animation: marquee 36s linear infinite;
+      font-family: var(--font-display);
       font-weight: 800;
       font-size: clamp(18px, 1.8vw, 22px);
-      letter-spacing:.12em;
+      letter-spacing:.18em;
       text-transform:uppercase;
       color:#fff;
+    }
+    .marquee-track span{
+      flex:0 0 auto;
+      display:inline-block;
+      padding-right: 2px;
     }
     .marquee-track span{flex:0 0 auto}
     @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
