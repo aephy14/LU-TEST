@@ -96,7 +96,7 @@
       background: var(--text);
       opacity:.9;
     }
-    
+
 
     .logo{display:flex; justify-content:center; align-items:center; pointer-events:auto}
     .logo img{
@@ -217,9 +217,8 @@
     .hero h1{
     }
 
-    
 
-    
+
 
     .hero h1{
       font-family: var(--font-display);
@@ -710,7 +709,7 @@
               <input type="hidden" name="redirect" value="false" />
               <input type="checkbox" name="botcheck" class="hidden" style="display:none">
               <input type="email" name="email" required placeholder="Your email" />
-              <div class="newsletter-msg" id="newsletterMsg" aria-live="polite"></div>
+              <div class="newsletter-msg" data-newsletter-msg aria-live="polite"></div>
               <button class="btn btn-send" type="submit">Subscribe</button>
             </form>
           </div>
@@ -810,6 +809,26 @@ I want to bring that back to NZ (for selfish reasons - I want more.) But also to
           </div>
         </div>
       </div>
+
+      <!-- Newsletter signup -->
+      <section class="newsletter">
+        <div class="wrap wrap-narrow">
+          <div class="newsletter-box">
+            <h2>Join the Luma list</h2>
+            <p>New products, early drops, and functional food ideas. No spam.</p>
+            <form class="newsletter-form" action="https://api.web3forms.com/submit" method="POST">
+              <input type="hidden" name="access_key" value="82bdae8a-79ae-4e1a-a927-596d378240e1" />
+              <input type="hidden" name="subject" value="New Luma Newsletter Signup" />
+              <input type="hidden" name="from_name" value="LumaFood" />
+              <input type="hidden" name="redirect" value="false" />
+              <input type="checkbox" name="botcheck" class="hidden" style="display:none">
+              <input type="email" name="email" required placeholder="Your email" />
+              <div class="newsletter-msg" data-newsletter-msg aria-live="polite"></div>
+              <button class="btn btn-send" type="submit">Subscribe</button>
+            </form>
+          </div>
+        </div>
+      </section>
     </section>
 
     <!-- CONTACT -->
@@ -837,6 +856,26 @@ Address - 25 Gibraltar cres parnell</p>
           </div>
         </div>
       </div>
+
+      <!-- Newsletter signup -->
+      <section class="newsletter">
+        <div class="wrap wrap-narrow">
+          <div class="newsletter-box">
+            <h2>Join the Luma list</h2>
+            <p>New products, early drops, and functional food ideas. No spam.</p>
+            <form class="newsletter-form" action="https://api.web3forms.com/submit" method="POST">
+              <input type="hidden" name="access_key" value="82bdae8a-79ae-4e1a-a927-596d378240e1" />
+              <input type="hidden" name="subject" value="New Luma Newsletter Signup" />
+              <input type="hidden" name="from_name" value="LumaFood" />
+              <input type="hidden" name="redirect" value="false" />
+              <input type="checkbox" name="botcheck" class="hidden" style="display:none">
+              <input type="email" name="email" required placeholder="Your email" />
+              <div class="newsletter-msg" data-newsletter-msg aria-live="polite"></div>
+              <button class="btn btn-send" type="submit">Subscribe</button>
+            </form>
+          </div>
+        </div>
+      </section>
     </section>
 
     <!-- FOOTER PAGES (empty by design to avoid extra copy) -->
@@ -989,33 +1028,37 @@ Address - 25 Gibraltar cres parnell</p>
     window.addEventListener('load', parseHash);
   </script>
   <script>
-    // Newsletter (Web3Forms) – inline success/error handling
+    // Newsletter (Web3Forms) – inline success/error handling (supports multiple forms)
     (function(){
-      const form = document.querySelector('.newsletter-form');
-      const msg = document.getElementById('newsletterMsg');
-      if(!form || !msg) return;
+      const forms = Array.from(document.querySelectorAll('.newsletter-form'));
+      if(!forms.length) return;
 
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        msg.textContent = '';
-        msg.className = 'newsletter-msg';
+      forms.forEach((form) => {
+        const msg = form.querySelector('.newsletter-msg');
+        if(!msg) return;
 
-        const fd = new FormData(form);
-        try{
-          const res = await fetch(form.action, { method:'POST', body: fd });
-          const data = await res.json().catch(() => ({}));
-          if(res.ok && (data.success === true || data.message)){
-            msg.textContent = 'Thanks — you\'re on the list.';
-            msg.classList.add('ok');
-            form.reset();
-          }else{
-            msg.textContent = 'Hmm — that didn\'t work. Try again.';
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          msg.textContent = '';
+          msg.className = 'newsletter-msg';
+
+          const fd = new FormData(form);
+          try{
+            const res = await fetch(form.action, { method:'POST', body: fd });
+            const data = await res.json().catch(() => ({}));
+            if(res.ok && (data.success === true || data.message)){
+              msg.textContent = 'Thanks — you\'re on the list.';
+              msg.classList.add('ok');
+              form.reset();
+            }else{
+              msg.textContent = 'Hmm — that didn\'t work. Try again.';
+              msg.classList.add('err');
+            }
+          }catch(err){
+            msg.textContent = 'Network error — please try again.';
             msg.classList.add('err');
           }
-        }catch(err){
-          msg.textContent = 'Network error — please try again.';
-          msg.classList.add('err');
-        }
+        });
       });
     })();
   </script>
