@@ -77,7 +77,6 @@
       cursor:pointer;
     }
     .hamburger:active{transform: translateY(1px)}
-    .hamburger:active{transform: translateY(1px)}
 
     .burger{
       width:18px;
@@ -379,12 +378,7 @@
       text-transform:uppercase;
       color:#fff;
     }
-    .marquee-track span{
-      flex:0 0 auto;
-      display:inline-block;
-      padding-right: 2px;
-    }
-    .marquee-track span{flex:0 0 auto; padding-right:72px}
+    .marquee-track span{flex:0 0 auto; display:inline-block;}
     @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
 
     /* About / Contact */
@@ -663,15 +657,21 @@
         <div class="softPanel" aria-label="Featured products">
           <div class="carousel">
             <article class="card">
-              <div class="cardMedia">$1</div>
+              <div class="cardMedia">
+                <img loading="lazy" decoding="async" alt="Luma high protein bread" src="assets/images/home/hero-bread.jpeg" />
+              </div>
               <div class="ctaRow"><a class="btn" href="#/products">Order</a></div>
             </article>
             <article class="card">
-              <div class="cardMedia">$1</div>
+              <div class="cardMedia">
+                <img loading="lazy" decoding="async" alt="Luma matcha soda" src="assets/images/home/hero-matcha.webp" />
+              </div>
               <div class="ctaRow"><a class="btn" href="#/products">Order</a></div>
             </article>
             <article class="card">
-              <div class="cardMedia">$1</div>
+              <div class="cardMedia">
+                <img loading="lazy" decoding="async" alt="Luma protein ice tea" src="assets/images/home/hero-ice-tea.webp" />
+              </div>
               <div class="ctaRow"><a class="btn" href="#/products">Order</a></div>
             </article>
           </div>
@@ -917,6 +917,21 @@ Address - 25 Gibraltar cres parnell</p>
       </div>
     </div>
   </footer>
+
+  <script>
+    // Fix relative asset paths on GitHub Pages *project* sites (served under /repo-name/)
+    (function(){
+      const p = window.location.pathname || "/";
+      const base = p.endsWith("/") ? p : p.slice(0, p.lastIndexOf("/") + 1);
+      document.querySelectorAll('img[src]').forEach((img) => {
+        const src = img.getAttribute('src');
+        if(!src) return;
+        if(src.startsWith('http') || src.startsWith('data:') || src.startsWith('#') || src.startsWith('/') ) return;
+        if(src.startsWith(base)) return;
+        img.setAttribute('src', base + src);
+      });
+    })();
+  </script>
 
   <script>
     const overlay = document.getElementById('overlay');
