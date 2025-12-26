@@ -1,8 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://lumafood.com/</loc></url>
-  <url><loc>https://lumafood.com/blog/</loc></url>
 
-  <url><loc>https://lumafood.com/blog/2025-10-24-the-science-backed-health-benefits-of-matcha/</loc></url>
-  <url><loc>https://lumafood.com/blog/2025-09-16-matcha-soda-vs-coffee-nz/</loc></url>
+  <!-- Homepage -->
+  <url>
+    <loc>https://lumafood.com/</loc>
+  </url>
+
+  <!-- Core pages -->
+  <url>
+    <loc>https://lumafood.com/blog/</loc>
+  </url>
+
+  <!-- Legal pages -->
+  <url>
+    <loc>https://lumafood.com/privacy/</loc>
+  </url>
+  <url>
+    <loc>https://lumafood.com/terms/</loc>
+  </url>
+  <url>
+    <loc>https://lumafood.com/returns/</loc>
+  </url>
+
+  <!-- Blog posts -->
+  <url>
+    <loc>https://lumafood.com/blog/2025-10-24-the-science-backed-health-benefits-of-matcha/</loc>
+  </url>
+  <url>
+    <loc>https://lumafood.com/blog/2025-09-16-matcha-soda-vs-coffee-nz/</loc>
+  </url>
+
 </urlset>
