@@ -26,16 +26,13 @@
     }
 
     *{box-sizing:border-box}
-    html,body{height:100%}
-
-    body{
+    html,body{
       margin:0;
       font-family: var(--font-body);
       background:
-        radial-gradient(1200px 900px at 10% -10%, rgba(171,163,241,.45), transparent 60%),
-        radial-gradient(1000px 700px at 90% 15%, rgba(171,163,241,.28), transparent 60%),
-        radial-gradient(1100px 900px at 50% 120%, rgba(0,0,0,.22), transparent 65%),
-        linear-gradient(180deg, rgba(171,163,241,.18), rgba(186,91,88,.35)),
+        radial-gradient(900px 700px at 20% -10%, rgba(245,228,130,.35), transparent 60%),
+        radial-gradient(900px 700px at 80% 10%, rgba(49,112,78,.35), transparent 60%),
+        linear-gradient(180deg, rgba(171,163,241,.12), rgba(186,91,88,.45)),
         var(--bg);
       color: var(--text);
       overflow-x:hidden;
@@ -72,21 +69,22 @@
 
     .hamburger{
       width:44px; height:44px;
-      border-radius: 999px;
-      border: 1px solid rgba(171,163,241,.22);
-      background: rgba(0,0,0,.10);
-      box-shadow: 0 10px 28px rgba(0,0,0,.20);
+      border-radius: 14px;
+      border: none;
+      background: linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,.06));
+      box-shadow: none;
       display:grid; place-items:center;
       cursor:pointer;
     }
+    .hamburger:active{transform: translateY(1px)}
     .hamburger:active{transform: translateY(1px)}
 
     .burger{width:18px; height:12px; position:relative}
     .burger span{
       position:absolute; left:0; right:0;
-      height:2px; border-radius: 999px;
+      height:3px; border-radius: 3px;
       background: var(--text);
-      opacity:.95;
+      opacity:.9;
     }
     .burger span:nth-child(1){top:0}
     .burger span:nth-child(2){top:5px; opacity:.75}
@@ -94,10 +92,10 @@
 
     .logo{display:flex; justify-content:center; align-items:center; pointer-events:auto}
     .logo img{
-      height: 112px;
+      height: 150px;
       width:auto;
       display:block;
-      filter: drop-shadow(0 14px 30px rgba(0,0,0,.25));
+      filter: drop-shadow(0 18px 36px rgba(0,0,0,.25));
     }
 
     .topbar-spacer{width:44px; height:44px}
@@ -250,19 +248,20 @@
     /* Home product strip */
     .carousel{
       display:flex;
-      gap: 16px;
+      gap: 24px;
       overflow-x:auto;
       scroll-snap-type: x mandatory;
-      padding: 16px;
+      padding: 24px;
     }
+
     .carousel::-webkit-scrollbar{height: 10px}
     .carousel::-webkit-scrollbar-thumb{background: rgba(171,163,241,.18); border-radius:999px}
     .carousel::-webkit-scrollbar-track{background: rgba(0,0,0,.12); border-radius:999px}
 
     .card{
-      scroll-snap-align: start;
-      flex: 0 0 clamp(260px, 34vw, 360px);
-      border-radius: 22px;
+      scroll-snap-align: center;
+      flex: 0 0 min(70vw, 520px);
+      border-radius: 26px;
       background: rgba(0,0,0,.10);
       border: 1px solid rgba(171,163,241,.14);
       overflow:hidden;
@@ -270,13 +269,15 @@
       flex-direction:column;
     }
 
+
     .card img{
       width:100%;
       height:auto;
-      max-height: 520px;
+      max-height: min(70vh, 620px);
       object-fit: contain;
       display:block;
     }
+
 
     .card .ctaRow{
       padding: 14px;
@@ -285,12 +286,39 @@
       align-items:center;
     }
 
-    $1letter-spacing: .08em;
+        .btn{
+      font-family: var(--font-display);
+      border: 1px solid rgba(171,163,241,.28);
+      background: rgba(255,255,255,.10);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+      letter-spacing: .06em;
       text-transform: uppercase;
       font-size: 12px;
       cursor:pointer;
+      transition: transform .15s ease, filter .15s ease, background .15s ease;
     }
-    .btn:hover{background: rgba(255,255,255,.12)}
+    .btn:hover{background: rgba(255,255,255,.14); filter: brightness(1.02)}
+    .btn:active{transform: translateY(1px)}
+
+    /* Contact-only Send button */
+    .btn-send{
+      border: none;
+      background: linear-gradient(135deg, #31704e, #4c9a6a);
+      color: #fff;
+      padding: 13px 20px;
+      border-radius: 16px;
+      box-shadow: 0 12px 28px rgba(0,0,0,.28);
+    }
+    .btn-send:hover{
+      background: linear-gradient(135deg, #2b6143, #4c9a6a);
+      transform: translateY(-1px);
+      filter: none;
+    }
+    .btn-send:active{transform: translateY(0); box-shadow: 0 8px 18px rgba(0,0,0,.22)}
+
 
     /* Marquee banner (continuous) */
     .marquee{width:100%; overflow:hidden; background:#000; border-top:1px solid rgba(255,255,255,.14); border-bottom:1px solid rgba(255,255,255,.14)}
@@ -652,7 +680,7 @@ Address - 25 Gibraltar cres parnell</p>
                 <textarea class="field full" name="message" rows="6" placeholder="Question" required></textarea>
               </div>
               <div class="formActions">
-                <button class="btn" type="submit">Send</button>
+                <button class="btn btn-send" type="submit">Send</button>
               </div>
             </form>
           </div>
