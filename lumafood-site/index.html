@@ -1,7 +1,847 @@
 <!doctype html>
-<html><head><meta charset="utf-8"><title>LumaFood</title></head>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="LumaFood" />
+  <title>LumaFood</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
+
+    :root{
+      --bg:#ba5b58;
+      --text:#aba3f1;
+      --text-weak: rgba(171,163,241,.82);
+      --panel: rgba(0,0,0,.14);
+      --panel2: rgba(255,255,255,.08);
+      --line: rgba(171,163,241,.22);
+      --shadow: 0 20px 70px rgba(0,0,0,.35);
+      --radius: 22px;
+      --max: 1120px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Fredoka", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background:
+        radial-gradient(1200px 900px at 10% -10%, rgba(171,163,241,.45), transparent 60%),
+        radial-gradient(1000px 700px at 90% 15%, rgba(171,163,241,.28), transparent 60%),
+        radial-gradient(1100px 900px at 50% 120%, rgba(0,0,0,.22), transparent 65%),
+        linear-gradient(180deg, rgba(171,163,241,.18), rgba(186,91,88,.35)),
+        var(--bg);
+      color: var(--text);
+      overflow-x:hidden;
+    }
+
+    a{color:inherit; text-decoration:none}
+    button{font-family:inherit}
+
+    .wrap{max-width:var(--max); margin:0 auto; padding:24px;}
+
+    /* Header */
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(to bottom, rgba(186,91,88,.72), rgba(186,91,88,.20));
+      border-bottom: 1px solid rgba(171,163,241,.12);
+    }
+
+    .topbar-inner{
+      max-width:var(--max);
+      margin:0 auto;
+      padding: 14px 24px;
+      display:grid;
+      grid-template-columns: 56px 1fr 56px;
+      align-items:center;
+      gap: 10px;
+    }
+
+    .hamburger{
+      width:44px; height:44px;
+      border-radius: 999px;
+      border: 1px solid rgba(171,163,241,.22);
+      background: rgba(0,0,0,.10);
+      box-shadow: 0 10px 28px rgba(0,0,0,.20);
+      display:grid; place-items:center;
+      cursor:pointer;
+    }
+    .hamburger:active{transform: translateY(1px)}
+
+    .burger{
+      width:18px; height:12px; position:relative;
+    }
+    .burger span{
+      position:absolute; left:0; right:0;
+      height:2px; border-radius: 999px;
+      background: var(--text);
+      opacity:.95;
+    }
+    .burger span:nth-child(1){top:0}
+    .burger span:nth-child(2){top:5px; opacity:.75}
+    .burger span:nth-child(3){bottom:0}
+
+    .logo{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      pointer-events:auto;
+    }
+    .logo img{
+      height: 56px;
+      width:auto;
+      display:block;
+      filter: drop-shadow(0 14px 30px rgba(0,0,0,.25));
+    }
+
+    .topbar-spacer{width:44px; height:44px;}
+
+    /* Mobile top menu */
+    .mobileMenu{
+      display:none;
+      padding: 0 24px 14px;
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+    .mobileMenu .menuRow{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+    }
+
+    /* Side panel */
+    .overlay{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.40);
+      backdrop-filter: blur(6px);
+      z-index: 60;
+      opacity:0;
+      pointer-events:none;
+      transition: opacity .18s ease;
+    }
+    .overlay.show{opacity:1; pointer-events:auto;}
+
+    .sidePanel{
+      position:fixed;
+      top: 14px;
+      left: 14px;
+      bottom: 14px;
+      width: min(360px, calc(100vw - 28px));
+      border-radius: 26px;
+      background:
+        radial-gradient(900px 600px at 0% 0%, rgba(171,163,241,.20), transparent 55%),
+        linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,.08));
+      border: 1px solid rgba(171,163,241,.16);
+      box-shadow: var(--shadow);
+      z-index: 70;
+      transform: translateX(-110%);
+      transition: transform .22s ease;
+      padding: 16px;
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
+    }
+    .sidePanel.open{transform: translateX(0)}
+
+    .panelTop{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap: 10px;
+    }
+    .panelLogo{display:flex; align-items:center; gap:12px}
+    .panelLogo img{height:34px; width:auto; display:block}
+
+    .closeBtn{
+      width:40px; height:40px;
+      border-radius: 999px;
+      border: 1px solid rgba(171,163,241,.22);
+      background: rgba(0,0,0,.12);
+      cursor:pointer;
+      display:grid; place-items:center;
+    }
+    .closeBtn svg{width:18px; height:18px;}
+
+    .nav{
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      margin-top: 6px;
+    }
+    .nav a{
+      border: 1px solid rgba(171,163,241,.18);
+      background: rgba(255,255,255,.06);
+      border-radius: 999px;
+      padding: 10px 12px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      font-weight: 600;
+      letter-spacing: .02em;
+    }
+    .nav a:hover{background: rgba(255,255,255,.09)}
+
+    .nav a .dot{
+      width:10px; height:10px; border-radius:999px;
+      background: rgba(171,163,241,.75);
+      box-shadow: 0 0 0 6px rgba(171,163,241,.10);
+    }
+
+    .panelBottom{margin-top:auto; display:flex; gap:10px; flex-wrap:wrap}
+
+    .iconBtn{
+      width:44px; height:44px;
+      border-radius: 999px;
+      border: 1px solid rgba(171,163,241,.18);
+      background: rgba(0,0,0,.10);
+      display:grid; place-items:center;
+    }
+    .iconBtn:hover{background: rgba(0,0,0,.16)}
+    .iconBtn svg{width:18px; height:18px;}
+
+    /* Layout */
+    main{min-height: calc(100vh - 86px);}
+
+    .page{display:none;}
+    .page.active{display:block;}
+
+    .hero{
+      padding: 42px 0 10px;
+    }
+
+    .hero h1{
+      margin: 0;
+      font-size: clamp(34px, 4.7vw, 70px);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      text-align:left;
+      text-wrap: balance;
+    }
+
+    .hero p{
+      margin: 14px 0 0;
+      max-width: 980px;
+      font-size: clamp(16px, 2.0vw, 22px);
+      line-height: 1.35;
+      color: var(--text-weak);
+    }
+
+    .softPanel{
+      margin-top: 18px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(171,163,241,.14);
+      background:
+        radial-gradient(1200px 700px at 0% 0%, rgba(171,163,241,.32), transparent 55%),
+        radial-gradient(900px 600px at 100% 0%, rgba(171,163,241,.22), transparent 60%),
+        linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,.08));
+      box-shadow: 0 20px 70px rgba(0,0,0,.25);
+      overflow:hidden;
+    }
+
+    /* Home product strip */
+    .carousel{
+      display:flex;
+      gap: 16px;
+      overflow-x:auto;
+      scroll-snap-type: x mandatory;
+      padding: 16px;
+    }
+    .carousel::-webkit-scrollbar{height: 10px}
+    .carousel::-webkit-scrollbar-thumb{background: rgba(171,163,241,.18); border-radius:999px}
+    .carousel::-webkit-scrollbar-track{background: rgba(0,0,0,.12); border-radius:999px}
+
+    .card{
+      scroll-snap-align: start;
+      flex: 0 0 clamp(260px, 34vw, 360px);
+      border-radius: 22px;
+      background: rgba(0,0,0,.10);
+      border: 1px solid rgba(171,163,241,.14);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+    }
+
+    .card img{
+      width: 100%;
+      height: clamp(220px, 28vw, 310px);
+      object-fit: cover;
+      display:block;
+    }
+
+    .card .ctaRow{
+      padding: 14px;
+      display:flex;
+      justify-content:flex-end;
+      align-items:center;
+    }
+
+    .btn{
+      border: 1px solid rgba(171,163,241,.28);
+      background: rgba(255,255,255,.08);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      font-size: 12px;
+      cursor:pointer;
+    }
+    .btn:hover{background: rgba(255,255,255,.12)}
+
+    /* About / Contact */
+    .content{
+      padding: 26px 0 36px;
+    }
+
+    .content .block{
+      border-radius: var(--radius);
+      border: 1px solid rgba(171,163,241,.14);
+      background:
+        radial-gradient(900px 550px at 0% 0%, rgba(171,163,241,.16), transparent 55%),
+        linear-gradient(180deg, rgba(0,0,0,.16), rgba(0,0,0,.06));
+      padding: 18px;
+      box-shadow: 0 18px 56px rgba(0,0,0,.22);
+    }
+
+    .content p{
+      margin:0;
+      font-size: clamp(16px, 1.7vw, 20px);
+      line-height: 1.45;
+      color: var(--text-weak);
+      white-space: pre-wrap;
+    }
+
+    .formGrid{
+      margin-top: 16px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .field{
+      border-radius: 18px;
+      border: 1px solid rgba(171,163,241,.18);
+      background: rgba(0,0,0,.10);
+      padding: 12px 12px;
+      color: var(--text);
+      outline:none;
+      font-size: 16px;
+    }
+    .field::placeholder{color: rgba(171,163,241,.55)}
+
+    .formGrid .full{grid-column: 1 / -1;}
+
+    .formActions{margin-top: 12px; display:flex; justify-content:flex-end;}
+
+    /* Products */
+    .productGrid{
+      margin-top: 18px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .product{
+      border-radius: 22px;
+      border: 1px solid rgba(171,163,241,.14);
+      background: rgba(0,0,0,.10);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      min-height: 420px;
+    }
+
+    .product .imgWrap{position:relative;}
+    .product img{
+      width:100%;
+      height: 240px;
+      object-fit: cover;
+      display:block;
+    }
+
+    .product .body{
+      padding: 14px;
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+      flex:1;
+    }
+
+    .product .title{
+      font-weight: 800;
+      letter-spacing: .01em;
+      font-size: 22px;
+      margin:0;
+      color: var(--text);
+      line-height:1.1;
+    }
+
+    .ingredients{
+      border-radius: 18px;
+      border: 1px solid rgba(171,163,241,.12);
+      background: rgba(255,255,255,.06);
+      overflow:hidden;
+    }
+
+    .ingredients img{
+      width:100%;
+      height: 120px;
+      object-fit: cover;
+      display:block;
+    }
+
+    .product .body .ctaRow{margin-top:auto; display:flex; justify-content:flex-end;}
+
+    /* Footer */
+    footer{
+      padding: 22px 0 34px;
+      border-top: 1px solid rgba(171,163,241,.12);
+      background: linear-gradient(to top, rgba(0,0,0,.18), rgba(0,0,0,0));
+    }
+
+    .footerInner{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 24px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap: 10px;
+      flex-wrap:wrap;
+    }
+
+    .footerLinks{
+      display:flex;
+      gap: 12px;
+      flex-wrap:wrap;
+      font-weight: 600;
+      color: rgba(171,163,241,.86);
+    }
+
+    .footerLinks a{
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(171,163,241,.14);
+      background: rgba(0,0,0,.10);
+    }
+
+    .footerLinks a:hover{background: rgba(0,0,0,.16)}
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .productGrid{grid-template-columns: 1fr 1fr;}
+    }
+
+    @media (max-width: 720px){
+      .topbar-inner{grid-template-columns: 56px 1fr 0px;}
+      .topbar-spacer{display:none;}
+      .mobileMenu{display:block;}
+      .sidePanel{display:none;}
+      .overlay{display:none;}
+      .formGrid{grid-template-columns: 1fr;}
+      .productGrid{grid-template-columns: 1fr;}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *{scroll-behavior:auto !important; transition:none !important;}
+    }
+  </style>
+</head>
 <body>
-<h1>LumaFood</h1>
-<p>Main site placeholder. Replace with canvas index.html</p>
-<a href="blog/">Blog</a>
-</body></html>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <button class="hamburger" id="menuBtn" aria-label="Open menu">
+        <div class="burger" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
+      </button>
+
+      <a class="logo" href="#/home" aria-label="Home">
+        <img src="logo.webp" alt="Luma" />
+      </a>
+
+      <div class="topbar-spacer" aria-hidden="true"></div>
+    </div>
+
+    <nav class="mobileMenu" id="mobileMenu" aria-label="Mobile menu">
+      <div class="menuRow">
+        <a class="btn" href="#/home">Home</a>
+        <a class="btn" href="#/products">Products</a>
+        <a class="btn" href="#/about">About</a>
+        <a class="btn" href="#/contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="overlay" id="overlay" aria-hidden="true"></div>
+
+  <aside class="sidePanel" id="sidePanel" aria-label="Menu panel">
+    <div class="panelTop">
+      <div class="panelLogo">
+        <img src="logo.webp" alt="Luma" />
+      </div>
+      <button class="closeBtn" id="closeBtn" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M18 6 6 18" />
+          <path d="M6 6 18 18" />
+        </svg>
+      </button>
+    </div>
+
+    <nav class="nav" aria-label="Primary">
+      <a href="#/home"><span>Home</span><span class="dot" aria-hidden="true"></span></a>
+      <a href="#/products"><span>Products</span><span class="dot" aria-hidden="true"></span></a>
+      <a href="#/about"><span>About</span><span class="dot" aria-hidden="true"></span></a>
+      <a href="#/contact"><span>Contact</span><span class="dot" aria-hidden="true"></span></a>
+    </nav>
+
+    <div class="panelBottom" aria-label="Social">
+      <a class="iconBtn" href="#" aria-label="Messenger">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 11.5a8.5 8.5 0 0 1-12.7 7.4L3 21l1.7-5.3A8.5 8.5 0 1 1 21 11.5Z"/>
+        </svg>
+      </a>
+      <a class="iconBtn" href="#" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M17.5 6.5h.01"/>
+        </svg>
+      </a>
+      <a class="iconBtn" href="#" aria-label="TikTok">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14 3v11a4 4 0 1 1-4-4"/>
+          <path d="M14 7a6 6 0 0 0 6 6"/>
+        </svg>
+      </a>
+      <a class="iconBtn" href="#" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12a8.9 8.9 0 0 1-13.6 7.6L3 21l1.5-4.2A9 9 0 1 1 21 12Z"/>
+          <path d="M8.5 8.5c.5 4 3 6.5 7 7"/>
+        </svg>
+      </a>
+    </div>
+  </aside>
+
+  <main>
+    <!-- HOME -->
+    <section class="page active" id="page-home" data-route="home">
+      <div class="wrap">
+        <div class="hero">
+          <h1>High Protein Bread, Matcha Soda and Protein Ice Tea.</h1>
+          <p>We're on a mission to create food and drinks using whole, functional ingredients. Functional products for busy people.</p>
+        </div>
+
+        <div class="softPanel" aria-label="Featured products">
+          <div class="carousel">
+            <article class="card">
+              <img alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='900'%3E%3Cdefs%3E%3CradialGradient id='g' cx='18%25' cy='12%25' r='85%25'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.45'/%3E%3Cstop offset='55%25' stop-color='%23000000' stop-opacity='.18'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='%23BA5B58'/%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
+              <div class="ctaRow">
+                <a class="btn" href="#/products">Order</a>
+              </div>
+            </article>
+
+            <article class="card">
+              <img alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='900'%3E%3Cdefs%3E%3CradialGradient id='g' cx='84%25' cy='18%25' r='85%25'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.45'/%3E%3Cstop offset='55%25' stop-color='%23000000' stop-opacity='.18'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='%23BA5B58'/%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
+              <div class="ctaRow">
+                <a class="btn" href="#/products">Order</a>
+              </div>
+            </article>
+
+            <article class="card">
+              <img alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='900'%3E%3Cdefs%3E%3CradialGradient id='g' cx='50%25' cy='0%25' r='95%25'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.40'/%3E%3Cstop offset='55%25' stop-color='%23000000' stop-opacity='.18'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='%23BA5B58'/%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
+              <div class="ctaRow">
+                <a class="btn" href="#/products">Order</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section class="page" id="page-products" data-route="products">
+      <div class="wrap">
+        <div class="hero">
+          <h1>Products</h1>
+        </div>
+
+        <div class="productGrid" aria-label="Product grid">
+          <article class="product">
+            <div class="imgWrap">
+              <img alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='900'%3E%3Cdefs%3E%3CradialGradient id='g' cx='15%25' cy='20%25' r='95%25'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.35'/%3E%3Cstop offset='60%25' stop-color='%23000000' stop-opacity='.14'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='%23BA5B58'/%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
+            </div>
+            <div class="body">
+              <h3 class="title">Bread</h3>
+              <div class="ingredients">
+                <img alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='600'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.22'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
+              </div>
+              <div class="ctaRow">
+                <a class="btn" href="#">Order</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="product">
+            <div class="imgWrap">
+              <img alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='900'%3E%3Cdefs%3E%3CradialGradient id='g' cx='85%25' cy='18%25' r='95%25'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.35'/%3E%3Cstop offset='60%25' stop-color='%23000000' stop-opacity='.14'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='%23BA5B58'/%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
+            </div>
+            <div class="body">
+              <h3 class="title">Bread</h3>
+              <div class="ingredients">
+                <img alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='600'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.22'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
+              </div>
+              <div class="ctaRow">
+                <a class="btn" href="#">Order</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="product">
+            <div class="imgWrap">
+              <img alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='900'%3E%3Cdefs%3E%3CradialGradient id='g' cx='45%25' cy='10%25' r='100%25'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.35'/%3E%3Cstop offset='60%25' stop-color='%23000000' stop-opacity='.14'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='%23BA5B58'/%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
+            </div>
+            <div class="body">
+              <h3 class="title">Protein Ice Tea</h3>
+              <div class="ingredients">
+                <img alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='600'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.22'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
+              </div>
+              <div class="ctaRow">
+                <a class="btn" href="#">Order</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="product">
+            <div class="imgWrap">
+              <img alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='900'%3E%3Cdefs%3E%3CradialGradient id='g' cx='22%25' cy='30%25' r='100%25'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.35'/%3E%3Cstop offset='60%25' stop-color='%23000000' stop-opacity='.14'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='%23BA5B58'/%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
+            </div>
+            <div class="body">
+              <h3 class="title">Matcha Drink</h3>
+              <div class="ingredients">
+                <img alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='600'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.22'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
+              </div>
+              <div class="ctaRow">
+                <a class="btn" href="#">Order</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="product">
+            <div class="imgWrap">
+              <img alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='900'%3E%3Cdefs%3E%3CradialGradient id='g' cx='78%25' cy='26%25' r='100%25'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.35'/%3E%3Cstop offset='60%25' stop-color='%23000000' stop-opacity='.14'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='%23BA5B58'/%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
+            </div>
+            <div class="body">
+              <h3 class="title">Matcha Drink</h3>
+              <div class="ingredients">
+                <img alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='600'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.22'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
+              </div>
+              <div class="ctaRow">
+                <a class="btn" href="#">Order</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="page" id="page-about" data-route="about">
+      <div class="wrap">
+        <div class="hero">
+          <h1>About</h1>
+        </div>
+
+        <div class="content">
+          <div class="block">
+            <p>I’m Alex, a Kiwi who grew up in NZ before taking off to Berlin for 10 years. I’ve come home in 2025 and I wanted to bring back some of my favourite food products from there.
+
+I’ve always had gut issues, and in Germany I found Matcha, which has compounds that can nourish beneficial gut bacteria.
+
+Matcha is rich in polyphenols which is "good" bacteria like Lactobacillus and Bifidobacterium.)
+
+Pairing that with Protein ice-tea and nut and seed heavy protein rich brown read gave me the best body and belly health I ever had.
+
+I want to bring that back to NZ (for selfish reasons - I want more.) But also to share products I’m passionate about with my fellow Kiwis.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="page" id="page-contact" data-route="contact">
+      <div class="wrap">
+        <div class="hero">
+          <h1>Contact</h1>
+        </div>
+
+        <div class="content">
+          <div class="block">
+            <p>Email = alex@lumafood.com
+Text - 0211487709
+Company - Aephoria Limited
+Address - 25 Gibraltar cres parnell</p>
+
+            <form action="https://api.web3forms.com/submit" method="POST" class="form" aria-label="Contact form">
+              <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_KEY" />
+              <div class="formGrid">
+                <input class="field full" type="email" name="email" placeholder="Email" required />
+                <textarea class="field full" name="message" rows="6" placeholder="Question" required></textarea>
+              </div>
+              <div class="formActions">
+                <button class="btn" type="submit">Send</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER PAGES (empty by design to avoid extra copy) -->
+    <section class="page" id="page-tos" data-route="tos"></section>
+    <section class="page" id="page-returns" data-route="returns"></section>
+    <section class="page" id="page-privacy" data-route="privacy"></section>
+    <section class="page" id="page-blog" data-route="blog">
+      <div class="wrap">
+        <div class="hero">
+          <h1>Blog</h1>
+        </div>
+
+        <div class="content">
+          <div class="productGrid" aria-label="Blog posts">
+            <article class="product">
+              <div class="imgWrap">
+                <img alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='900'%3E%3Cdefs%3E%3CradialGradient id='g' cx='20%25' cy='20%25' r='100%25'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.35'/%3E%3Cstop offset='60%25' stop-color='%23000000' stop-opacity='.14'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='%23BA5B58'/%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
+              </div>
+              <div class="body">
+                <h3 class="title">Why High Protein Bread Works</h3>
+                <div class="ctaRow">
+                  <a class="btn" href="#">Read</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="product">
+              <div class="imgWrap">
+                <img alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='900'%3E%3Cdefs%3E%3CradialGradient id='g' cx='80%25' cy='18%25' r='100%25'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.35'/%3E%3Cstop offset='60%25' stop-color='%23000000' stop-opacity='.14'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='%23BA5B58'/%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
+              </div>
+              <div class="body">
+                <h3 class="title">Matcha and Gut Health</h3>
+                <div class="ctaRow">
+                  <a class="btn" href="#">Read</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="product">
+              <div class="imgWrap">
+                <img alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='900'%3E%3Cdefs%3E%3CradialGradient id='g' cx='50%25' cy='10%25' r='100%25'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.35'/%3E%3Cstop offset='60%25' stop-color='%23000000' stop-opacity='.14'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='%23BA5B58'/%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
+              </div>
+              <div class="body">
+                <h3 class="title">Functional Food for Busy People</h3>
+                <div class="ctaRow">
+                  <a class="btn" href="#">Read</a>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footerInner">
+      <div class="footerLinks" aria-label="Footer links">
+        <a href="#/tos">TOS</a>
+        <a href="#/returns">Returns</a>
+        <a href="#/privacy">Privacy</a>
+        <a href="#/blog">Blog</a>
+      </div>
+
+      <div class="panelBottom" aria-label="Footer social">
+        <a class="iconBtn" href="#" aria-label="Messenger">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 11.5a8.5 8.5 0 0 1-12.7 7.4L3 21l1.7-5.3A8.5 8.5 0 1 1 21 11.5Z"/>
+          </svg>
+        </a>
+        <a class="iconBtn" href="#" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M17.5 6.5h.01"/>
+          </svg>
+        </a>
+        <a class="iconBtn" href="#" aria-label="TikTok">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M14 3v11a4 4 0 1 1-4-4"/>
+            <path d="M14 7a6 6 0 0 0 6 6"/>
+          </svg>
+        </a>
+        <a class="iconBtn" href="#" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12a8.9 8.9 0 0 1-13.6 7.6L3 21l1.5-4.2A9 9 0 1 1 21 12Z"/>
+            <path d="M8.5 8.5c.5 4 3 6.5 7 7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const overlay = document.getElementById('overlay');
+    const sidePanel = document.getElementById('sidePanel');
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeBtn');
+
+    function openPanel(){
+      overlay.classList.add('show');
+      sidePanel.classList.add('open');
+    }
+
+    function closePanel(){
+      overlay.classList.remove('show');
+      sidePanel.classList.remove('open');
+    }
+
+    menuBtn?.addEventListener('click', () => {
+      // Only open side panel on desktop; mobile uses top menu.
+      if (window.matchMedia('(max-width: 720px)').matches) return;
+      openPanel();
+    });
+    closeBtn?.addEventListener('click', closePanel);
+    overlay?.addEventListener('click', closePanel);
+
+    // Close panel after navigating
+    sidePanel?.addEventListener('click', (e) => {
+      const a = e.target.closest('a');
+      if (!a) return;
+      closePanel();
+    });
+
+    // Simple hash router
+    const pages = Array.from(document.querySelectorAll('.page'));
+
+    function routeTo(route){
+      const target = route || 'home';
+      pages.forEach(p => p.classList.toggle('active', p.dataset.route === target));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function parseHash(){
+      const hash = (location.hash || '#/home').replace('#/', '');
+      const route = hash.split('?')[0].trim() || 'home';
+      const allowed = new Set(pages.map(p => p.dataset.route));
+      routeTo(allowed.has(route) ? route : 'home');
+    }
+
+    window.addEventListener('hashchange', parseHash);
+    window.addEventListener('load', parseHash);
+  </script>
+</body>
+</html>
