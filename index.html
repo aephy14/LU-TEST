@@ -251,6 +251,11 @@
     }
 
     /* Home product strip */
+    .carousel.two{grid-template-columns: repeat(auto-fit, minmax(320px, 1fr))}
+    @media (min-width: 980px){
+      .carousel.two{grid-template-columns: repeat(2, minmax(0, 1fr));}
+    }
+
     .carousel{
       display:grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -729,46 +734,76 @@
 
     <!-- PRODUCTS -->
     <section class="page" id="page-products" data-route="products">
-      <div class="wrap wrap-narrow">
+      <div class="wrap wrap-wide">
         <div class="hero"><h1>Products</h1></div>
 
-        <section class="productSection" aria-label="Matcha products">
+        <!-- Matcha -->
+        <section class="productSection" aria-label="Matcha">
           <h2 class="sectionTitle">Matcha</h2>
-          <div class="productGrid">
-            <article class="product can">
-              <div class="imgWrap">
-                <img loading="lazy" decoding="async" alt="Luma matcha soda sugarfree" src="assets/images/home/hero-matcha.webp" />
-              </div>
-              <div class="body">
-                <h3 class="title">Sugarfree Matcha Soda</h3>
-                <div class="ingredients">
-                  <img loading="lazy" decoding="async" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='600'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%2331704E' stop-opacity='.22'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
+          <div class="softPanel">
+            <div class="carousel two">
+              <article class="card">
+                <div class="cardMedia">
+                  <img loading="lazy" decoding="async" alt="Luma sugarfree matcha soda" src="assets/images/home/hero-matcha.webp" />
                 </div>
-                <div class="ctaRow"><a class="btn" href="#">Order</a></div>
-              </div>
-            </article>
+                <div class="ctaRow"><a class="btn" href="#">Order Sugarfree Matcha</a></div>
+              </article>
 
-            <article class="product can">
-              <div class="imgWrap">
-                <img loading="lazy" decoding="async" alt="Luma matcha soda with sugar" src="assets/images/home/hero-matcha.webp" />
-              </div>
-              <div class="body">
-                <h3 class="title">Matcha Soda (Sugar)</h3>
-                <div class="ingredients">
-                  <img loading="lazy" decoding="async" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='600'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23F5E482' stop-opacity='.22'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
+              <article class="card">
+                <div class="cardMedia">
+                  <img loading="lazy" decoding="async" alt="Luma matcha soda (sugar)" src="assets/images/home/hero-matcha.webp" />
                 </div>
-                <div class="ctaRow"><a class="btn" href="#">Order</a></div>
-              </div>
-            </article>
+                <div class="ctaRow"><a class="btn" href="#">Order Matcha (Sugar)</a></div>
+              </article>
+            </div>
           </div>
         </section>
 
-        <section class="productSection" aria-label="Protein bread products">
+        <!-- Protein Bread -->
+        <section class="productSection" aria-label="Protein Bread">
           <h2 class="sectionTitle">Protein Bread</h2>
-          <div class="productGrid">
-            <article class="product bread">
-              <div class="imgWrap">
-                <img loading
+          <div class="softPanel">
+            <div class="carousel two">
+              <article class="card">
+                <div class="cardMedia">
+                  <img loading="lazy" decoding="async" alt="Luma high protein bread" src="assets/images/home/hero-bread.jpeg" />
+                </div>
+                <div class="ctaRow"><a class="btn" href="#">Order Protein Bread</a></div>
+              </article>
+
+              <article class="card">
+                <div class="cardMedia">
+                  <img loading="lazy" decoding="async" alt="Luma protein bread variant" src="assets/images/home/hero-bread.jpeg" />
+                </div>
+                <div class="ctaRow"><a class="btn" href="#">Order Protein Bread</a></div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- Protein Ice Tea -->
+        <section class="productSection" aria-label="Protein Ice Tea">
+          <h2 class="sectionTitle">Protein Ice Tea</h2>
+          <div class="softPanel">
+            <div class="carousel two">
+              <article class="card">
+                <div class="cardMedia">
+                  <img loading="lazy" decoding="async" alt="Luma protein ice tea" src="assets/images/home/hero-ice-tea.webp" />
+                </div>
+                <div class="ctaRow"><a class="btn" href="#">Order Protein Ice Tea</a></div>
+              </article>
+
+              <article class="card">
+                <div class="cardMedia">
+                  <img loading="lazy" decoding="async" alt="Luma protein ice tea variant" src="assets/images/home/hero-ice-tea.webp" />
+                </div>
+                <div class="ctaRow"><a class="btn" href="#">Order Protein Ice Tea</a></div>
+              </article>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
 
     <!-- ABOUT -->
     <section class="page" id="page-about" data-route="about">
