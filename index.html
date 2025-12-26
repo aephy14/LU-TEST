@@ -26,7 +26,8 @@
       --line: rgba(171,163,241,.22);
       --shadow: 0 20px 70px rgba(0,0,0,.35);
       --radius: 22px;
-      --max: 1120px;
+      --max: 100%;
+      --pad: clamp(14px, 2.2vw, 28px);
     }
 
     *{box-sizing:border-box}
@@ -48,7 +49,7 @@
     button{font-family:inherit}
     img{max-width:100%; height:auto}
 
-    .wrap{max-width:var(--max); margin:0 auto; padding:24px;}
+    .wrap{width:100%; max-width:var(--max); margin:0 auto; padding:var(--pad);}
 
     /* Header */
     .topbar{
@@ -61,9 +62,10 @@
     }
 
     .topbar-inner{
+      width:100%;
       max-width:var(--max);
       margin:0 auto;
-      padding: 14px 24px;
+      padding: 14px var(--pad);
       display:grid;
       grid-template-columns: 56px 1fr 56px;
       align-items:center;
@@ -101,7 +103,7 @@
       pointer-events:auto;
     }
     .logo img{
-      height: 56px;
+      height: 112px;
       width:auto;
       display:block;
       filter: drop-shadow(0 14px 30px rgba(0,0,0,.25));
@@ -112,7 +114,8 @@
     /* Mobile top menu */
     .mobileMenu{
       display:none;
-      padding: 0 24px 14px;
+      padding: 0 var(--pad) 14px;
+      width:100%;
       max-width: var(--max);
       margin: 0 auto;
     }
@@ -420,9 +423,10 @@
     }
 
     .footerInner{
+      width:100%;
       max-width: var(--max);
       margin: 0 auto;
-      padding: 0 24px;
+      padding: 0 var(--pad);
       display:flex;
       justify-content:space-between;
       align-items:center;
@@ -697,7 +701,7 @@ I want to bring that back to NZ (for selfish reasons - I want more.) But also to
 
         <div class="content">
           <div class="block">
-            <p>Email - alex@lumafood.com
+            <p>Email = alex@lumafood.com
 Text - 0211487709
 Company - Aephoria Limited
 Address - 25 Gibraltar cres parnell</p>
