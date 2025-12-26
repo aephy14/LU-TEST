@@ -3,33 +3,298 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <title>Privacy Policy | LumaFood</title>
-  <meta name="description" content="Privacy Policy for LumaFood customers in New Zealand." />
+  <meta name="description" content="LumaFood Privacy Policy explaining what personal information we collect, how we use it, cookies, analytics, and how to contact us." />
   <link rel="canonical" href="https://lumafood.com/privacy/" />
   <meta name="robots" content="index,follow" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Privacy Policy | LumaFood" />
+  <meta property="og:description" content="How LumaFood collects, uses and shares personal information, including cookies and analytics." />
+  <meta property="og:url" content="https://lumafood.com/privacy/" />
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fredoka:wght@500;600;700&display=swap');
+
+    :root{
+      --font-body: "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      --font-display: "Fredoka", "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      --bg:#ba5b58;
+      --text:#aba3f1;
+      --text-weak: rgba(171,163,241,.82);
+      --radius: 22px;
+      --pad: clamp(14px, 2.2vw, 28px);
+      --max: 980px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: var(--font-body);
+      background:
+        radial-gradient(900px 700px at 20% -10%, rgba(245,228,130,.35), transparent 60%),
+        radial-gradient(900px 700px at 80% 10%, rgba(49,112,78,.35), transparent 60%),
+        linear-gradient(180deg, rgba(171,163,241,.12), rgba(186,91,88,.45)),
+        var(--bg);
+      color: var(--text);
+      overflow-x:hidden;
+    }
+
+    a{color:inherit; text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    .wrap{max-width: var(--max); margin:0 auto; padding: var(--pad)}
+
+    .top{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      position:sticky; top:0; z-index:10;
+      padding: 10px 0;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(180deg, rgba(186,91,88,.92), rgba(186,91,88,.38));
+      border-bottom: 1px solid rgba(171,163,241,.14);
+    }
+
+    .pill{
+      display:inline-flex; align-items:center; gap:10px;
+      border:1px solid rgba(171,163,241,.18);
+      background: rgba(0,0,0,.10);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-weight: 800;
+    }
+
+    .brand{
+      font-family: var(--font-display);
+      letter-spacing: .02em;
+      font-weight: 700;
+      opacity:.95;
+    }
+
+    .hero{
+      margin-top: 16px;
+      border: 1px solid rgba(171,163,241,.14);
+      background:
+        radial-gradient(900px 550px at 0% 0%, rgba(171,163,241,.16), transparent 55%),
+        linear-gradient(180deg, rgba(0,0,0,.16), rgba(0,0,0,.06));
+      border-radius: var(--radius);
+      padding: clamp(16px, 2.4vw, 26px);
+      box-shadow: 0 18px 56px rgba(0,0,0,.22);
+    }
+
+    h1{
+      font-family: var(--font-display);
+      margin:0 0 8px;
+      font-size: clamp(28px, 3.4vw, 44px);
+      line-height:1.05;
+    }
+    .sub{margin:0; color: var(--text-weak); line-height:1.45}
+
+    .card{
+      margin-top: 16px;
+      border: 1px solid rgba(171,163,241,.14);
+      background: rgba(0,0,0,.10);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 18px 56px rgba(0,0,0,.18);
+    }
+
+    h2{
+      font-family: var(--font-display);
+      margin: 18px 0 8px;
+      font-size: 22px;
+      letter-spacing: .01em;
+    }
+    h3{
+      font-family: var(--font-display);
+      margin: 14px 0 6px;
+      font-size: 18px;
+      letter-spacing: .01em;
+    }
+
+    p{
+      margin: 0 0 12px;
+      color: var(--text-weak);
+      line-height: 1.65;
+      font-size: 16px;
+    }
+
+    ul{margin: 0 0 12px 18px; color: var(--text-weak); line-height:1.65}
+    li{margin: 6px 0}
+
+    .callout{
+      border:1px solid rgba(171,163,241,.16);
+      background: rgba(0,0,0,.12);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .rule{
+      height:1px;
+      background: rgba(171,163,241,.14);
+      border:0;
+      margin: 16px 0;
+    }
+
+    .small{
+      font-size: 13px;
+      color: rgba(171,163,241,.72);
+      line-height: 1.5;
+    }
+
+    footer{
+      margin: 18px 0 10px;
+      color: rgba(171,163,241,.72);
+      font-size: 13px;
+    }
+    .links{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+    .links a{padding:8px 12px; border-radius:999px; border:1px solid rgba(171,163,241,.14); background: rgba(0,0,0,.10)}
+    code{background:rgba(0,0,0,.18);padding:2px 6px;border-radius:8px}
+  </style>
 </head>
+
 <body>
-<main style="max-width:900px;margin:40px auto;padding:0 20px;font-family:system-ui">
-<h1>Privacy Policy</h1>
-<p><strong>Last updated:</strong> 2025-12-26</p>
+  <div class="top">
+    <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 var(--pad);">
+      <a class="pill" href="../">← Home</a>
+      <div class="brand">LumaFood</div>
+      <a class="pill" href="../#/contact">Contact</a>
+    </div>
+  </div>
 
-<h2>Information We Collect</h2>
-<p>We collect personal information such as name, email, and payment details.</p>
+  <div class="wrap">
+    <header class="hero">
+      <h1>Privacy Policy</h1>
+      <p class="sub">
+        This Privacy Policy explains how www.lumafood.com collects, uses, and shares personal information.
+      </p>
+      <p class="small" style="margin-top:10px;">Last updated: 2025-12-27</p>
+    </header>
 
-<h2>Use of Information</h2>
-<p>Your information is used to process orders and improve services.</p>
+    <main class="card">
+      <h2>Collecting Personal Information</h2>
+      <p>
+        When you visit the Site, we collect certain information about your device, your interactions with the Site,
+        and details necessary to process your purchases. We may also collect additional information if you contact
+        us for customer support.
+      </p>
+      <p>
+        In this Privacy Policy, “Personal Information” means any information that can uniquely identify an individual.
+        Below we outline what we collect and why.
+      </p>
 
-<h2>Cookies</h2>
-<p>We use cookies to enhance site performance.</p>
+      <hr class="rule" />
 
-<h2>Third Parties</h2>
-<p>Data may be shared with trusted service providers such as Stripe.</p>
+      <h2>Device Information</h2>
+      <p><strong>Examples collected:</strong> web browser version, IP address, time zone, cookie details, sites or products you view, search terms, and how you interact with the Site.</p>
+      <p><strong>Purpose:</strong> to ensure the Site loads properly and to analyse Site usage for improvements.</p>
+      <p><strong>Source:</strong> automatically collected via cookies, log files, web beacons, tags, or pixels.</p>
+      <p><strong>Disclosure:</strong> shared with our service provider Stripe.</p>
 
-<h2>Your Rights</h2>
-<p>You may request access or correction of your personal information.</p>
+      <h2>Order Information</h2>
+      <p><strong>Examples collected:</strong> name, billing/shipping address, payment details (including credit card numbers), email address, and phone number.</p>
+      <p><strong>Purpose:</strong> to fulfill purchases, process payments, arrange shipping, issue invoices or confirmations, communicate with you, screen for potential fraud or risk, and—if you’ve opted in—send updates or marketing.</p>
+      <p><strong>Source:</strong> collected directly from you.</p>
+      <p><strong>Disclosure:</strong> shared with Stripe and third-party logistics providers.</p>
 
-<h2>Contact</h2>
-<p>Email: <a href="mailto:alex@lumafood.com">alex@lumafood.com</a></p>
-</main>
+      <h2>Customer Support Information</h2>
+      <p><strong>Examples collected:</strong> name, email, phone number, and address.</p>
+      <p><strong>Purpose:</strong> to provide customer support.</p>
+      <p><strong>Source:</strong> collected directly from you.</p>
+      <p><strong>Disclosure:</strong> shared with Stripe.</p>
+
+      <hr class="rule" />
+
+      <h2>Sharing Personal Information</h2>
+      <p>
+        We share Personal Information with service providers to deliver our services and honor our contracts.
+      </p>
+      <div class="callout">
+        <p style="margin:0;">
+          We use Stripe to power our store. See Stripe’s privacy practices here:
+          <a href="https://stripe.com/privacy" target="_blank" rel="noopener"><strong>Stripe Privacy Policy</strong></a>
+        </p>
+      </div>
+
+      <h2>Behavioural Advertising</h2>
+      <p>
+        We use your Personal Information to provide relevant ads and marketing communications.
+        For example, we use Google Analytics to understand how customers use the Site.
+      </p>
+      <p>
+        Learn more at:
+        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener"><strong>Google Privacy Policy</strong></a>
+      </p>
+      <p>
+        We share limited information with advertising partners through cookies and similar technologies
+        (subject to your consent depending on your location).
+      </p>
+
+      <h3>Opting out of targeted advertising</h3>
+      <ul>
+        <li><a href="https://www.facebook.com/settings/?tab=ads" target="_blank" rel="noopener">Facebook</a></li>
+        <li><a href="https://adssettings.google.com/" target="_blank" rel="noopener">Google</a></li>
+        <li><a href="https://about.ads.microsoft.com/en-us/resources/policies/personalized-ads" target="_blank" rel="noopener">Bing / Microsoft</a></li>
+      </ul>
+      <p>
+        You may also visit the
+        <a href="https://optout.aboutads.info/" target="_blank" rel="noopener"><strong>Digital Advertising Alliance Opt-Out Portal</strong></a>.
+      </p>
+
+      <hr class="rule" />
+
+      <h2>Cookies</h2>
+      <p>
+        Cookies are small data files downloaded to your device when visiting the Site. We use functional, performance,
+        advertising, and social media cookies to enhance your browsing experience and understand Site usage.
+      </p>
+
+      <p><strong>Cookies we may use include:</strong></p>
+      <ul>
+        <li><strong>Necessary for store functionality:</strong> <code>_ab</code>, <code>_secure_session_id</code>, <code>cart</code>, <code>checkout_token</code>, <code>secure_customer_sig</code></li>
+        <li><strong>Analytics and reporting:</strong> <code>_s</code>, <code>_stripe_y</code>, <code>_stripe_s</code>, <code>_stripe_sa_p</code>, <code>_stripe_sa_t</code></li>
+      </ul>
+
+      <p>
+        Cookie lifespans vary: session cookies expire when you stop browsing,
+        while persistent cookies last until deleted or expired (typically 30 minutes to 2 years).
+      </p>
+
+      <p>
+        You can manage cookies via your browser settings (see
+        <a href="https://www.allaboutcookies.org/" target="_blank" rel="noopener"><strong>allaboutcookies.org</strong></a>
+        for guidance). Please note, disabling cookies may affect Site functionality.
+      </p>
+
+      <h2>Do Not Track</h2>
+      <p>
+        Currently, we do not alter our data collection in response to “Do Not Track” signals,
+        as there is no consistent industry standard.
+      </p>
+
+      <h2>Changes</h2>
+      <p>
+        We may update this Privacy Policy periodically to reflect changes to our practices,
+        operations, legal, or regulatory requirements.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        For questions, concerns, or complaints about our privacy practices, please contact us at:
+      </p>
+      <p>
+        <a href="mailto:alejbeck@gmail.com"><strong>alejbeck@gmail.com</strong></a>
+      </p>
+    </main>
+
+    <footer>
+      <div class="links">
+        <a href="../terms/">TOS</a>
+        <a href="../returns/">Returns</a>
+        <a href="../blog/">Blog</a>
+      </div>
+      <div style="margin-top:10px;">© LumaFood</div>
+    </footer>
+  </div>
 </body>
 </html>
