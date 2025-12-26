@@ -265,7 +265,67 @@
     .carousel::-webkit-scrollbar-track{background: rgba(0,0,0,.12); border-radius:999px}
 
     .card{
-      scroll-snap-align: ce
+      scroll-snap-align: center;
+      flex: 0 0 min(70vw, 520px);
+      height: clamp(420px, 72vh, 640px);
+      border-radius: 26px;
+      background: rgba(0,0,0,.10);
+      border: 1px solid rgba(171,163,241,.14);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+    }
+
+    /* keeps the image vertically centered with minimal dead space */
+    .card .media{
+      flex: 1 1 auto;
+      padding: 14px 14px 8px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height: 0;
+    }
+
+    .card img{
+      width: 100%;
+      height: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      object-position: center;
+      display:block;
+      border-radius: 18px;
+    }
+
+    .card .ctaRow{
+      padding: 12px 14px 16px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+
+    .btn{
+      font-family: var(--font-display);
+      border: 1px solid rgba(171,163,241,.28);
+      background: rgba(255,255,255,.10);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      font-size: 12px;
+      cursor:pointer;
+      transition: transform .15s ease, filter .15s ease, background .15s ease;
+    }
+    .btn:hover{background: rgba(255,255,255,.14); filter: brightness(1.02)}
+    .btn:active{transform: translateY(1px)}
+
+    /* hero order CTA – bigger, stays centered under each image */
+    .btn-cta{
+      padding: 12px 18px;
+      font-size: 13px;
+    }
+
     /* Contact-only Send button */
     .btn-send{
       border: none;
@@ -580,26 +640,8 @@
         <div class="softPanel" aria-label="Featured products">
           <div class="carousel">
             <article class="card">
-              <div class="cardMedia">
-                <img loading="lazy" decoding="async" alt="Luma high protein bread" src="assets/images/home/hero-bread.jpeg" />
-              </div>
-              <div class="ctaRow"><a class="btn" href="#/products">Order</a></div>
-            </article>
-            <article class="card">
-              <div class="cardMedia">
-                <img loading="lazy" decoding="async" alt="Luma matcha soda" src="assets/images/home/hero-matcha.webp" />
-              </div>
-              <div class="ctaRow"><a class="btn" href="#/products">Order</a></div>
-            </article>
-            <article class="card">
-              <div class="cardMedia">
-                <img loading="lazy" decoding="async" alt="Luma protein ice tea" src="assets/images/home/hero-ice-tea.webp" />
-              </div>
-              <div class="ctaRow"><a class="btn" href="#/products">Order</a></div>
-            </article>
-          </div>
-        </div>
-      </div>
+              <div class="media">
+                <img loading="lazy" decoding=
 
       <!-- Moving banner below product images -->
       <div class="marquee" aria-hidden="true">
