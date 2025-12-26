@@ -396,15 +396,27 @@
       min-height: clamp(420px, 70vh, 640px);
     }
 
-    .product .imgWrap{position:relative}
-    .product img{
+    .product .imgWrap{
+      padding: 12px;
+      aspect-ratio: 4 / 5;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .product .imgWrap img{
       width:100%;
-      height: clamp(240px, 42vh, 520px);
+      height:100%;
       object-fit: contain;
-      object-position: center bottom;
-      padding: 10px 10px 18px;
+      object-position: center;
       display:block;
     }
+
+    /* Bread hero is wider — crop it to match the can frame */
+    .product.bread .imgWrap img{
+      object-fit: cover;
+      object-position: center;
+    }
+
 
     .product .body{padding: 14px; display:flex; flex-direction:column; gap: 12px; flex:1}
 
@@ -658,7 +670,7 @@ margin-top:auto; display:flex; justify-content:flex-end}
         <div class="hero"><h1>Products</h1></div>
 
         <div class="productGrid" aria-label="Product grid">
-          <article class="product">
+          <article class="product bread">
             <div class="imgWrap">
               <img loading="lazy" decoding="async" alt="Luma high protein bread" src="assets/images/home/hero-bread.jpeg" />
             </div>
