@@ -9,14 +9,6 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Baloo+2:wght@400;500;600;700;800&display=swap');
 
-    @font-face {
-      font-family: "Luma Rounded";
-      src: url("assets/fonts/LumaRounded-Regular.ttf") format("truetype");
-      font-weight: 400;
-      font-style: normal;
-      font-display: swap;
-    }
-
     :root{
       --bg:#ba5b58;
       --text:#aba3f1;
@@ -26,12 +18,14 @@
       --line: rgba(171,163,241,.22);
       --shadow: 0 20px 70px rgba(0,0,0,.35);
       --radius: 22px;
-      --max: 100%;
+      --max-wide: 1600px; /* hero / image-led sections */
+      --max-narrow: 1120px; /* content-heavy pages */
       --pad: clamp(14px, 2.2vw, 28px);
     }
 
     *{box-sizing:border-box}
     html,body{height:100%}
+
     body{
       margin:0;
       font-family: "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
@@ -49,7 +43,9 @@
     button{font-family:inherit}
     img{max-width:100%; height:auto}
 
-    .wrap{width:100%; max-width:var(--max); margin:0 auto; padding:var(--pad);}
+    .wrap{width:100%; margin:0 auto; padding:var(--pad)}
+    .wrap-wide{max-width:var(--max-wide)}
+    .wrap-narrow{max-width:var(--max-narrow)}
 
     /* Header */
     .topbar{
@@ -63,7 +59,7 @@
 
     .topbar-inner{
       width:100%;
-      max-width:var(--max);
+      max-width: var(--max-wide);
       margin:0 auto;
       padding: 14px var(--pad);
       display:grid;
@@ -83,9 +79,7 @@
     }
     .hamburger:active{transform: translateY(1px)}
 
-    .burger{
-      width:18px; height:12px; position:relative;
-    }
+    .burger{width:18px; height:12px; position:relative}
     .burger span{
       position:absolute; left:0; right:0;
       height:2px; border-radius: 999px;
@@ -96,12 +90,7 @@
     .burger span:nth-child(2){top:5px; opacity:.75}
     .burger span:nth-child(3){bottom:0}
 
-    .logo{
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      pointer-events:auto;
-    }
+    .logo{display:flex; justify-content:center; align-items:center; pointer-events:auto}
     .logo img{
       height: 112px;
       width:auto;
@@ -109,21 +98,17 @@
       filter: drop-shadow(0 14px 30px rgba(0,0,0,.25));
     }
 
-    .topbar-spacer{width:44px; height:44px;}
+    .topbar-spacer{width:44px; height:44px}
 
     /* Mobile top menu */
     .mobileMenu{
       display:none;
       padding: 0 var(--pad) 14px;
       width:100%;
-      max-width: var(--max);
+      max-width: var(--max-wide);
       margin: 0 auto;
     }
-    .mobileMenu .menuRow{
-      display:flex;
-      gap: 10px;
-      flex-wrap:wrap;
-    }
+    .mobileMenu .menuRow{display:flex; gap:10px; flex-wrap:wrap}
 
     /* Side panel */
     .overlay{
@@ -135,7 +120,7 @@
       pointer-events:none;
       transition: opacity .18s ease;
     }
-    .overlay.show{opacity:1; pointer-events:auto;}
+    .overlay.show{opacity:1; pointer-events:auto}
 
     .sidePanel{
       position:fixed;
@@ -159,12 +144,7 @@
     }
     .sidePanel.open{transform: translateX(0)}
 
-    .panelTop{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap: 10px;
-    }
+    .panelTop{display:flex; justify-content:space-between; align-items:center; gap:10px}
     .panelLogo{display:flex; align-items:center; gap:12px}
     .panelLogo img{height:34px; width:auto; display:block}
 
@@ -176,14 +156,9 @@
       cursor:pointer;
       display:grid; place-items:center;
     }
-    .closeBtn svg{width:18px; height:18px;}
+    .closeBtn svg{width:18px; height:18px}
 
-    .nav{
-      display:flex;
-      flex-direction:column;
-      gap: 10px;
-      margin-top: 6px;
-    }
+    .nav{display:flex; flex-direction:column; gap:10px; margin-top:6px}
     .nav a{
       border: 1px solid rgba(171,163,241,.18);
       background: rgba(255,255,255,.06);
@@ -213,20 +188,16 @@
       display:grid; place-items:center;
     }
     .iconBtn:hover{background: rgba(0,0,0,.16)}
-    .iconBtn svg{width:18px; height:18px;}
+    .iconBtn svg{width:18px; height:18px}
 
     /* Layout */
-    main{min-height: calc(100vh - 86px);}
+    main{min-height: calc(100vh - 86px)}
+    .page{display:none}
+    .page.active{display:block}
 
-    .page{display:none;}
-    .page.active{display:block;}
-
-    .hero{
-      padding: 42px 0 10px;
-    }
+    .hero{padding: 42px 0 10px}
 
     .hero h1{
-      font-family: "Luma Rounded", "Baloo 2", "Plus Jakarta Sans", system-ui;
       font-family: "Baloo 2", "Plus Jakarta Sans", system-ui;
       margin: 0;
       font-size: clamp(34px, 4.7vw, 70px);
@@ -280,10 +251,10 @@
     }
 
     .card img{
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      height: auto;
-      object-fit: cover;
+      width:100%;
+      height:auto;
+      max-height: 520px;
+      object-fit: contain;
       display:block;
     }
 
@@ -295,7 +266,7 @@
     }
 
     .btn{
-      font-family: "Luma Rounded", "Plus Jakarta Sans", system-ui;
+      font-family: "Baloo 2", "Plus Jakarta Sans", system-ui;
       border: 1px solid rgba(171,163,241,.28);
       background: rgba(255,255,255,.08);
       color: var(--text);
@@ -309,10 +280,28 @@
     }
     .btn:hover{background: rgba(255,255,255,.12)}
 
-    /* About / Contact */
-    .content{
-      padding: 26px 0 36px;
+    /* Marquee banner (continuous) */
+    .marquee{width:100%; overflow:hidden; background:#000; border-top:1px solid rgba(255,255,255,.14); border-bottom:1px solid rgba(255,255,255,.14)}
+    .marquee-inner{display:flex; width:max-content}
+    .marquee-track{
+      display:flex;
+      flex-wrap:nowrap;
+      gap:56px;
+      white-space:nowrap;
+      padding:14px 0;
+      will-change:transform;
+      animation: marquee 18s linear infinite;
+      font-family:"Baloo 2","Plus Jakarta Sans",system-ui;
+      font-size: clamp(16px, 1.6vw, 20px);
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:#fff;
     }
+    .marquee-track span{flex:0 0 auto}
+    @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
+
+    /* About / Contact */
+    .content{padding: 26px 0 36px}
 
     .content .block{
       border-radius: var(--radius);
@@ -332,12 +321,7 @@
       white-space: pre-wrap;
     }
 
-    .formGrid{
-      margin-top: 16px;
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
+    .formGrid{margin-top: 16px; display:grid; grid-template-columns: 1fr 1fr; gap: 12px}
 
     .field{
       border-radius: 18px;
@@ -349,18 +333,11 @@
       font-size: 16px;
     }
     .field::placeholder{color: rgba(171,163,241,.55)}
-
-    .formGrid .full{grid-column: 1 / -1;}
-
-    .formActions{margin-top: 12px; display:flex; justify-content:flex-end;}
+    .formGrid .full{grid-column: 1 / -1}
+    .formActions{margin-top: 12px; display:flex; justify-content:flex-end}
 
     /* Products */
-    .productGrid{
-      margin-top: 18px;
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
+    .productGrid{margin-top: 18px; display:grid; grid-template-columns: repeat(3, 1fr); gap: 16px}
 
     .product{
       border-radius: 22px;
@@ -372,22 +349,10 @@
       min-height: 420px;
     }
 
-    .product .imgWrap{position:relative;}
-    .product img{
-      width:100%;
-      aspect-ratio: 16 / 10;
-      height: auto;
-      object-fit: cover;
-      display:block;
-    }
+    .product .imgWrap{position:relative}
+    .product img{width:100%; height:auto; max-height: 420px; object-fit: contain; display:block}
 
-    .product .body{
-      padding: 14px;
-      display:flex;
-      flex-direction:column;
-      gap: 12px;
-      flex:1;
-    }
+    .product .body{padding: 14px; display:flex; flex-direction:column; gap: 12px; flex:1}
 
     .product .title{
       font-weight: 800;
@@ -398,33 +363,16 @@
       line-height:1.1;
     }
 
-    .ingredients{
-      border-radius: 18px;
-      border: 1px solid rgba(171,163,241,.12);
-      background: rgba(255,255,255,.06);
-      overflow:hidden;
-    }
-
-    .ingredients img{
-      width:100%;
-      aspect-ratio: 16 / 6;
-      height: auto;
-      object-fit: cover;
-      display:block;
-    }
-
-    .product .body .ctaRow{margin-top:auto; display:flex; justify-content:flex-end;}
+    .ingredients{border-radius: 18px; border: 1px solid rgba(171,163,241,.12); background: rgba(255,255,255,.06); overflow:hidden}
+    .ingredients img{width:100%; aspect-ratio: 16 / 6; height:auto; object-fit: cover; display:block}
+    .product .body .ctaRow{margin-top:auto; display:flex; justify-content:flex-end}
 
     /* Footer */
-    footer{
-      padding: 22px 0 34px;
-      border-top: 1px solid rgba(171,163,241,.12);
-      background: linear-gradient(to top, rgba(0,0,0,.18), rgba(0,0,0,0));
-    }
+    footer{padding: 22px 0 34px; border-top: 1px solid rgba(171,163,241,.12); background: linear-gradient(to top, rgba(0,0,0,.18), rgba(0,0,0,0))}
 
     .footerInner{
       width:100%;
-      max-width: var(--max);
+      max-width: var(--max-wide);
       margin: 0 auto;
       padding: 0 var(--pad);
       display:flex;
@@ -434,44 +382,31 @@
       flex-wrap:wrap;
     }
 
-    .footerLinks{
-      display:flex;
-      gap: 12px;
-      flex-wrap:wrap;
-      font-weight: 600;
-      color: rgba(171,163,241,.86);
-    }
+    .footerLinks{display:flex; gap: 12px; flex-wrap:wrap; font-weight: 600; color: rgba(171,163,241,.86)}
 
-    .footerLinks a{
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(171,163,241,.14);
-      background: rgba(0,0,0,.10);
-    }
-
+    .footerLinks a{padding: 8px 12px; border-radius: 999px; border: 1px solid rgba(171,163,241,.14); background: rgba(0,0,0,.10)}
     .footerLinks a:hover{background: rgba(0,0,0,.16)}
 
     /* Responsive */
-    @media (max-width: 980px){
-      .productGrid{grid-template-columns: 1fr 1fr;}
-    }
+    @media (max-width: 980px){.productGrid{grid-template-columns: 1fr 1fr}}
 
     @media (max-width: 720px){
-      .topbar-inner{grid-template-columns: 56px 1fr 0px;}
-      .topbar-spacer{display:none;}
-      .mobileMenu{display:block;}
-      .sidePanel{display:none;}
-      .overlay{display:none;}
-      .formGrid{grid-template-columns: 1fr;}
-      .productGrid{grid-template-columns: 1fr;}
+      .topbar-inner{grid-template-columns: 56px 1fr 0px}
+      .topbar-spacer{display:none}
+      .mobileMenu{display:block}
+      .sidePanel{display:none}
+      .overlay{display:none}
+      .formGrid{grid-template-columns: 1fr}
+      .productGrid{grid-template-columns: 1fr}
     }
 
     @media (prefers-reduced-motion: reduce){
-      *{scroll-behavior:auto !important; transition:none !important;}
+      *{scroll-behavior:auto !important; transition:none !important}
     }
   </style>
 </head>
 <body>
+
   <header class="topbar">
     <div class="topbar-inner">
       <button class="hamburger" id="menuBtn" aria-label="Open menu">
@@ -550,7 +485,7 @@
   <main>
     <!-- HOME -->
     <section class="page active" id="page-home" data-route="home">
-      <div class="wrap">
+      <div class="wrap wrap-wide">
         <div class="hero">
           <h1>High Protein Bread, Matcha Soda and Protein Ice Tea.</h1>
           <p>We're on a mission to create food and drinks using whole, functional ingredients. Functional products for busy people.</p>
@@ -559,25 +494,31 @@
         <div class="softPanel" aria-label="Featured products">
           <div class="carousel">
             <article class="card">
-              <img loading="lazy" decoding="async" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='900'%3E%3Cdefs%3E%3CradialGradient id='g' cx='18%25' cy='12%25' r='85%25'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.45'/%3E%3Cstop offset='55%25' stop-color='%23000000' stop-opacity='.18'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='%23BA5B58'/%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
-              <div class="ctaRow">
-                <a class="btn" href="#/products">Order</a>
-              </div>
+              <img loading="lazy" decoding="async" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='900'%3E%3Cdefs%3E%3CradialGradient id='g' cx='15%25' cy='20%25' r='95%25'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.35'/%3E%3Cstop offset='60%25' stop-color='%23000000' stop-opacity='.14'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='%23BA5B58'/%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
+              <div class="ctaRow"><a class="btn" href="#/products">Order</a></div>
             </article>
-
             <article class="card">
-              <img loading="lazy" decoding="async" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='900'%3E%3Cdefs%3E%3CradialGradient id='g' cx='84%25' cy='18%25' r='85%25'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.45'/%3E%3Cstop offset='55%25' stop-color='%23000000' stop-opacity='.18'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='%23BA5B58'/%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
-              <div class="ctaRow">
-                <a class="btn" href="#/products">Order</a>
-              </div>
+              <img loading="lazy" decoding="async" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='900'%3E%3Cdefs%3E%3CradialGradient id='g' cx='85%25' cy='18%25' r='95%25'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.35'/%3E%3Cstop offset='60%25' stop-color='%23000000' stop-opacity='.14'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='%23BA5B58'/%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
+              <div class="ctaRow"><a class="btn" href="#/products">Order</a></div>
             </article>
-
             <article class="card">
-              <img loading="lazy" decoding="async" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='900'%3E%3Cdefs%3E%3CradialGradient id='g' cx='50%25' cy='0%25' r='95%25'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.40'/%3E%3Cstop offset='55%25' stop-color='%23000000' stop-opacity='.18'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='%23BA5B58'/%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
-              <div class="ctaRow">
-                <a class="btn" href="#/products">Order</a>
-              </div>
+              <img loading="lazy" decoding="async" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='900'%3E%3Cdefs%3E%3CradialGradient id='g' cx='45%25' cy='10%25' r='100%25'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.35'/%3E%3Cstop offset='60%25' stop-color='%23000000' stop-opacity='.14'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='%23BA5B58'/%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
+              <div class="ctaRow"><a class="btn" href="#/products">Order</a></div>
             </article>
+          </div>
+        </div>
+      </div>
+
+      <!-- Moving banner below product images -->
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-inner">
+          <div class="marquee-track">
+            <span>Illuminate your life</span><span>Illuminate your life</span><span>Illuminate your life</span><span>Illuminate your life</span>
+            <span>Illuminate your life</span><span>Illuminate your life</span><span>Illuminate your life</span><span>Illuminate your life</span>
+          </div>
+          <div class="marquee-track" aria-hidden="true">
+            <span>Illuminate your life</span><span>Illuminate your life</span><span>Illuminate your life</span><span>Illuminate your life</span>
+            <span>Illuminate your life</span><span>Illuminate your life</span><span>Illuminate your life</span><span>Illuminate your life</span>
           </div>
         </div>
       </div>
@@ -585,10 +526,8 @@
 
     <!-- PRODUCTS -->
     <section class="page" id="page-products" data-route="products">
-      <div class="wrap">
-        <div class="hero">
-          <h1>Products</h1>
-        </div>
+      <div class="wrap wrap-narrow">
+        <div class="hero"><h1>Products</h1></div>
 
         <div class="productGrid" aria-label="Product grid">
           <article class="product">
@@ -600,9 +539,7 @@
               <div class="ingredients">
                 <img loading="lazy" decoding="async" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='600'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.22'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
               </div>
-              <div class="ctaRow">
-                <a class="btn" href="#">Order</a>
-              </div>
+              <div class="ctaRow"><a class="btn" href="#">Order</a></div>
             </div>
           </article>
 
@@ -615,9 +552,7 @@
               <div class="ingredients">
                 <img loading="lazy" decoding="async" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='600'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.22'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
               </div>
-              <div class="ctaRow">
-                <a class="btn" href="#">Order</a>
-              </div>
+              <div class="ctaRow"><a class="btn" href="#">Order</a></div>
             </div>
           </article>
 
@@ -630,9 +565,7 @@
               <div class="ingredients">
                 <img loading="lazy" decoding="async" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='600'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.22'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
               </div>
-              <div class="ctaRow">
-                <a class="btn" href="#">Order</a>
-              </div>
+              <div class="ctaRow"><a class="btn" href="#">Order</a></div>
             </div>
           </article>
 
@@ -645,9 +578,7 @@
               <div class="ingredients">
                 <img loading="lazy" decoding="async" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='600'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.22'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
               </div>
-              <div class="ctaRow">
-                <a class="btn" href="#">Order</a>
-              </div>
+              <div class="ctaRow"><a class="btn" href="#">Order</a></div>
             </div>
           </article>
 
@@ -660,9 +591,7 @@
               <div class="ingredients">
                 <img loading="lazy" decoding="async" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='600'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.22'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
               </div>
-              <div class="ctaRow">
-                <a class="btn" href="#">Order</a>
-              </div>
+              <div class="ctaRow"><a class="btn" href="#">Order</a></div>
             </div>
           </article>
         </div>
@@ -671,11 +600,8 @@
 
     <!-- ABOUT -->
     <section class="page" id="page-about" data-route="about">
-      <div class="wrap">
-        <div class="hero">
-          <h1>About</h1>
-        </div>
-
+      <div class="wrap wrap-narrow">
+        <div class="hero"><h1>About</h1></div>
         <div class="content">
           <div class="block">
             <p>I’m Alex, a Kiwi who grew up in NZ before taking off to Berlin for 10 years. I’ve come home in 2025 and I wanted to bring back some of my favourite food products from there.
@@ -694,10 +620,8 @@ I want to bring that back to NZ (for selfish reasons - I want more.) But also to
 
     <!-- CONTACT -->
     <section class="page" id="page-contact" data-route="contact">
-      <div class="wrap">
-        <div class="hero">
-          <h1>Contact</h1>
-        </div>
+      <div class="wrap wrap-narrow">
+        <div class="hero"><h1>Contact</h1></div>
 
         <div class="content">
           <div class="block">
@@ -725,11 +649,10 @@ Address - 25 Gibraltar cres parnell</p>
     <section class="page" id="page-tos" data-route="tos"></section>
     <section class="page" id="page-returns" data-route="returns"></section>
     <section class="page" id="page-privacy" data-route="privacy"></section>
+
     <section class="page" id="page-blog" data-route="blog">
-      <div class="wrap">
-        <div class="hero">
-          <h1>Blog</h1>
-        </div>
+      <div class="wrap wrap-narrow">
+        <div class="hero"><h1>Blog</h1></div>
 
         <div class="content">
           <div class="productGrid" aria-label="Blog posts">
@@ -739,9 +662,7 @@ Address - 25 Gibraltar cres parnell</p>
               </div>
               <div class="body">
                 <h3 class="title">Why High Protein Bread Works</h3>
-                <div class="ctaRow">
-                  <a class="btn" href="#">Read</a>
-                </div>
+                <div class="ctaRow"><a class="btn" href="#">Read</a></div>
               </div>
             </article>
 
@@ -751,9 +672,7 @@ Address - 25 Gibraltar cres parnell</p>
               </div>
               <div class="body">
                 <h3 class="title">Matcha and Gut Health</h3>
-                <div class="ctaRow">
-                  <a class="btn" href="#">Read</a>
-                </div>
+                <div class="ctaRow"><a class="btn" href="#">Read</a></div>
               </div>
             </article>
 
@@ -763,9 +682,7 @@ Address - 25 Gibraltar cres parnell</p>
               </div>
               <div class="body">
                 <h3 class="title">Functional Food for Busy People</h3>
-                <div class="ctaRow">
-                  <a class="btn" href="#">Read</a>
-                </div>
+                <div class="ctaRow"><a class="btn" href="#">Read</a></div>
               </div>
             </article>
           </div>
