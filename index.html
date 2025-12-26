@@ -362,6 +362,40 @@
     /* About / Contact */
     .content{padding: 26px 0 36px}
 
+    .contactTop{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      align-items:center;
+      justify-content:flex-start;
+      margin-bottom: 14px;
+    }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(171,163,241,.18);
+      background: rgba(0,0,0,.10);
+      color: rgba(171,163,241,.92);
+      font-weight: 700;
+      letter-spacing: .01em;
+      line-height: 1;
+      user-select: none;
+    }
+
+    .chip strong{color: var(--text); font-weight: 800}
+
+    .chip-action{
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease, filter .12s ease;
+      font-family: var(--font-body);
+    }
+    .chip-action:hover{background: rgba(0,0,0,.16); filter: brightness(1.02)}
+    .chip-action:active{transform: translateY(1px)}
+
     .content .block{
       border-radius: var(--radius);
       border: 1px solid rgba(171,163,241,.14);
@@ -768,13 +802,21 @@ I want to bring that back to NZ (for selfish reasons - I want more.) But also to
         <div class="hero"><h1>Contact</h1></div>
         <div class="content">
           <div class="block">
-            <p>Email = alex@lumafood.com
-Text - 0211487709
-Company - Aephoria Limited
-Address - 25 Gibraltar cres parnell</p>
+            <div class="contactTop" aria-label="Contact details">
+              <div class="chip"><strong>Company</strong> Aephoria Limited</div>
+              <button class="chip chip-action" type="button" id="revealEmail" data-user="alex" data-domain="lumafood.com" aria-label="Reveal email">
+                ✉️ Email (click to reveal)
+              </button>
+              <button class="chip chip-action" type="button" id="revealPhone" data-phone="0211487709" aria-label="Reveal phone number">
+                📞 021… (click to reveal)
+              </button>
+            </div>
 
             <form action="https://api.web3forms.com/submit" method="POST" class="form" aria-label="Contact form">
-              <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_KEY" />
+              <input type="hidden" name="access_key" value="8f4ba0fa-c075-4c78-b725-bebecb358719" />
+              <input type="hidden" name="subject" value="New Contact Form Message (LumaFood)" />
+              <input type="hidden" name="from_name" value="LumaFood" />
+              <input type="checkbox" name="botcheck" class="hidden" style="display:none">
               <div class="formGrid">
                 <input class="field full" type="email" name="email" placeholder="Email" required />
                 <textarea class="field full" name="message" rows="6" placeholder="Question" required></textarea>
@@ -947,6 +989,40 @@ Address - 25 Gibraltar cres parnell</p>
 
     window.addEventListener('hashchange', parseHash);
     window.addEventListener('load', parseHash);
+  </script>
+
+  <script>
+    // Obfuscated contact details (click-to-reveal)
+    (function(){
+      const emailBtn = document.getElementById('revealEmail');
+      if(emailBtn){
+        emailBtn.addEventListener('click', () => {
+          const user = emailBtn.dataset.user || '';
+          const domain = emailBtn.dataset.domain || '';
+          const addr = (user && domain) ? `${user}@${domain}` : '';
+          if(!addr) return;
+          const a = document.createElement('a');
+          a.className = 'chip chip-action';
+          a.href = `mailto:${addr}`;
+          a.textContent = `✉️ ${addr}`;
+          emailBtn.replaceWith(a);
+        }, { once:true });
+      }
+
+      const phoneBtn = document.getElementById('revealPhone');
+      if(phoneBtn){
+        phoneBtn.addEventListener('click', () => {
+          const phone = phoneBtn.dataset.phone || '';
+          if(!phone) return;
+          const tel = phone.replaceAll(' ', '').replaceAll('-', '');
+          const a = document.createElement('a');
+          a.className = 'chip chip-action';
+          a.href = `tel:${tel}`;
+          a.textContent = `📞 ${phone}`;
+          phoneBtn.replaceWith(a);
+        }, { once:true });
+      }
+    })();
   </script>
 
   <script>
