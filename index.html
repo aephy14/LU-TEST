@@ -7,9 +7,11 @@
   <title>LumaFood</title>
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Baloo+2:wght@400;500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Fredoka:wght@400;500;600;700&display=swap');
 
     :root{
+      --font-body: "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      --font-display: "Fredoka", "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       --bg:#ba5b58;
       --text:#aba3f1;
       --text-weak: rgba(171,163,241,.82);
@@ -28,7 +30,7 @@
 
     body{
       margin:0;
-      font-family: "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      font-family: var(--font-body);
       background:
         radial-gradient(1200px 900px at 10% -10%, rgba(171,163,241,.45), transparent 60%),
         radial-gradient(1000px 700px at 90% 15%, rgba(171,163,241,.28), transparent 60%),
@@ -198,7 +200,14 @@
     .hero{padding: 42px 0 10px}
 
     .hero h1{
-      font-family: "Baloo 2", "Plus Jakarta Sans", system-ui;
+    }
+
+    .accent-matcha{
+      color:#31704e;
+    }
+
+    .hero h1{
+      font-family: var(--font-display);
       margin: 0;
       font-size: clamp(34px, 4.7vw, 70px);
       line-height: 1.02;
@@ -265,15 +274,7 @@
       align-items:center;
     }
 
-    .btn{
-      font-family: "Baloo 2", "Plus Jakarta Sans", system-ui;
-      border: 1px solid rgba(171,163,241,.28);
-      background: rgba(255,255,255,.08);
-      color: var(--text);
-      padding: 10px 14px;
-      border-radius: 999px;
-      font-weight: 700;
-      letter-spacing: .04em;
+    $1letter-spacing: .08em;
       text-transform: uppercase;
       font-size: 12px;
       cursor:pointer;
@@ -284,14 +285,17 @@
     .marquee{width:100%; overflow:hidden; background:#000; border-top:1px solid rgba(255,255,255,.14); border-bottom:1px solid rgba(255,255,255,.14)}
     .marquee-inner{display:flex; width:max-content}
     .marquee-track{
+      font-family: var(--font-display);
+      font-weight: 600;
+
       display:flex;
       flex-wrap:nowrap;
       gap:56px;
       white-space:nowrap;
       padding:14px 0;
       will-change:transform;
-      animation: marquee 18s linear infinite;
-      font-family:"Baloo 2","Plus Jakarta Sans",system-ui;
+      animation: marquee 34s linear infinite;
+      font-family: var(--font-display);
       font-size: clamp(16px, 1.6vw, 20px);
       letter-spacing:.18em;
       text-transform:uppercase;
@@ -487,7 +491,7 @@
     <section class="page active" id="page-home" data-route="home">
       <div class="wrap wrap-wide">
         <div class="hero">
-          <h1>High Protein Bread, Matcha Soda and Protein Ice Tea.</h1>
+          <h1>High Protein Bread, <span class="accent-matcha">Matcha Soda</span> and Protein Ice Tea.</h1>
           <p>We're on a mission to create food and drinks using whole, functional ingredients. Functional products for busy people.</p>
         </div>
 
