@@ -3,24 +3,202 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Returns & Refunds | LumaFood</title>
-  <meta name="description" content="Returns and refunds policy for LumaFood purchases." />
+
+  <title>Returns, Refunds & Satisfaction Policy | LumaFood</title>
+  <meta name="description" content="LumaFood Returns, Refunds & Satisfaction Policy for New Zealand customers." />
   <link rel="canonical" href="https://lumafood.com/returns/" />
   <meta name="robots" content="index,follow" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Returns, Refunds & Satisfaction Policy | LumaFood" />
+  <meta property="og:description" content="Returns, refunds, replacements, and satisfaction guarantee terms for LumaFood." />
+  <meta property="og:url" content="https://lumafood.com/returns/" />
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fredoka:wght@500;600;700&display=swap');
+
+    :root{
+      --font-body: "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      --font-display: "Fredoka", "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      --bg:#ba5b58;
+      --text:#aba3f1;
+      --text-weak: rgba(171,163,241,.82);
+      --line: rgba(171,163,241,.22);
+      --radius: 22px;
+      --max: 980px;
+      --pad: clamp(14px, 2.2vw, 28px);
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: var(--font-body);
+      background:
+        radial-gradient(900px 700px at 20% -10%, rgba(245,228,130,.35), transparent 60%),
+        radial-gradient(900px 700px at 80% 10%, rgba(49,112,78,.35), transparent 60%),
+        linear-gradient(180deg, rgba(171,163,241,.12), rgba(186,91,88,.45)),
+        var(--bg);
+      color: var(--text);
+      overflow-x:hidden;
+    }
+
+    a{color:inherit; text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    .wrap{max-width: var(--max); margin:0 auto; padding: var(--pad)}
+
+    .top{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      position:sticky; top:0; z-index:10;
+      padding: 10px 0;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(180deg, rgba(186,91,88,.92), rgba(186,91,88,.38));
+      border-bottom: 1px solid rgba(171,163,241,.14);
+    }
+
+    .pill{
+      display:inline-flex; align-items:center; gap:10px;
+      border:1px solid rgba(171,163,241,.18);
+      background: rgba(0,0,0,.10);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-weight: 800;
+    }
+
+    .brand{
+      font-family: var(--font-display);
+      letter-spacing: .02em;
+      font-weight: 700;
+      opacity:.95;
+    }
+
+    .hero{
+      margin-top: 16px;
+      border: 1px solid rgba(171,163,241,.14);
+      background:
+        radial-gradient(900px 550px at 0% 0%, rgba(171,163,241,.16), transparent 55%),
+        linear-gradient(180deg, rgba(0,0,0,.16), rgba(0,0,0,.06));
+      border-radius: var(--radius);
+      padding: clamp(16px, 2.4vw, 26px);
+      box-shadow: 0 18px 56px rgba(0,0,0,.22);
+    }
+
+    h1{
+      font-family: var(--font-display);
+      margin:0 0 8px;
+      font-size: clamp(28px, 3.4vw, 44px);
+      line-height:1.05;
+    }
+
+    .sub{margin:0; color: var(--text-weak); line-height:1.45}
+
+    .card{
+      margin-top: 16px;
+      border: 1px solid rgba(171,163,241,.14);
+      background: rgba(0,0,0,.10);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 18px 56px rgba(0,0,0,.18);
+    }
+
+    h2{
+      font-family: var(--font-display);
+      margin: 18px 0 8px;
+      font-size: 22px;
+      letter-spacing: .01em;
+    }
+
+    p{
+      margin: 0 0 12px;
+      color: var(--text-weak);
+      line-height: 1.65;
+      font-size: 16px;
+    }
+
+    ul{margin: 0 0 12px 18px; color: var(--text-weak); line-height:1.65}
+    li{margin: 6px 0}
+
+    .callout{
+      border:1px solid rgba(171,163,241,.16);
+      background: rgba(0,0,0,.12);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .rule{
+      height:1px;
+      background: rgba(171,163,241,.14);
+      border:0;
+      margin: 16px 0;
+    }
+
+    footer{
+      margin: 18px 0 10px;
+      color: rgba(171,163,241,.72);
+      font-size: 13px;
+    }
+    .links{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+    .links a{padding:8px 12px; border-radius:999px; border:1px solid rgba(171,163,241,.14); background: rgba(0,0,0,.10)}
+  </style>
 </head>
+
 <body>
-<main style="max-width:900px;margin:40px auto;padding:0 20px;font-family:system-ui">
-<h1>Returns & Refunds</h1>
-<p><strong>Last updated:</strong> 2025-12-26</p>
+  <div class="top">
+    <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 var(--pad);">
+      <a class="pill" href="../">← Home</a>
+      <div class="brand">LumaFood</div>
+      <a class="pill" href="../#/contact">Contact</a>
+    </div>
+  </div>
 
-<h2>Returns</h2>
-<p>Food products are non-returnable except as required by New Zealand consumer law.</p>
+  <div class="wrap">
+    <header class="hero">
+      <h1>Returns, Refunds &amp; Satisfaction Policy</h1>
+      <p class="sub">If you’re not fully satisfied with your order, we’re here to help.</p>
+    </header>
 
-<h2>Refunds</h2>
-<p>Refunds are available for damaged or faulty products.</p>
+    <main class="card">
+      <div class="callout">
+        <p style="margin:0;">
+          Email us at
+          <a href="mailto:alejbeck@gmail.com"><strong>alejbeck@gmail.com</strong></a>
+          and please include your <strong>order number</strong> or <strong>full name</strong>.
+        </p>
+      </div>
 
-<h2>Contact</h2>
-<p>Email: <a href="mailto:alex@lumafood.com">alex@lumafood.com</a></p>
-</main>
+      <hr class="rule" />
+
+      <h2>Refunds &amp; Replacements</h2>
+      <p>
+        We will issue a refund or replacement if the item you ordered from our website
+        arrives damaged or the incorrect item was sent.
+      </p>
+
+      <h2>Satisfaction Policy</h2>
+      <p>We offer a satisfaction guarantee on our full-price orders if:</p>
+      <ul>
+        <li>It’s less than 30 days since your parcel was delivered</li>
+        <li>It’s the first time you have ordered this flavour</li>
+        <li>You have not returned more than two items before</li>
+      </ul>
+
+      <p>If your item meets this criteria, please note the following:</p>
+      <ul>
+        <li>Email <a href="mailto:alejbeck@gmail.com">alejbeck@gmail.com</a> to organise a return</li>
+        <li>You cover the shipping cost of the return to us</li>
+        <li>We will process a refund once we receive your item</li>
+        <li>Original order shipping costs are not refundable</li>
+      </ul>
+    </main>
+
+    <footer>
+      <div class="links">
+        <a href="../terms/">TOS</a>
+        <a href="../privacy/">Privacy</a>
+        <a href="../blog/">Blog</a>
+      </div>
+      <div style="margin-top:10px;">© LumaFood</div>
+    </footer>
+  </div>
 </body>
 </html>
