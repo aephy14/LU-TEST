@@ -3,8 +3,20 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="LumaFood" />
-  <title>LumaFood</title>
+
+  <title>Products | LumaFood</title>
+  <meta name="description" content="Shop LumaFood in New Zealand: organic Matcha Soda (original & sugar free), high-protein multigrain Protein Bread (plain & seeded), and Protein Ice Tea (fruit & peach). Functional ingredients, real flavour." />
+  <link rel="canonical" href="https://lumafood.com/products/" />
+  <meta name="robots" content="index,follow" />
+
+  <!-- Open Graph / Social -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="LumaFood" />
+  <meta property="og:title" content="Products | LumaFood" />
+  <meta property="og:description" content="Explore LumaFood products in NZ: Matcha Soda, Protein Bread, and Protein Ice Tea made with functional ingredients." />
+  <meta property="og:url" content="https://lumafood.com/products/" />
+  <meta property="og:image" content="https://lumafood.com/assets/images/home/hero-matcha.webp" />
+  <meta name="twitter:card" content="summary_large_image" />
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Fredoka:wght@400;500;600;700&display=swap');
@@ -104,7 +116,6 @@
       display:block;
       filter: drop-shadow(0 10px 22px rgba(0,0,0,.22));
     }
-
     .topbar-spacer{width:44px; height:44px}
 
     /* Mobile top menu */
@@ -201,9 +212,6 @@
     main{min-height: calc(100vh - 64px)}
     .hero{padding: 18px 0 10px}
 
-    .accent-matcha{color:#31704e}
-    .accent-protein{color:#fa2239}
-
     .hero h1{
       font-family: var(--font-display);
       margin: 0;
@@ -212,14 +220,6 @@
       letter-spacing: -0.02em;
       text-align:left;
       text-wrap: balance;
-    }
-
-    .hero p{
-      margin: 14px 0 0;
-      max-width: 980px;
-      font-size: clamp(16px, 2.0vw, 22px);
-      line-height: 1.35;
-      color: var(--text-weak);
     }
 
     .softPanel{
@@ -234,13 +234,13 @@
       overflow:hidden;
     }
 
-    /* Home carousel */
     .carousel{
       display:grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 24px;
       padding: 24px;
     }
+
     .card{
       min-width: 0;
       border-radius: 26px;
@@ -256,7 +256,6 @@
 
     .cardMedia{
       height: clamp(320px, 32vw, 620px);
-      padding: 0;
       display:flex;
       align-items:stretch;
       justify-content:stretch;
@@ -269,7 +268,33 @@
       display:block;
     }
 
-    .card .ctaRow{
+    /* ✅ NEW: Card description between hero image and label */
+    .cardDesc{
+      padding: 14px 16px;
+      font-size: 15px;
+      line-height: 1.45;
+      color: var(--text-weak);
+      border-top: 1px solid rgba(171,163,241,.12);
+      background: rgba(0,0,0,.04);
+    }
+
+    .labelMedia{
+      height: clamp(220px, 22vw, 360px);
+      display:flex;
+      align-items:stretch;
+      justify-content:stretch;
+      border-top: 1px solid rgba(171,163,241,.12);
+      background: rgba(0,0,0,.06);
+    }
+    .labelMedia img{
+      width:100%;
+      height:100%;
+      object-fit: contain;
+      object-position: center;
+      display:block;
+    }
+
+    .ctaRow{
       padding: 14px 14px 16px;
       display:flex;
       justify-content:center;
@@ -295,77 +320,21 @@
     .btn:hover{background: rgba(255,255,255,.14); filter: brightness(1.02)}
     .btn:active{transform: translateY(1px)}
 
-    /* Contact-only Send button (kept for consistency across site styles) */
-    .btn-send{
-      border: none;
-      background: linear-gradient(135deg, #31704e, #4c9a6a);
-      color: #fff;
-      padding: 13px 20px;
-      border-radius: 16px;
-      box-shadow: 0 12px 28px rgba(0,0,0,.28);
-    }
-
-    /* Marquee banner (continuous) */
-    .marquee{width:100%; overflow:hidden; background:#000; border-top:1px solid rgba(255,255,255,.14); border-bottom:1px solid rgba(255,255,255,.14)}
-    .marquee-inner{display:flex; width:max-content}
-    .marquee-track{
-      display:flex;
-      flex-wrap:nowrap;
-      gap:96px;
-      white-space:nowrap;
-      padding:14px 0;
-      will-change:transform;
-      animation: marquee 36s linear infinite;
+    .productSection{margin-top: 18px}
+    .sectionTitle{
       font-family: var(--font-display);
-      font-weight: 800;
-      font-size: clamp(18px, 1.8vw, 22px);
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      color:#fff;
+      margin: 26px 0 10px;
+      font-size: clamp(30px, 3.2vw, 44px);
+      letter-spacing: .02em;
     }
-    .marquee-track span{flex:0 0 auto; display:inline-block;}
-    @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
+    .sectionTitle.matcha{color:#31704e}
+    .sectionTitle.ice-tea{color:#fa2239}
 
-    /* Newsletter */
-    .newsletter{padding: 48px 0 36px}
-    .newsletter-box{
-      border-radius: 28px;
-      border: 1px solid rgba(171,163,241,.18);
-      background:
-        radial-gradient(700px 420px at 0% 0%, rgba(171,163,241,.22), transparent 55%),
-        linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,.08));
-      padding: 28px;
-      box-shadow: 0 20px 60px rgba(0,0,0,.28);
-      text-align:center;
+    footer{
+      padding: 22px 0 34px;
+      border-top: 1px solid rgba(171,163,241,.12);
+      background: linear-gradient(to top, rgba(0,0,0,.18), rgba(0,0,0,0));
     }
-    .newsletter-box h2{
-      font-family:"Baloo 2","Plus Jakarta Sans",system-ui;
-      margin:0 0 8px;
-      font-size: clamp(26px, 3vw, 36px);
-    }
-    .newsletter-box p{margin:0 0 18px; color: var(--text-weak)}
-
-    .newsletter-form{display:flex; gap:12px; justify-content:center; flex-wrap:wrap;}
-    .newsletter-form input{
-      min-width: 240px;
-      flex:1 1 260px;
-      border-radius: 999px;
-      border: 1px solid rgba(171,163,241,.22);
-      background: rgba(0,0,0,.12);
-      padding: 14px 18px;
-      font-size: 16px;
-      color: var(--text);
-      outline:none;
-    }
-    .newsletter-form input::placeholder{color: rgba(171,163,241,.55)}
-
-    .newsletter-msg{flex: 1 1 100%; font-size: 14px; color: var(--text-weak); margin-top: 4px}
-    .newsletter-msg.ok{color:#f5e482}
-    .newsletter-msg.err{color:#ff0f39}
-
-    /* Footer */
-    footer{padding: 22px 0 34px; border-top: 1px solid rgba(171,163,241,.12); background: linear-gradient(to top, rgba(0,0,0,.18), rgba(0,0,0,0))}
-
     .footerInner{
       width:100%;
       max-width: var(--max-wide);
@@ -377,13 +346,19 @@
       gap: 10px;
       flex-wrap:wrap;
     }
-
-    .footerLinks{display:flex; gap: 12px; flex-wrap:wrap; font-weight: 600; color: rgba(171,163,241,.86)}
-
-    .footerLinks a{padding: 8px 12px; border-radius: 999px; border: 1px solid rgba(171,163,241,.14); background: rgba(0,0,0,.10)}
+    .footerLinks{
+      display:flex; gap: 12px; flex-wrap:wrap;
+      font-weight: 600;
+      color: rgba(171,163,241,.86)
+    }
+    .footerLinks a{
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(171,163,241,.14);
+      background: rgba(0,0,0,.10)
+    }
     .footerLinks a:hover{background: rgba(0,0,0,.16)}
 
-    /* Responsive */
     @media (max-width: 720px){
       .topbar-inner{grid-template-columns: 56px 1fr 0px}
       .topbar-spacer{display:none}
@@ -392,18 +367,314 @@
       .overlay{display:none}
       .carousel{padding: 14px; gap: 14px}
       .cardMedia{height: clamp(280px, 78vw, 560px)}
+      .labelMedia{height: clamp(200px, 62vw, 340px)}
     }
 
     @media (min-width: 980px){
-      .carousel.home{grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; padding: 18px}
+      .carousel.two{grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; padding: 18px}
     }
 
     @media (prefers-reduced-motion: reduce){
       *{scroll-behavior:auto !important; transition:none !important}
     }
   </style>
+
+  <!-- SEO: ItemList schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "LumaFood Products",
+    "url": "https://lumafood.com/products/",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Matcha Soda (Sugar Free)", "url": "https://lumafood.com/products/" },
+      { "@type": "ListItem", "position": 2, "name": "Matcha Soda (Original)", "url": "https://lumafood.com/products/" },
+      { "@type": "ListItem", "position": 3, "name": "Protein Bread (Plain)", "url": "https://lumafood.com/products/" },
+      { "@type": "ListItem", "position": 4, "name": "Protein Bread (Seeded)", "url": "https://lumafood.com/products/" },
+      { "@type": "ListItem", "position": 5, "name": "Protein Ice Tea (Fruit)", "url": "https://lumafood.com/products/" },
+      { "@type": "ListItem", "position": 6, "name": "Protein Ice Tea (Peach)", "url": "https://lumafood.com/products/" }
+    ]
+  }
+  </script>
 </head>
+
 <body>
-<!-- FULL BODY CONTENT UNCHANGED -->
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <button class="hamburger" id="menuBtn" aria-label="Open menu">
+        <div class="burger" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
+      </button>
+
+      <a class="logo" href="../" aria-label="Home">
+        <img src="../logo.webp" alt="Luma" />
+      </a>
+
+      <div class="topbar-spacer" aria-hidden="true"></div>
+    </div>
+
+    <nav class="mobileMenu" aria-label="Mobile menu">
+      <div class="menuRow">
+        <a class="btn" href="../">Home</a>
+        <a class="btn" href="./">Products</a>
+        <a class="btn" href="../about/">About</a>
+        <a class="btn" href="../contact/">Contact</a>
+        <a class="btn" href="../blog/">Blog</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="overlay" id="overlay" aria-hidden="true"></div>
+
+  <aside class="sidePanel" id="sidePanel" aria-label="Menu panel">
+    <div class="panelTop">
+      <div class="panelLogo">
+        <img src="../logo.webp" alt="Luma" />
+      </div>
+      <button class="closeBtn" id="closeBtn" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M18 6 6 18" />
+          <path d="M6 6 18 18" />
+        </svg>
+      </button>
+    </div>
+
+    <nav class="nav" aria-label="Primary">
+      <a href="../"><span>Home</span><span class="dot" aria-hidden="true"></span></a>
+      <a href="./"><span>Products</span><span class="dot" aria-hidden="true"></span></a>
+      <a href="../about/"><span>About</span><span class="dot" aria-hidden="true"></span></a>
+      <a href="../contact/"><span>Contact</span><span class="dot" aria-hidden="true"></span></a>
+      <a href="../blog/"><span>Blog</span><span class="dot" aria-hidden="true"></span></a>
+    </nav>
+
+    <div class="panelBottom" aria-label="Social">
+      <a class="iconBtn" href="https://lumafood.com/m.me/886409911227941" aria-label="Messenger">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 11.5a8.5 8.5 0 0 1-12.7 7.4L3 21l1.7-5.3A8.5 8.5 0 1 1 21 11.5Z"/>
+        </svg>
+      </a>
+      <a class="iconBtn" href="https://instagram.com/lumafoodnz" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M17.5 6.5h.01"/>
+        </svg>
+      </a>
+      <a class="iconBtn" href="#" aria-label="TikTok">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14 3v11a4 4 0 1 1-4-4"/>
+          <path d="M14 7a6 6 0 0 0 6 6"/>
+        </svg>
+      </a>
+      <a class="iconBtn" href="https://wa.me/+4915212111139" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12a8.9 8.9 0 0 1-13.6 7.6L3 21l1.5-4.2A9 9 0 1 1 21 12Z"/>
+          <path d="M8.5 8.5c.5 4 3 6.5 7 7"/>
+        </svg>
+      </a>
+    </div>
+  </aside>
+
+  <main>
+    <section class="wrap wrap-wide">
+      <div class="hero">
+        <h1>Products</h1>
+      </div>
+
+      <section class="productSection" aria-label="Matcha">
+        <h2 class="sectionTitle matcha">Matcha</h2>
+        <div class="softPanel">
+          <div class="carousel two">
+            <article class="card">
+              <div class="cardMedia">
+                <img loading="lazy" decoding="async"
+                  alt="Luma Sugar Free Matcha Soda – organic matcha drink NZ"
+                  src="../assets/images/products/matcha-soda/sugarfree/hero.webp" />
+              </div>
+              <div class="cardDesc">
+                Zero sugar matcha soda made with real matcha. Lightly carbonated and built for clean energy and calm focus — a functional drink option in New Zealand.
+              </div>
+              <div class="labelMedia" aria-label="Matcha sugarfree label">
+                <img loading="lazy" decoding="async"
+                  alt="Luma Sugar Free Matcha Soda label"
+                  src="../assets/images/products/matcha-soda/sugarfree/label.webp" />
+              </div>
+              <div class="ctaRow"><a class="btn" href="#">Order Sugarfree Matcha</a></div>
+            </article>
+
+            <article class="card">
+              <div class="cardMedia">
+                <img loading="lazy" decoding="async"
+                  alt="Luma Matcha Soda – organic matcha drink NZ"
+                  src="../assets/images/products/matcha-soda/original/hero.webp" />
+              </div>
+              <div class="cardDesc">
+                Organic matcha soda with a gentle sweetness. Refreshing, functional, and made for everyday balance — a clean alternative to typical soft drinks.
+              </div>
+              <div class="labelMedia" aria-label="Matcha original label">
+                <img loading="lazy" decoding="async"
+                  alt="Luma Matcha Soda label"
+                  src="../assets/images/products/matcha-soda/original/label.webp" />
+              </div>
+              <div class="ctaRow"><a class="btn" href="#">Order Matcha (Original)</a></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="productSection" aria-label="Protein Bread">
+        <h2 class="sectionTitle">Protein Bread</h2>
+        <div class="softPanel">
+          <div class="carousel two">
+            <article class="card">
+              <div class="cardMedia">
+                <img loading="lazy" decoding="async"
+                  alt="Luma Protein Bread Plain – high protein bread NZ"
+                  src="../assets/images/products/protein-bread/plain/hero.webp" />
+              </div>
+              <div class="cardDesc">
+                High protein multigrain bread in New Zealand, made for busy people who want more from everyday food. Filling, soft, and designed to support active routines.
+              </div>
+              <div class="labelMedia" aria-label="Protein bread plain label">
+                <img loading="lazy" decoding="async"
+                  alt="Luma Protein Bread Plain label"
+                  src="../assets/images/products/protein-bread/plain/label.webp" />
+              </div>
+              <div class="ctaRow"><a class="btn" href="#">Order Protein Bread (Plain)</a></div>
+            </article>
+
+            <article class="card">
+              <div class="cardMedia">
+                <img loading="lazy" decoding="async"
+                  alt="Luma Seeded Protein Bread – nut and seed bread NZ"
+                  src="../assets/images/products/protein-bread/seeded/hero.webp" />
+              </div>
+              <div class="cardDesc">
+                Seeded protein bread with extra texture and fibre. More crunch, more satisfaction — a functional bread option that fits high-protein eating.
+              </div>
+              <div class="labelMedia" aria-label="Protein bread seeded label">
+                <img loading="lazy" decoding="async"
+                  alt="Luma Seeded Protein Bread label"
+                  src="../assets/images/products/protein-bread/seeded/label.webp" />
+              </div>
+              <div class="ctaRow"><a class="btn" href="#">Order Protein Bread (Seeded)</a></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="productSection" aria-label="Protein Ice Tea">
+        <h2 class="sectionTitle ice-tea">Protein Ice Tea</h2>
+        <div class="softPanel">
+          <div class="carousel two">
+            <article class="card">
+              <div class="cardMedia">
+                <img loading="lazy" decoding="async"
+                  alt="Luma Protein Ice Tea Fruit – high protein iced tea NZ"
+                  src="../assets/images/products/protein-ice-tea/fruit/hero.webp" />
+              </div>
+              <div class="cardDesc">
+                Protein ice tea with refreshing fruit flavour. Light, easy-drinking hydration with functional ingredients — ideal post-gym or on the go.
+              </div>
+              <div class="labelMedia" aria-label="Protein ice tea fruit label">
+                <img loading="lazy" decoding="async"
+                  alt="Luma Protein Ice Tea Fruit label"
+                  src="../assets/images/products/protein-ice-tea/fruit/label.webp" />
+              </div>
+              <div class="ctaRow"><a class="btn" href="#">Order Protein Ice Tea (Fruit)</a></div>
+            </article>
+
+            <article class="card">
+              <div class="cardMedia">
+                <img loading="lazy" decoding="async"
+                  alt="Luma Protein Ice Tea Peach – high protein iced tea NZ"
+                  src="../assets/images/products/protein-ice-tea/peach/hero.webp" />
+              </div>
+              <div class="cardDesc">
+                Peach protein ice tea with a smooth finish. A clean, functional drink alternative that supports high-protein goals without heavy sweetness.
+              </div>
+              <div class="labelMedia" aria-label="Protein ice tea peach label">
+                <img loading="lazy" decoding="async"
+                  alt="Luma Protein Ice Tea Peach label"
+                  src="../assets/images/products/protein-ice-tea/peach/label.webp" />
+              </div>
+              <div class="ctaRow"><a class="btn" href="#">Order Protein Ice Tea (Peach)</a></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+    </section>
+  </main>
+
+  <footer>
+    <div class="footerInner">
+      <div class="footerLinks" aria-label="Footer links">
+        <a href="../terms/">TOS</a>
+        <a href="../returns/">Returns</a>
+        <a href="../privacy/">Privacy</a>
+        <a href="../blog/">Blog</a>
+      </div>
+
+      <div class="panelBottom" aria-label="Footer social">
+        <a class="iconBtn" href="https://lumafood.com/m.me/886409911227941" aria-label="Messenger">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 11.5a8.5 8.5 0 0 1-12.7 7.4L3 21l1.7-5.3A8.5 8.5 0 1 1 21 11.5Z"/>
+          </svg>
+        </a>
+        <a class="iconBtn" href="https://instagram.com/lumafoodnz" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M17.5 6.5h.01"/>
+          </svg>
+        </a>
+        <a class="iconBtn" href="#" aria-label="TikTok">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M14 3v11a4 4 0 1 1-4-4"/>
+            <path d="M14 7a6 6 0 0 0 6 6"/>
+          </svg>
+        </a>
+        <a class="iconBtn" href="https://wa.me/+4915212111139" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12a8.9 8.9 0 0 1-13.6 7.6L3 21l1.5-4.2A9 9 0 1 1 21 12Z"/>
+            <path d="M8.5 8.5c.5 4 3 6.5 7 7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const overlay = document.getElementById('overlay');
+    const sidePanel = document.getElementById('sidePanel');
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeBtn');
+
+    function openPanel(){
+      overlay.classList.add('show');
+      sidePanel.classList.add('open');
+    }
+    function closePanel(){
+      overlay.classList.remove('show');
+      sidePanel.classList.remove('open');
+    }
+
+    menuBtn?.addEventListener('click', () => {
+      if (window.matchMedia('(max-width: 720px)').matches) return;
+      openPanel();
+    });
+    closeBtn?.addEventListener('click', closePanel);
+    overlay?.addEventListener('click', closePanel);
+
+    sidePanel?.addEventListener('click', (e) => {
+      const a = e.target.closest('a');
+      if (!a) return;
+      closePanel();
+    });
+  </script>
+
 </body>
 </html>
