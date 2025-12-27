@@ -199,9 +199,6 @@
 
     /* Layout */
     main{min-height: calc(100vh - 64px)}
-    .page{display:none}
-    .page.active{display:block}
-
     .hero{padding: 18px 0 10px}
 
     .accent-matcha{color:#31704e}
@@ -237,20 +234,14 @@
       overflow:hidden;
     }
 
-    /* Home / Products carousels */
+    /* Home carousel */
     .carousel{
       display:grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 24px;
       padding: 24px;
     }
-
-    .carousel::-webkit-scrollbar{height: 10px}
-    .carousel::-webkit-scrollbar-thumb{background: rgba(171,163,241,.18); border-radius:999px}
-    .carousel::-webkit-scrollbar-track{background: rgba(0,0,0,.12); border-radius:999px}
-
     .card{
-      scroll-snap-align: center;
       min-width: 0;
       border-radius: 26px;
       background:
@@ -263,7 +254,6 @@
       flex-direction:column;
     }
 
-    /* Media slots */
     .cardMedia{
       height: clamp(320px, 32vw, 620px);
       padding: 0;
@@ -275,23 +265,6 @@
       width:100%;
       height:100%;
       object-fit: cover;
-      object-position: center;
-      display:block;
-    }
-
-    /* Label image slot (products page) */
-    .labelMedia{
-      height: clamp(220px, 22vw, 360px);
-      display:flex;
-      align-items:stretch;
-      justify-content:stretch;
-      border-top: 1px solid rgba(171,163,241,.12);
-      background: rgba(0,0,0,.06);
-    }
-    .labelMedia img{
-      width:100%;
-      height:100%;
-      object-fit: contain;
       object-position: center;
       display:block;
     }
@@ -322,7 +295,7 @@
     .btn:hover{background: rgba(255,255,255,.14); filter: brightness(1.02)}
     .btn:active{transform: translateY(1px)}
 
-    /* Contact-only Send button */
+    /* Contact-only Send button (kept for consistency across site styles) */
     .btn-send{
       border: none;
       background: linear-gradient(135deg, #31704e, #4c9a6a);
@@ -331,12 +304,6 @@
       border-radius: 16px;
       box-shadow: 0 12px 28px rgba(0,0,0,.28);
     }
-    .btn-send:hover{
-      background: linear-gradient(135deg, #2b6143, #4c9a6a);
-      transform: translateY(-1px);
-      filter: none;
-    }
-    .btn-send:active{transform: translateY(0); box-shadow: 0 8px 18px rgba(0,0,0,.22)}
 
     /* Marquee banner (continuous) */
     .marquee{width:100%; overflow:hidden; background:#000; border-top:1px solid rgba(255,255,255,.14); border-bottom:1px solid rgba(255,255,255,.14)}
@@ -358,88 +325,6 @@
     }
     .marquee-track span{flex:0 0 auto; display:inline-block;}
     @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
-
-    /* About / Contact */
-    .content{padding: 26px 0 36px}
-
-    .contactTop{
-      display:flex;
-      flex-wrap:wrap;
-      gap: 10px;
-      align-items:center;
-      justify-content:flex-start;
-      margin-bottom: 14px;
-    }
-
-    .chip{
-      display:inline-flex;
-      align-items:center;
-      gap: 10px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(171,163,241,.18);
-      background: rgba(0,0,0,.10);
-      color: rgba(171,163,241,.92);
-      font-weight: 700;
-      letter-spacing: .01em;
-      line-height: 1;
-      user-select: none;
-    }
-
-    .chip strong{color: var(--text); font-weight: 800}
-
-    .chip-action{
-      cursor:pointer;
-      transition: transform .12s ease, background .12s ease, filter .12s ease;
-      font-family: var(--font-body);
-    }
-    .chip-action:hover{background: rgba(0,0,0,.16); filter: brightness(1.02)}
-    .chip-action:active{transform: translateY(1px)}
-
-    .content .block{
-      border-radius: var(--radius);
-      border: 1px solid rgba(171,163,241,.14);
-      background:
-        radial-gradient(900px 550px at 0% 0%, rgba(171,163,241,.16), transparent 55%),
-        linear-gradient(180deg, rgba(0,0,0,.16), rgba(0,0,0,.06));
-      padding: 18px;
-      box-shadow: 0 18px 56px rgba(0,0,0,.22);
-    }
-
-    .content p{
-      margin:0;
-      font-size: clamp(16px, 1.7vw, 20px);
-      line-height: 1.45;
-      color: var(--text-weak);
-      white-space: pre-wrap;
-    }
-
-    .formGrid{margin-top: 16px; display:grid; grid-template-columns: 1fr 1fr; gap: 12px}
-
-    .field{
-      border-radius: 18px;
-      border: 1px solid rgba(171,163,241,.18);
-      background: rgba(0,0,0,.10);
-      padding: 12px 12px;
-      color: var(--text);
-      outline:none;
-      font-size: 16px;
-    }
-    .field::placeholder{color: rgba(171,163,241,.55)}
-    .formGrid .full{grid-column: 1 / -1}
-    .formActions{margin-top: 12px; display:flex; justify-content:flex-end}
-
-    /* Products */
-    .productSection{margin-top: 18px}
-    .sectionTitle{
-      font-family: var(--font-display);
-      margin: 26px 0 10px;
-      font-size: clamp(28px, 3.2vw, 40px);
-      letter-spacing: .02em;
-    }
-
-    .sectionTitle.matcha{color:#31704e}
-    .sectionTitle.ice-tea{color:#fa2239}
 
     /* Newsletter */
     .newsletter{padding: 48px 0 36px}
@@ -499,10 +384,6 @@
     .footerLinks a:hover{background: rgba(0,0,0,.16)}
 
     /* Responsive */
-    @media (max-width: 980px){
-      .formGrid{grid-template-columns: 1fr}
-    }
-
     @media (max-width: 720px){
       .topbar-inner{grid-template-columns: 56px 1fr 0px}
       .topbar-spacer{display:none}
@@ -511,15 +392,10 @@
       .overlay{display:none}
       .carousel{padding: 14px; gap: 14px}
       .cardMedia{height: clamp(280px, 78vw, 560px)}
-      .labelMedia{height: clamp(200px, 62vw, 340px)}
     }
 
-    /* Desktop grids */
     @media (min-width: 980px){
-      /* Home (3-up) */
       .carousel.home{grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; padding: 18px}
-      /* Products sections (2-up) */
-      .carousel.two{grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; padding: 18px}
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -544,12 +420,13 @@
       <div class="topbar-spacer" aria-hidden="true"></div>
     </div>
 
-    <nav class="mobileMenu" id="mobileMenu" aria-label="Mobile menu">
+    <nav class="mobileMenu" aria-label="Mobile menu">
       <div class="menuRow">
         <a class="btn" href="./">Home</a>
-        <a class="btn" href="products/">Products</a>
-        <a class="btn" href="#/about">About</a>
-        <a class="btn" href="#/contact">Contact</a>
+        <a class="btn" href="./products/">Products</a>
+        <a class="btn" href="./about/">About</a>
+        <a class="btn" href="./contact/">Contact</a>
+        <a class="btn" href="./blog/">Blog</a>
       </div>
     </nav>
   </header>
@@ -571,9 +448,10 @@
 
     <nav class="nav" aria-label="Primary">
       <a href="./"><span>Home</span><span class="dot" aria-hidden="true"></span></a>
-      <a href="products/"><span>Products</span><span class="dot" aria-hidden="true"></span></a>
-      <a href="#/about"><span>About</span><span class="dot" aria-hidden="true"></span></a>
-      <a href="#/contact"><span>Contact</span><span class="dot" aria-hidden="true"></span></a>
+      <a href="./products/"><span>Products</span><span class="dot" aria-hidden="true"></span></a>
+      <a href="./about/"><span>About</span><span class="dot" aria-hidden="true"></span></a>
+      <a href="./contact/"><span>Contact</span><span class="dot" aria-hidden="true"></span></a>
+      <a href="./blog/"><span>Blog</span><span class="dot" aria-hidden="true"></span></a>
     </nav>
 
     <div class="panelBottom" aria-label="Social">
@@ -605,8 +483,8 @@
   </aside>
 
   <main>
-    <!-- HOME -->
-    <section class="page" id="page-home" data-route="home">
+    <!-- HOME ONLY -->
+    <section>
       <div class="wrap wrap-wide">
         <div class="hero">
           <h1>High Protein Bread, <span class="accent-matcha">Matcha Soda</span> and <span class="accent-protein">Protein Ice Tea.</span></h1>
@@ -619,25 +497,24 @@
               <div class="cardMedia">
                 <img loading="lazy" decoding="async" alt="Luma high protein bread" src="assets/images/home/hero-bread.webp" />
               </div>
-              <div class="ctaRow"><a class="btn" href="products/">Order Protein Bread</a></div>
+              <div class="ctaRow"><a class="btn" href="./products/">Order Protein Bread</a></div>
             </article>
             <article class="card">
               <div class="cardMedia">
                 <img loading="lazy" decoding="async" alt="Luma matcha soda" src="assets/images/home/hero-matcha.webp" />
               </div>
-              <div class="ctaRow"><a class="btn" href="products/">Order Matcha Soda</a></div>
+              <div class="ctaRow"><a class="btn" href="./products/">Order Matcha Soda</a></div>
             </article>
             <article class="card">
               <div class="cardMedia">
                 <img loading="lazy" decoding="async" alt="Luma protein ice tea" src="assets/images/home/hero-ice-tea.webp" />
               </div>
-              <div class="ctaRow"><a class="btn" href="products/">Order Protein Ice Tea</a></div>
+              <div class="ctaRow"><a class="btn" href="./products/">Order Protein Ice Tea</a></div>
             </article>
           </div>
         </div>
       </div>
 
-      <!-- Moving banner below product images -->
       <div class="marquee" aria-hidden="true">
         <div class="marquee-inner">
           <div class="marquee-track">
@@ -651,7 +528,6 @@
         </div>
       </div>
 
-      <!-- Newsletter signup -->
       <section class="newsletter">
         <div class="wrap wrap-narrow">
           <div class="newsletter-box">
@@ -670,254 +546,6 @@
           </div>
         </div>
       </section>
-    </section>
-
-    <!-- PRODUCTS -->
-<section class="page" id="page-products" data-route="products">
-  <div class="wrap wrap-wide">
-    <div class="hero"><h1>Products</h1></div>
-
-    <section class="productSection" aria-label="Matcha">
-      <h2 class="sectionTitle matcha">Matcha</h2>
-      <div class="softPanel">
-        <div class="carousel two">
-          <!-- Matcha: Sugarfree -->
-          <article class="card">
-            <div class="cardMedia">
-              <img loading="lazy" decoding="async"
-                alt="Luma Sugar Free Matcha Soda – organic matcha drink NZ"
-                src="/assets/images/products/matcha-soda/sugarfree/hero.webp" />
-            </div>
-            <div class="labelMedia" aria-label="Matcha sugarfree label">
-              <img loading="lazy" decoding="async"
-                alt="Luma Sugar Free Matcha Soda label"
-                src="/assets/images/products/matcha-soda/sugarfree/label.webp" />
-            </div>
-            <div class="ctaRow"><a class="btn" href="#">Order Sugarfree Matcha</a></div>
-          </article>
-
-          <!-- Matcha: Original -->
-          <article class="card">
-            <div class="cardMedia">
-              <img loading="lazy" decoding="async"
-                alt="Luma Matcha Soda – organic matcha drink NZ"
-                src="/assets/images/products/matcha-soda/original/hero.webp" />
-            </div>
-            <div class="labelMedia" aria-label="Matcha original label">
-              <img loading="lazy" decoding="async"
-                alt="Luma Matcha Soda label"
-                src="/assets/images/products/matcha-soda/original/label.webp" />
-            </div>
-            <div class="ctaRow"><a class="btn" href="#">Order Matcha (Original)</a></div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="productSection" aria-label="Protein Bread">
-      <h2 class="sectionTitle">Protein Bread</h2>
-      <div class="softPanel">
-        <div class="carousel two">
-          <!-- Bread: Plain -->
-          <article class="card">
-            <div class="cardMedia">
-              <img loading="lazy" decoding="async"
-                alt="Luma Protein Bread Plain – high protein bread NZ"
-                src="/assets/images/products/protein-bread/plain/hero.webp" />
-            </div>
-            <div class="labelMedia" aria-label="Protein bread plain label">
-              <img loading="lazy" decoding="async"
-                alt="Luma Protein Bread Plain label"
-                src="/assets/images/products/protein-bread/plain/label.webp" />
-            </div>
-            <div class="ctaRow"><a class="btn" href="#">Order Protein Bread (Plain)</a></div>
-          </article>
-
-          <!-- Bread: Seeded -->
-          <article class="card">
-            <div class="cardMedia">
-              <img loading="lazy" decoding="async"
-                alt="Luma Seeded Protein Bread – nut and seed bread NZ"
-                src="/assets/images/products/protein-bread/seeded/hero.webp" />
-            </div>
-            <div class="labelMedia" aria-label="Protein bread seeded label">
-              <img loading="lazy" decoding="async"
-                alt="Luma Seeded Protein Bread label"
-                src="/assets/images/products/protein-bread/seeded/label.webp" />
-            </div>
-            <div class="ctaRow"><a class="btn" href="#">Order Protein Bread (Seeded)</a></div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="productSection" aria-label="Protein Ice Tea">
-      <h2 class="sectionTitle ice-tea">Protein Ice Tea</h2>
-      <div class="softPanel">
-        <div class="carousel two">
-          <!-- Ice Tea: Fruit -->
-          <article class="card">
-            <div class="cardMedia">
-              <img loading="lazy" decoding="async"
-                alt="Luma Protein Ice Tea Fruit – high protein iced tea NZ"
-                src="/assets/images/products/protein-ice-tea/fruit/hero.webp" />
-            </div>
-            <div class="labelMedia" aria-label="Protein ice tea fruit label">
-              <img loading="lazy" decoding="async"
-                alt="Luma Protein Ice Tea Fruit label"
-                src="/assets/images/products/protein-ice-tea/fruit/label.webp" />
-            </div>
-            <div class="ctaRow"><a class="btn" href="#">Order Protein Ice Tea (Fruit)</a></div>
-          </article>
-
-          <!-- Ice Tea: Peach -->
-          <article class="card">
-            <div class="cardMedia">
-              <img loading="lazy" decoding="async"
-                alt="Luma Protein Ice Tea Peach – high protein iced tea NZ"
-                src="/assets/images/products/protein-ice-tea/peach/hero.webp" />
-            </div>
-            <div class="labelMedia" aria-label="Protein ice tea peach label">
-              <img loading="lazy" decoding="async"
-                alt="Luma Protein Ice Tea Peach label"
-                src="/assets/images/products/protein-ice-tea/peach/label.webp" />
-            </div>
-            <div class="ctaRow"><a class="btn" href="#">Order Protein Ice Tea (Peach)</a></div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-  </div>
-</section>
-
-    <!-- ABOUT -->
-    <section class="page" id="page-about" data-route="about">
-      <div class="wrap wrap-narrow">
-        <div class="hero"><h1>About</h1></div>
-        <div class="content">
-          <div class="block">
-            <p>I’m Alex, a Kiwi who grew up in NZ before taking off to Berlin for 10 years. I’ve come home in 2025 and I wanted to bring back some of my favourite food products from there.
-
-I’ve always had gut issues, and in Germany I found Matcha, which has compounds that can nourish beneficial gut bacteria.
-
-Matcha is rich in polyphenols which is "good" bacteria like Lactobacillus and Bifidobacterium.)
-
-Pairing that with Protein ice-tea and nut and seed heavy protein rich brown read gave me the best body and belly health I ever had.
-
-I want to bring that back to NZ (for selfish reasons - I want more.) But also to share products I’m passionate about with my fellow Kiwis.</p>
-          </div>
-        </div>
-      </div>
-
-      <section class="newsletter">
-        <div class="wrap wrap-narrow">
-          <div class="newsletter-box">
-            <h2>Join the Luma list</h2>
-            <p>New products, early drops, and functional food ideas. No spam.</p>
-            <form class="newsletter-form" action="https://api.web3forms.com/submit" method="POST">
-              <input type="hidden" name="access_key" value="82bdae8a-79ae-4e1a-a927-596d378240e1" />
-              <input type="hidden" name="subject" value="New Luma Newsletter Signup" />
-              <input type="hidden" name="from_name" value="LumaFood" />
-              <input type="hidden" name="redirect" value="false" />
-              <input type="checkbox" name="botcheck" class="hidden" style="display:none">
-              <input type="email" name="email" required placeholder="Your email" />
-              <div class="newsletter-msg" aria-live="polite"></div>
-              <button class="btn btn-send" type="submit">Subscribe</button>
-            </form>
-          </div>
-        </div>
-      </section>
-    </section>
-
-    <!-- CONTACT -->
-    <section class="page" id="page-contact" data-route="contact">
-      <div class="wrap wrap-narrow">
-        <div class="hero"><h1>Contact</h1></div>
-        <div class="content">
-          <div class="block">
-            <div class="contactTop" aria-label="Contact details">
-              <div class="chip"><strong>Company</strong> Aephoria Limited</div>
-              <button class="chip chip-action" type="button" id="revealEmail" data-user="alex" data-domain="lumafood.com" aria-label="Reveal email">
-                ✉️ Email (click to reveal)
-              </button>
-              <button class="chip chip-action" type="button" id="revealPhone" data-phone="0211487709" aria-label="Reveal phone number">
-                📞 021… (click to reveal)
-              </button>
-            </div>
-
-            <form action="https://api.web3forms.com/submit" method="POST" class="form" aria-label="Contact form">
-              <input type="hidden" name="access_key" value="8f4ba0fa-c075-4c78-b725-bebecb358719" />
-              <input type="hidden" name="subject" value="New Contact Form Message (LumaFood)" />
-              <input type="hidden" name="from_name" value="LumaFood" />
-              <input type="checkbox" name="botcheck" class="hidden" style="display:none">
-              <div class="formGrid">
-                <input class="field full" type="email" name="email" placeholder="Email" required />
-                <textarea class="field full" name="message" rows="6" placeholder="Question" required></textarea>
-              </div>
-              <div class="formActions">
-                <button class="btn btn-send" type="submit">Send</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-
-      <section class="newsletter">
-        <div class="wrap wrap-narrow">
-          <div class="newsletter-box">
-            <h2>Join the Luma list</h2>
-            <p>New products, early drops, and functional food ideas. No spam.</p>
-            <form class="newsletter-form" action="https://api.web3forms.com/submit" method="POST">
-              <input type="hidden" name="access_key" value="82bdae8a-79ae-4e1a-a927-596d378240e1" />
-              <input type="hidden" name="subject" value="New Luma Newsletter Signup" />
-              <input type="hidden" name="from_name" value="LumaFood" />
-              <input type="hidden" name="redirect" value="false" />
-              <input type="checkbox" name="botcheck" class="hidden" style="display:none">
-              <input type="email" name="email" required placeholder="Your email" />
-              <div class="newsletter-msg" aria-live="polite"></div>
-              <button class="btn btn-send" type="submit">Subscribe</button>
-            </form>
-          </div>
-        </div>
-      </section>
-    </section>
-
-    <!-- FOOTER PAGES (empty by design to avoid extra copy) -->
-    <section class="page" id="page-tos" data-route="tos"></section>
-    <section class="page" id="page-returns" data-route="returns"></section>
-    <section class="page" id="page-privacy" data-route="privacy"></section>
-
-    <section class="page" id="page-blog" data-route="blog">
-      <div class="wrap wrap-narrow">
-        <div class="hero"><h1>Blog</h1></div>
-        <div class="content">
-          <div class="softPanel">
-            <div class="carousel">
-              <article class="card">
-                <div class="cardMedia">
-                  <img loading="lazy" decoding="async" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='900'%3E%3Cdefs%3E%3CradialGradient id='g' cx='20%25' cy='20%25' r='100%25'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.35'/%3E%3Cstop offset='60%25' stop-color='%23000000' stop-opacity='.14'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='%23BA5B58'/%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
-                </div>
-                <div class="ctaRow"><a class="btn" href="#">Why High Protein Bread Works</a></div>
-              </article>
-
-              <article class="card">
-                <div class="cardMedia">
-                  <img loading="lazy" decoding="async" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='900'%3E%3Cdefs%3E%3CradialGradient id='g' cx='80%25' cy='18%25' r='100%25'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.35'/%3E%3Cstop offset='60%25' stop-color='%23000000' stop-opacity='.14'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='%23BA5B58'/%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
-                </div>
-                <div class="ctaRow"><a class="btn" href="#">Matcha and Gut Health</a></div>
-              </article>
-
-              <article class="card">
-                <div class="cardMedia">
-                  <img loading="lazy" decoding="async" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='900'%3E%3Cdefs%3E%3CradialGradient id='g' cx='50%25' cy='10%25' r='100%25'%3E%3Cstop offset='0%25' stop-color='%23ABA3F1' stop-opacity='.35'/%3E%3Cstop offset='60%25' stop-color='%23000000' stop-opacity='.14'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='.10'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='%23BA5B58'/%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E" />
-                </div>
-                <div class="ctaRow"><a class="btn" href="#">Functional Food for Busy People</a></div>
-              </article>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
   </main>
 
@@ -927,16 +555,16 @@ I want to bring that back to NZ (for selfish reasons - I want more.) But also to
         <a href="./terms/">TOS</a>
         <a href="./returns/">Returns</a>
         <a href="./privacy/">Privacy</a>
-        <a href="/blog/">Blog</a>
+        <a href="./blog/">Blog</a>
       </div>
 
       <div class="panelBottom" aria-label="Footer social">
-        <a class="iconBtn" href="#" aria-label="Messenger">
+        <a class="iconBtn" href="https://lumafood.com/m.me/886409911227941" aria-label="Messenger">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M21 11.5a8.5 8.5 0 0 1-12.7 7.4L3 21l1.7-5.3A8.5 8.5 0 1 1 21 11.5Z"/>
           </svg>
         </a>
-        <a class="iconBtn" href="#" aria-label="Instagram">
+        <a class="iconBtn" href="https://instagram.com/lumafoodnz" aria-label="Instagram">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="5"/>
             <circle cx="12" cy="12" r="4"/>
@@ -949,7 +577,7 @@ I want to bring that back to NZ (for selfish reasons - I want more.) But also to
             <path d="M14 7a6 6 0 0 0 6 6"/>
           </svg>
         </a>
-        <a class="iconBtn" href="#" aria-label="WhatsApp">
+        <a class="iconBtn" href="https://wa.me/+4915212111139" aria-label="WhatsApp">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M21 12a8.9 8.9 0 0 1-13.6 7.6L3 21l1.5-4.2A9 9 0 1 1 21 12Z"/>
             <path d="M8.5 8.5c.5 4 3 6.5 7 7"/>
@@ -958,21 +586,6 @@ I want to bring that back to NZ (for selfish reasons - I want more.) But also to
       </div>
     </div>
   </footer>
-
-  <script>
-    // Fix relative asset paths on GitHub Pages *project* sites (served under /repo-name/)
-    (function(){
-      const p = window.location.pathname || "/";
-      const base = p.endsWith("/") ? p : p.slice(0, p.lastIndexOf("/") + 1);
-      document.querySelectorAll('img[src]').forEach((img) => {
-        const src = img.getAttribute('src');
-        if(!src) return;
-        if(src.startsWith('http') || src.startsWith('data:') || src.startsWith('#') || src.startsWith('/') ) return;
-        if(src.startsWith(base)) return;
-        img.setAttribute('src', base + src);
-      });
-    })();
-  </script>
 
   <script>
     const overlay = document.getElementById('overlay');
@@ -984,7 +597,6 @@ I want to bring that back to NZ (for selfish reasons - I want more.) But also to
       overlay.classList.add('show');
       sidePanel.classList.add('open');
     }
-
     function closePanel(){
       overlay.classList.remove('show');
       sidePanel.classList.remove('open');
@@ -1004,59 +616,6 @@ I want to bring that back to NZ (for selfish reasons - I want more.) But also to
       if (!a) return;
       closePanel();
     });
-
-    // Simple hash router
-    const pages = Array.from(document.querySelectorAll('.page'));
-
-    function routeTo(route){
-      const target = route || 'home';
-      pages.forEach(p => p.classList.toggle('active', p.dataset.route === target));
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function parseHash(){
-      const hash = (location.hash || '#/home').replace('#/', '');
-      const route = hash.split('?')[0].trim() || 'home';
-      const allowed = new Set(pages.map(p => p.dataset.route));
-      routeTo(allowed.has(route) ? route : 'home');
-    }
-
-    window.addEventListener('hashchange', parseHash);
-    window.addEventListener('load', parseHash);
-  </script>
-
-  <script>
-    // Obfuscated contact details (click-to-reveal)
-    (function(){
-      const emailBtn = document.getElementById('revealEmail');
-      if(emailBtn){
-        emailBtn.addEventListener('click', () => {
-          const user = emailBtn.dataset.user || '';
-          const domain = emailBtn.dataset.domain || '';
-          const addr = (user && domain) ? `${user}@${domain}` : '';
-          if(!addr) return;
-          const a = document.createElement('a');
-          a.className = 'chip chip-action';
-          a.href = `mailto:${addr}`;
-          a.textContent = `✉️ ${addr}`;
-          emailBtn.replaceWith(a);
-        }, { once:true });
-      }
-
-      const phoneBtn = document.getElementById('revealPhone');
-      if(phoneBtn){
-        phoneBtn.addEventListener('click', () => {
-          const phone = phoneBtn.dataset.phone || '';
-          if(!phone) return;
-          const tel = phone.replaceAll(' ', '').replaceAll('-', '');
-          const a = document.createElement('a');
-          a.className = 'chip chip-action';
-          a.href = `tel:${tel}`;
-          a.textContent = `📞 ${phone}`;
-          phoneBtn.replaceWith(a);
-        }, { once:true });
-      }
-    })();
   </script>
 
   <script>
