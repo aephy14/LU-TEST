@@ -2,144 +2,112 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Luma Blog – Functional Food & Matcha Science</title>
-  <meta name="description" content="Science-backed insights on matcha, gut health, protein foods, and functional nutrition in New Zealand." />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+  <title>Luma Blog | Matcha, Gut Health & Functional Nutrition NZ</title>
+
+  <meta name="description"
+        content="Science-backed insights on matcha, gut health, caffeine, and functional nutrition in New Zealand." />
+
   <link rel="canonical" href="https://lumafood.com/blog/" />
+  <meta name="robots" content="index,follow" />
 
-  <style>
-    body{
-      margin:0;
-      font-family: "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      background:#ba5b58;
-      color:#aba3f1;
-    }
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Luma Blog" />
+  <meta property="og:description"
+        content="Science-backed insights on matcha, gut health, and functional nutrition in NZ." />
+  <meta property="og:url" content="https://lumafood.com/blog/" />
+  <meta property="og:site_name" content="LumaFood" />
 
-    a{color:inherit;text-decoration:none}
-    img{max-width:100%;height:auto}
-
-    .wrap{max-width:1120px;margin:0 auto;padding:28px}
-
-    h1{
-      font-family:"Fredoka","Plus Jakarta Sans",system-ui;
-      font-size:clamp(34px,4.5vw,56px);
-      margin:0 0 14px;
-    }
-
-    p.lead{
-      max-width:760px;
-      font-size:clamp(16px,2vw,20px);
-      color:rgba(171,163,241,.85);
-      margin:0 0 32px;
-    }
-
-    .posts{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-      gap:24px;
-    }
-
-    .post{
-      border-radius:22px;
-      border:1px solid rgba(171,163,241,.18);
-      background:
-        radial-gradient(120% 120% at 10% 10%, rgba(255,255,255,.18), transparent 45%),
-        linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,.10));
-      padding:22px;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      transition:transform .15s ease, filter .15s ease;
-    }
-
-    .post:hover{
-      transform:translateY(-2px);
-      filter:brightness(1.04);
-    }
-
-    .post time{
-      font-size:13px;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      opacity:.75;
-    }
-
-    .post h2{
-      font-family:"Fredoka","Plus Jakarta Sans",system-ui;
-      font-size:22px;
-      margin:0;
-      line-height:1.15;
-    }
-
-    .post p{
-      margin:0;
-      color:rgba(171,163,241,.85);
-      line-height:1.4;
-      font-size:16px;
-    }
-
-    .read{
-      margin-top:auto;
-      font-weight:800;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      font-size:13px;
-      opacity:.9;
-    }
-
-    footer{
-      border-top:1px solid rgba(171,163,241,.18);
-      margin-top:56px;
-      padding:22px 0;
-      text-align:center;
-      font-weight:600;
-      opacity:.85;
-    }
-  </style>
+  <link rel="stylesheet" href="../styles.css" />
 </head>
 
 <body>
 
-  <main class="wrap">
-    <h1>Luma Blog</h1>
-    <p class="lead">
-      Science-backed writing on matcha, gut health, protein foods, and functional nutrition —
-      written for New Zealanders who want better everyday health.
-    </p>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="logo" href="../" aria-label="LumaFood home">
+      <img src="../logo.webp" alt="LumaFood logo" />
+    </a>
+  </div>
+</header>
 
-    <section class="posts">
+<main>
 
-      <article class="post">
-        <time datetime="2025-10-24">24 Oct 2025</time>
-        <h2>The Science-Backed Health Benefits of Matcha</h2>
+  <!-- HERO -->
+  <section class="page">
+    <div class="wrap wrap-narrow">
+      <div class="hero">
+        <h1>Luma Blog</h1>
         <p>
-          What makes matcha different from green tea, how EGCG and L-theanine work,
-          and why real matcha delivers measurable health benefits.
+          Science-backed insights on matcha, gut health, caffeine,
+          and functional nutrition — written for New Zealand.
         </p>
-        <a class="read" href="./2025-10-24-the-science-backed-health-benefits-of-matcha/">
-          Read article →
-        </a>
-      </article>
+      </div>
 
-      <article class="post">
-        <time datetime="2025-09-16">16 Sep 2025</time>
-        <h2>Matcha Soda vs Coffee: Which Is Better?</h2>
-        <p>
-          Comparing caffeine, focus, gut impact, and energy crashes —
-          and why matcha soda is emerging as a smarter alternative.
-        </p>
-        <a class="read" href="./2025-09-16-matcha-soda-vs-coffee-nz/">
-          Read article →
-        </a>
-      </article>
+      <!-- POSTS -->
+      <div class="softPanel">
+        <div class="carousel">
 
-    </section>
-  </main>
+          <!-- Post 1 -->
+          <article class="card">
+            <div class="cardMedia">
+              <img
+                src="../assets/images/blog/matcha-benefits.webp"
+                alt="Health benefits of matcha tea"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
 
-  <footer>
-    <a href="../">← Back to LumaFood</a>
-  </footer>
+            <div class="ctaRow">
+              <a class="btn"
+                 href="./2025-10-24-the-science-backed-health-benefits-of-matcha/">
+                The Science-Backed Health Benefits of Matcha
+              </a>
+            </div>
+          </article>
+
+          <!-- Post 2 -->
+          <article class="card">
+            <div class="cardMedia">
+              <img
+                src="../assets/images/blog/matcha-vs-coffee.webp"
+                alt="Matcha soda vs coffee comparison"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+
+            <div class="ctaRow">
+              <a class="btn"
+                 href="./2025-09-16-matcha-soda-vs-coffee-nz/">
+                Matcha Soda vs Coffee (NZ)
+              </a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footerInner">
+    <div class="footerLinks">
+      <a href="../">Home</a>
+      <a href="../products/">Products</a>
+      <a href="../about/">About</a>
+      <a href="../contact/">Contact</a>
+      <a href="../privacy/">Privacy</a>
+      <a href="../terms/">Terms</a>
+    </div>
+  </div>
+</footer>
 
 </body>
 </html>
