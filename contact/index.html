@@ -8,10 +8,12 @@
   <link rel="canonical" href="https://lumafood.com/contact/" />
   <meta name="robots" content="index,follow" />
 
+  <!-- Fonts (moved out of CSS @import) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Fredoka:wght@400;500;600;700&display=swap">
+
   <style>
-
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Fredoka:wght@400;500;600;700&display=swap');
-
     :root{
       --font-body: "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       --font-display: "Fredoka", "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
@@ -67,25 +69,39 @@
       margin:0 auto;
       padding: 6px var(--pad);
       display:grid;
-      grid-template-columns: 44px 1fr 44px;
+      grid-template-columns: 60px auto 60px; /* changed */
       align-items:center;
       gap: 8px;
     }
 
     .hamburger{
-      width:36px; height:36px;
+      width:52px; height:52px; /* changed */
       border-radius: 999px;
-      border: 1px solid rgba(171,163,241,.22);
-      background: rgba(0,0,0,.10);
-      box-shadow: 0 8px 22px rgba(0,0,0,.18);
+      border: 1px solid rgba(171,163,241,.34); /* changed */
+      background:
+        radial-gradient(18px 18px at 30% 25%, rgba(245,228,130,.55), transparent 60%),
+        radial-gradient(22px 22px at 70% 75%, rgba(49,112,78,.55), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.16), rgba(0,0,0,.16));
+      box-shadow:
+        0 18px 46px rgba(0,0,0,.32),
+        0 0 0 6px rgba(171,163,241,.10);
       display:grid; place-items:center;
       cursor:pointer;
+      transition: transform .15s ease, filter .15s ease;
     }
+    .hamburger:hover{filter: brightness(1.06)}
     .hamburger:active{transform: translateY(1px)}
+    .hamburger:focus-visible{
+      outline:none;
+      box-shadow:
+        0 18px 46px rgba(0,0,0,.32),
+        0 0 0 4px rgba(245,228,130,.45),
+        0 0 0 8px rgba(171,163,241,.12);
+    }
 
     .burger{
-      width:18px;
-      height:14px;
+      width:22px; /* changed */
+      height:16px; /* changed */
       position:relative;
       display:flex;
       flex-direction:column;
@@ -96,11 +112,18 @@
       left:0; right:0;
       height:2px;
       border-radius:999px;
-      background: var(--text);
-      opacity:.9;
+      background: rgba(255,255,255,.92); /* changed */
+      box-shadow: 0 1px 0 rgba(0,0,0,.25);
+      opacity:1; /* changed */
     }
 
-    .logo{display:flex; justify-content:center; align-items:center; pointer-events:auto}
+    .logo{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      pointer-events:auto;
+      justify-self: center; /* changed */
+    }
     .logo img{
       height: 84px;
       width:auto;
@@ -108,9 +131,9 @@
       filter: drop-shadow(0 10px 22px rgba(0,0,0,.22));
     }
 
-    .topbar-spacer{width:44px; height:44px}
+    .topbar-spacer{width:60px; height:60px} /* changed */
 
-    /* Mobile top menu */
+    /* Mobile top menu (kept, but hidden on mobile so hamburger works everywhere) */
     .mobileMenu{
       display:none;
       padding: 0 var(--pad) 14px;
@@ -404,24 +427,30 @@
     }
 
     @media (max-width: 720px){
-      .topbar-inner{grid-template-columns: 56px 1fr 0px}
-      .topbar-spacer{display:none}
-      .mobileMenu{display:block}
-      .sidePanel{display:none}
-      .overlay{display:none}
+      /* keep logo centered + use hamburger panel on mobile */
+      .topbar-inner{grid-template-columns: 60px auto 60px}
+      .topbar-spacer{display:block}
+      .mobileMenu{display:none}
+
+      .sidePanel{
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        width: auto;
+      }
     }
 
     @media (prefers-reduced-motion: reduce){
       *{scroll-behavior:auto !important; transition:none !important}
     }
-
   </style>
 </head>
 <body>
 
   <header class="topbar">
     <div class="topbar-inner">
-      <button class="hamburger" id="menuBtn" aria-label="Open menu">
+      <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false">
         <div class="burger" aria-hidden="true">
           <span></span><span></span><span></span>
         </div>
@@ -495,7 +524,6 @@
       </a>
     </div>
   </aside>
-
 
 <main>
   <section class="wrap wrap-narrow">
@@ -572,7 +600,6 @@
     </div>
   </section>
 
-
   <section class="newsletter">
     <div class="wrap wrap-narrow">
       <div class="newsletter-box">
@@ -626,7 +653,6 @@
 
 </main>
 
-
   <footer>
     <div class="footerInner">
       <div class="footerLinks" aria-label="Footer links">
@@ -665,7 +691,6 @@
     </div>
   </footer>
 
-
   <script>
     const overlay = document.getElementById('overlay');
     const sidePanel = document.getElementById('sidePanel');
@@ -675,25 +700,35 @@
     function openPanel(){
       overlay?.classList.add('show');
       sidePanel?.classList.add('open');
+      menuBtn?.setAttribute('aria-expanded','true');
+      overlay?.setAttribute('aria-hidden','false');
     }
     function closePanel(){
       overlay?.classList.remove('show');
       sidePanel?.classList.remove('open');
+      menuBtn?.setAttribute('aria-expanded','false');
+      overlay?.setAttribute('aria-hidden','true');
     }
 
     menuBtn?.addEventListener('click', () => {
-      if (window.matchMedia('(max-width: 720px)').matches) return;
-      openPanel();
+      const isOpen = sidePanel?.classList.contains('open');
+      if(isOpen) closePanel();
+      else openPanel();
     });
+
     closeBtn?.addEventListener('click', closePanel);
     overlay?.addEventListener('click', closePanel);
+
+    window.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape') closePanel();
+    });
+
     sidePanel?.addEventListener('click', (e) => {
       const a = e.target.closest('a');
       if (!a) return;
       closePanel();
     });
   </script>
-
 
 <script>
   // Spam-safe reveal for email/phone (no plain text in HTML)
