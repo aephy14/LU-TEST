@@ -30,14 +30,12 @@
       margin:0;
       font-family: var(--font-body);
       background:
-        radial-gradient(1200px 900px at 12% -20%, rgba(255,255,255,.18), transparent 55%),
-        radial-gradient(1200px 900px at 88% -10%, rgba(49,112,78,.35), transparent 60%),
-        radial-gradient(1400px 900px at 50% 120%, rgba(245,228,130,.22), transparent 65%),
-        linear-gradient(180deg, rgba(171,163,241,.10), rgba(186,91,88,.55)),
+        radial-gradient(900px 700px at 20% -10%, rgba(245,228,130,.35), transparent 60%),
+        radial-gradient(900px 700px at 80% 10%, rgba(49,112,78,.35), transparent 60%),
+        linear-gradient(180deg, rgba(171,163,241,.12), rgba(186,91,88,.45)),
         var(--bg);
       color: var(--text);
       overflow-x:hidden;
-    }
     }
 
     a{color:inherit; text-decoration:none}
@@ -49,18 +47,15 @@
     .wrap-narrow{max-width:var(--max-narrow)}
 
     /* Header */
-    .topbar{$1z-index: 100;
-      backdrop-filter: blur(16px) saturate(120%);
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
       background:
-        radial-gradient(900px 260px at 15% -40%, rgba(255,255,255,.35), transparent 60%),
-        radial-gradient(900px 260px at 85% -30%, rgba(255,255,255,.18), transparent 65%),
-        linear-gradient(180deg,
-          rgba(186,91,88,.92) 0%,
-          rgba(186,91,88,.72) 38%,
-          rgba(186,91,88,.45) 100%);
-      box-shadow:
-        0 10px 30px rgba(0,0,0,.22),
-        inset 0 -1px 0 rgba(255,255,255,.18);
+        linear-gradient(180deg, rgba(186,91,88,.88), rgba(186,91,88,.35)),
+        radial-gradient(600px 200px at 50% 0%, rgba(245,228,130,.25), transparent 70%);
+      border-bottom: 1px solid rgba(171,163,241,.16);
     }
 
     .topbar-inner{
@@ -122,17 +117,31 @@
     }
     .mobileMenu .menuRow{display:flex; gap:10px; flex-wrap:wrap}
 
-    /* (Mobile menu is hidden on small screens; hamburger opens side panel instead) */
-
     /* Side panel */
-    .overlay{$1z-index: 90;
+    .overlay{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.40);
+      backdrop-filter: blur(6px);
+      z-index: 60;
       opacity:0;
       pointer-events:none;
       transition: opacity .18s ease;
     }
     .overlay.show{opacity:1; pointer-events:auto}
 
-    .sidePanel{$1z-index: 95;
+    .sidePanel{
+      position:fixed;
+      top: 14px;
+      left: 14px;
+      bottom: 14px;
+      width: min(360px, calc(100vw - 28px));
+      border-radius: 26px;
+      background:
+        radial-gradient(900px 600px at 0% 0%, rgba(171,163,241,.20), transparent 55%),
+        linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,.08));
+      border: 1px solid rgba(171,163,241,.16);
+      box-shadow: var(--shadow);
+      z-index: 70;
       transform: translateX(-110%);
       transition: transform .22s ease;
       padding: 16px;
@@ -317,37 +326,6 @@
     .marquee-track span{flex:0 0 auto; display:inline-block;}
     @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
 
-    /* Silver marquee container */
-    .marquee-silver{
-      width:100%;
-      overflow:hidden;
-      margin: 6px 0 20px;
-      background: #ffffff;
-      box-shadow: inset 0 -1px 0 rgba(0,0,0,.08);
-    }
-    }
-    }
-    .marquee-silver .marquee-inner{display:flex; width:max-content}
-    .marquee-silver .marquee-track{
-      display:flex;
-      flex-wrap:nowrap;
-      gap:96px;
-      white-space:nowrap;
-      padding:10px 0;
-      will-change:transform;
-      animation: marquee-rev 26s linear infinite;
-      font-family: var(--font-display);
-      font-weight: 800;
-      font-size: clamp(14px, 1.6vw, 18px);
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      color: #000000;
-      text-shadow: none;
-    }
-    }
-    .marquee-silver .marquee-track span{flex:0 0 auto; display:inline-block;}
-    @keyframes marquee-rev{0%{transform:translateX(-100%)}100%{transform:translateX(0)}}
-
     /* Newsletter */
     .newsletter{padding: 48px 0 36px}
     .newsletter-box{
@@ -386,12 +364,7 @@
     .newsletter-msg.err{color:#ff0f39}
 
     /* Footer */
-    footer{
-      padding: 22px 0 34px;
-      border-top: 1px solid rgba(171,163,241,.12);
-      background: linear-gradient(to top, rgba(0,0,0,.18), rgba(0,0,0,0));
-      color: rgba(171,163,241,.86);
-    }
+    footer{padding: 22px 0 34px; border-top: 1px solid rgba(171,163,241,.12); background: linear-gradient(to top, rgba(0,0,0,.18), rgba(0,0,0,0))}
 
     .footerInner{
       width:100%;
@@ -414,42 +387,8 @@
     @media (max-width: 720px){
       .topbar-inner{grid-template-columns: 56px 1fr 0px}
       .topbar-spacer{display:none}
-
-      /* Use side panel menu on mobile */
-      .mobileMenu{display:none}
-      .sidePanel{display:flex}
-      .overlay{display:block}
-
-      .carousel{padding: 14px; gap: 14px}
-      .cardMedia{height: clamp(280px, 78vw, 560px)}
-    }
-
-    /* Prevent overlay from blocking clicks unless open */
-    .overlay{display:block}
-    .overlay{pointer-events:none}
-    .overlay.show{pointer-events:auto}
-      .topbar-spacer{display:none}
-
-      /* Use the side panel menu on mobile too */
-      .mobileMenu{display:none}
-      .sidePanel{display:flex}
-      .overlay{display:block}
-
-      .carousel{padding: 14px; gap: 14px}
-      .cardMedia{height: clamp(280px, 78vw, 560px)}
-    }
-      .topbar-spacer{display:none}
-
-      /* Hamburger controls the collapsible menu */
       .mobileMenu{display:block}
-      .mobileMenu{padding-left: var(--pad); padding-right: var(--pad);} 
-      .mobileMenu.is-collapsible{max-height:0; padding-bottom:0;}
-
       .sidePanel{display:none}
-      .overlay{display:none}
-      .carousel{padding: 14px; gap: 14px}
-      .cardMedia{height: clamp(280px, 78vw, 560px)}
-    }
       .overlay{display:none}
       .carousel{padding: 14px; gap: 14px}
       .cardMedia{height: clamp(280px, 78vw, 560px)}
@@ -468,7 +407,7 @@
 
   <header class="topbar">
     <div class="topbar-inner">
-      <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+      <button class="hamburger" id="menuBtn" aria-label="Open menu">
         <div class="burger" aria-hidden="true">
           <span></span><span></span><span></span>
         </div>
@@ -481,7 +420,7 @@
       <div class="topbar-spacer" aria-hidden="true"></div>
     </div>
 
-    <nav class="mobileMenu" id="mobileMenu" aria-label="Mobile menu">
+    <nav class="mobileMenu" aria-label="Mobile menu">
       <div class="menuRow">
         <a class="btn" href="./">Home</a>
         <a class="btn" href="./products/">Products</a>
@@ -490,22 +429,7 @@
         <a class="btn" href="./blog/">Blog</a>
       </div>
     </nav>
-
-    </header>
-
-  <!-- Silver marquee below header (standalone) -->
-  <div class="marquee-silver" aria-label="Free shipping banner">
-    <div class="marquee-inner">
-      <div class="marquee-track" aria-hidden="true">
-        <span>Free shipping</span><span>Free shipping</span><span>Free shipping</span><span>Free shipping</span>
-        <span>Free shipping</span><span>Free shipping</span><span>Free shipping</span><span>Free shipping</span>
-      </div>
-      <div class="marquee-track" aria-hidden="true">
-        <span>Free shipping</span><span>Free shipping</span><span>Free shipping</span><span>Free shipping</span>
-        <span>Free shipping</span><span>Free shipping</span><span>Free shipping</span><span>Free shipping</span>
-      </div>
-    </div>
-  </div>
+  </header>
 
   <div class="overlay" id="overlay" aria-hidden="true"></div>
 
@@ -664,55 +588,33 @@
   </footer>
 
   <script>
-    // Navigation (hamburger) — side panel menu for all screen sizes
-    document.addEventListener('DOMContentLoaded', () => {
-      const overlay = document.getElementById('overlay');
-      const sidePanel = document.getElementById('sidePanel');
-      const menuBtn = document.getElementById('menuBtn');
-      const closeBtn = document.getElementById('closeBtn');
+    const overlay = document.getElementById('overlay');
+    const sidePanel = document.getElementById('sidePanel');
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeBtn');
 
-      if (!menuBtn || !sidePanel || !overlay) return;
+    function openPanel(){
+      overlay.classList.add('show');
+      sidePanel.classList.add('open');
+    }
+    function closePanel(){
+      overlay.classList.remove('show');
+      sidePanel.classList.remove('open');
+    }
 
-      const isOpen = () => sidePanel.classList.contains('open');
+    menuBtn?.addEventListener('click', () => {
+      // Only open side panel on desktop; mobile uses top menu.
+      if (window.matchMedia('(max-width: 720px)').matches) return;
+      openPanel();
+    });
+    closeBtn?.addEventListener('click', closePanel);
+    overlay?.addEventListener('click', closePanel);
 
-      const open = () => {
-        overlay.classList.add('show');
-        sidePanel.classList.add('open');
-        menuBtn.setAttribute('aria-expanded', 'true');
-      };
-
-      const close = () => {
-        overlay.classList.remove('show');
-        sidePanel.classList.remove('open');
-        menuBtn.setAttribute('aria-expanded', 'false');
-      };
-
-      const toggle = () => (isOpen() ? close() : open());
-
-      // Ensure closed on load
-      close();
-
-      menuBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        toggle();
-      });
-
-      closeBtn?.addEventListener('click', (e) => {
-        e.preventDefault();
-        close();
-      });
-
-      overlay.addEventListener('click', close);
-
-      sidePanel.addEventListener('click', (e) => {
-        const a = e.target.closest('a');
-        if (a) close();
-      });
-
-      window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') close();
-      });
+    // Close panel after navigating
+    sidePanel?.addEventListener('click', (e) => {
+      const a = e.target.closest('a');
+      if (!a) return;
+      closePanel();
     });
   </script>
 
