@@ -49,10 +49,7 @@
     .wrap-narrow{max-width:var(--max-narrow)}
 
     /* Header */
-    .topbar{
-      position: sticky;
-      top: 0;
-      z-index: 50;
+    .topbar{$1z-index: 100;
       backdrop-filter: blur(16px) saturate(120%);
       background:
         radial-gradient(900px 260px at 15% -40%, rgba(255,255,255,.35), transparent 60%),
@@ -128,30 +125,14 @@
     /* (Mobile menu is hidden on small screens; hamburger opens side panel instead) */
 
     /* Side panel */
-    .overlay{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,.40);
-      backdrop-filter: blur(6px);
-      z-index: 60;
+    .overlay{$1z-index: 90;
       opacity:0;
       pointer-events:none;
       transition: opacity .18s ease;
     }
     .overlay.show{opacity:1; pointer-events:auto}
 
-    .sidePanel{
-      position:fixed;
-      top: 14px;
-      left: 14px;
-      bottom: 14px;
-      width: min(360px, calc(100vw - 28px));
-      border-radius: 26px;
-      background:
-        radial-gradient(900px 600px at 0% 0%, rgba(171,163,241,.20), transparent 55%),
-        linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,.08));
-      border: 1px solid rgba(171,163,241,.16);
-      box-shadow: var(--shadow);
-      z-index: 70;
+    .sidePanel{$1z-index: 95;
       transform: translateX(-110%);
       transition: transform .22s ease;
       padding: 16px;
@@ -406,15 +387,10 @@
 
     /* Footer */
     footer{
-      padding: 28px 0 36px;
-      background:
-        linear-gradient(180deg,
-          rgba(20,18,22,.55) 0%,
-          rgba(14,13,16,.78) 45%,
-          rgba(8,8,10,.92) 100%),
-        radial-gradient(900px 260px at 20% -40%, rgba(255,255,255,.08), transparent 60%);
-      border-top: 1px solid rgba(255,255,255,.08);
-      color: #E6E1D8;
+      padding: 22px 0 34px;
+      border-top: 1px solid rgba(171,163,241,.12);
+      background: linear-gradient(to top, rgba(0,0,0,.18), rgba(0,0,0,0));
+      color: rgba(171,163,241,.86);
     }
 
     .footerInner{
@@ -688,59 +664,56 @@
   </footer>
 
   <script>
-    // Navigation (hamburger) – reliable on all screen sizes
-    const overlay = document.getElementById('overlay');
-    const sidePanel = document.getElementById('sidePanel');
-    const menuBtn = document.getElementById('menuBtn');
-    const closeBtn = document.getElementById('closeBtn');
+    // Navigation (hamburger) — side panel menu for all screen sizes
+    document.addEventListener('DOMContentLoaded', () => {
+      const overlay = document.getElementById('overlay');
+      const sidePanel = document.getElementById('sidePanel');
+      const menuBtn = document.getElementById('menuBtn');
+      const closeBtn = document.getElementById('closeBtn');
 
-    function isPanelOpen(){
-      return !!sidePanel?.classList.contains('open');
-    }
+      if (!menuBtn || !sidePanel || !overlay) return;
 
-    function openPanel(){
-      overlay?.classList.add('show');
-      sidePanel?.classList.add('open');
-      menuBtn?.setAttribute('aria-expanded', 'true');
-    }
+      const isOpen = () => sidePanel.classList.contains('open');
 
-    function closePanel(){
-      overlay?.classList.remove('show');
-      sidePanel?.classList.remove('open');
-      menuBtn?.setAttribute('aria-expanded', 'false');
-    }
+      const open = () => {
+        overlay.classList.add('show');
+        sidePanel.classList.add('open');
+        menuBtn.setAttribute('aria-expanded', 'true');
+      };
 
-    function togglePanel(){
-      isPanelOpen() ? closePanel() : openPanel();
-    }
+      const close = () => {
+        overlay.classList.remove('show');
+        sidePanel.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      };
 
-    // Click handlers
-    menuBtn?.addEventListener('click', (e) => {
-      e.preventDefault();
-      togglePanel();
+      const toggle = () => (isOpen() ? close() : open());
+
+      // Ensure closed on load
+      close();
+
+      menuBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        toggle();
+      });
+
+      closeBtn?.addEventListener('click', (e) => {
+        e.preventDefault();
+        close();
+      });
+
+      overlay.addEventListener('click', close);
+
+      sidePanel.addEventListener('click', (e) => {
+        const a = e.target.closest('a');
+        if (a) close();
+      });
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') close();
+      });
     });
-
-    closeBtn?.addEventListener('click', (e) => {
-      e.preventDefault();
-      closePanel();
-    });
-
-    overlay?.addEventListener('click', closePanel);
-
-    // Close after navigating
-    sidePanel?.addEventListener('click', (e) => {
-      const a = e.target.closest('a');
-      if (!a) return;
-      closePanel();
-    });
-
-    // Esc key closes
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closePanel();
-    });
-
-    // Safety: on load, ensure closed
-    closePanel();
   </script>
 
   <script>
