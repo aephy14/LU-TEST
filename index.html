@@ -116,7 +116,13 @@
       box-shadow: 0 1px 0 rgba(0,0,0,.25);
     }
 
-    .logo{display:flex; justify-content:center; align-items:center; pointer-events:auto}
+    .logo{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      pointer-events:auto;
+      justify-self: center; /* ✅ Fix: true center in grid */
+    }
     .logo img{
       height: 84px;
       width:auto;
@@ -424,10 +430,10 @@
 
     /* Responsive */
     @media (max-width: 720px){
-      .topbar-inner{grid-template-columns: 60px 1fr 0px}
-      .topbar-spacer{display:none}
+      /* ✅ Fix: keep equal left+right columns so logo is perfectly centered */
+      .topbar-inner{grid-template-columns: 60px auto 60px}
+      .topbar-spacer{display:block}
 
-      /* Make side panel fit nicer on small screens */
       .sidePanel{
         top: 10px;
         left: 10px;
