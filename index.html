@@ -77,7 +77,6 @@
       box-shadow: 0 8px 22px rgba(0,0,0,.18);
       display:grid; place-items:center;
       cursor:pointer;
-      user-select:none;
     }
     .hamburger:active{transform: translateY(1px)}
 
@@ -386,7 +385,8 @@
 
     /* Responsive */
     @media (max-width: 720px){
-      .topbar-inner{grid-template-columns: 56px 1fr 44px}
+      .topbar-inner{grid-template-columns: 56px 1fr 0px}
+      .topbar-spacer{display:none}
       .mobileMenu{display:block}
       .sidePanel{display:none}
       .overlay{display:none}
@@ -400,71 +400,6 @@
 
     @media (prefers-reduced-motion: reduce){
       *{scroll-behavior:auto !important; transition:none !important}
-    }
-
-    /* =========================
-       BW / ANIME MODE (HOME ONLY)
-       uses WEBP backgrounds
-       ========================= */
-    html.mode-bw{
-      --bg:#0b0b0b;
-      --text:#f4f4f4;
-      --text-weak: rgba(244,244,244,.78);
-      --panel: rgba(255,255,255,.08);
-      --panel2: rgba(255,255,255,.06);
-      --line: rgba(255,255,255,.16);
-      --shadow: 0 26px 90px rgba(0,0,0,.65);
-    }
-
-    html.mode-bw,
-    html.mode-bw body{
-      background:
-        radial-gradient(900px 700px at 15% -10%, rgba(255,255,255,.10), transparent 60%),
-        radial-gradient(900px 700px at 85% 10%, rgba(255,255,255,.08), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.65)),
-        var(--bg) !important;
-    }
-
-    html.mode-bw body::before{
-      content:"";
-      position: fixed;
-      inset: 0;
-      pointer-events:none;
-      z-index: 0;
-      background:
-        url("assets/images/bw/lumafood-bw.webp") center 18% / min(980px, 92vw) no-repeat,
-        url("assets/images/bw/moto-sticker.webp") right 22px bottom 22px / min(420px, 46vw) no-repeat;
-      opacity: .14;
-      filter: contrast(1.1) saturate(0);
-    }
-
-    html.mode-bw body > *{
-      position: relative;
-      z-index: 1;
-    }
-
-    html.mode-bw .softPanel,
-    html.mode-bw .card,
-    html.mode-bw .topbar,
-    html.mode-bw footer{
-      border-color: rgba(255,255,255,.14) !important;
-    }
-
-    html.mode-bw .btn{
-      border: 1px solid rgba(255,255,255,.22) !important;
-      background: rgba(255,255,255,.08) !important;
-      color: rgba(255,255,255,.92) !important;
-    }
-    html.mode-bw .btn:hover{
-      background: rgba(255,255,255,.12) !important;
-    }
-
-    @media (max-width: 720px){
-      html.mode-bw body::before{
-        background:
-          url("assets/images/bw/moto-sticker.webp") right 14px bottom 14px / min(320px, 58vw) no-repeat;
-        opacity: .16;
-      }
     }
   </style>
 </head>
@@ -482,10 +417,7 @@
         <img src="logo.webp" alt="Luma" />
       </a>
 
-      <!-- BW toggle (HOME ONLY) -->
-      <button class="hamburger" id="bwBtn" aria-label="Toggle black and white mode" title="B/W mode">
-        <div style="font-weight:900; letter-spacing:.08em;">BW</div>
-      </button>
+      <div class="topbar-spacer" aria-hidden="true"></div>
     </div>
 
     <nav class="mobileMenu" aria-label="Mobile menu">
@@ -563,7 +495,7 @@
           <div class="carousel home">
             <article class="card">
               <div class="cardMedia">
-                <img loading="lazy" decoding="async" alt="Luma high protein bread" seen="false" src="assets/images/home/hero-bread.webp" />
+                <img loading="lazy" decoding="async" alt="Luma high protein bread" src="assets/images/home/hero-bread.webp" />
               </div>
               <div class="ctaRow"><a class="btn" href="./products/">Order Protein Bread</a></div>
             </article>
@@ -721,28 +653,5 @@
       });
     })();
   </script>
-
-  <!-- BW / Anime mode toggle (HOME ONLY) -->
-  <script>
-    (function(){
-      const key = 'luma_home_mode';
-      const btn = document.getElementById('bwBtn');
-
-      function apply(mode){
-        document.documentElement.classList.toggle('mode-bw', mode === 'bw');
-      }
-
-      const saved = localStorage.getItem(key);
-      if(saved) apply(saved);
-
-      btn?.addEventListener('click', () => {
-        const isBW = document.documentElement.classList.contains('mode-bw');
-        const next = isBW ? 'default' : 'bw';
-        localStorage.setItem(key, next);
-        apply(next);
-      });
-    })();
-  </script>
-
 </body>
 </html>
