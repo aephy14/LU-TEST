@@ -18,9 +18,12 @@
   <meta property="og:image" content="https://lumafood.com/assets/images/home/hero-matcha.webp" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Fredoka:wght@400;500;600;700&display=swap');
+  <!-- Fonts (faster than @import) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Fredoka:wght@400;500;600;700&display=swap">
 
+  <style>
     :root{
       --font-body: "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       --font-display: "Fredoka", "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
@@ -81,20 +84,26 @@
       gap: 8px;
     }
 
+    /* ✅ UPDATED: accented hamburger (same style as home/contact/blog) */
     .hamburger{
-      width:36px; height:36px;
+      width:52px; height:52px;
       border-radius: 999px;
-      border: 1px solid rgba(171,163,241,.22);
-      background: rgba(0,0,0,.10);
-      box-shadow: 0 8px 22px rgba(0,0,0,.18);
+      border: 1px solid rgba(171,163,241,.34);
+      background:
+        radial-gradient(18px 18px at 28% 26%, rgba(245,228,130,.55), transparent 60%),
+        radial-gradient(22px 22px at 70% 76%, rgba(49,112,78,.55), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.16), rgba(0,0,0,.16));
+      box-shadow:
+        0 18px 46px rgba(0,0,0,.32),
+        0 0 0 6px rgba(171,163,241,.10);
       display:grid; place-items:center;
       cursor:pointer;
     }
     .hamburger:active{transform: translateY(1px)}
 
     .burger{
-      width:18px;
-      height:14px;
+      width:22px;
+      height:16px;
       position:relative;
       display:flex;
       flex-direction:column;
@@ -105,8 +114,8 @@
       left:0; right:0;
       height:2px;
       border-radius:999px;
-      background: var(--text);
-      opacity:.9;
+      background:#fff;
+      opacity:.95;
     }
 
     .logo{display:flex; justify-content:center; align-items:center; pointer-events:auto}
@@ -116,6 +125,7 @@
       display:block;
       filter: drop-shadow(0 10px 22px rgba(0,0,0,.22));
     }
+
     .topbar-spacer{width:44px; height:44px}
 
     /* Mobile top menu */
@@ -268,7 +278,7 @@
       display:block;
     }
 
-    /* ✅ NEW: Card description between hero image and label */
+    /* Card description between hero image and label */
     .cardDesc{
       padding: 14px 16px;
       font-size: 15px;
@@ -360,11 +370,17 @@
     .footerLinks a:hover{background: rgba(0,0,0,.16)}
 
     @media (max-width: 720px){
+      /* ✅ UPDATED: ensures logo is centered on mobile (same pattern as other pages) */
       .topbar-inner{grid-template-columns: 56px 1fr 0px}
       .topbar-spacer{display:none}
+
+      /* Keep mobile strip nav as-is */
       .mobileMenu{display:block}
+
+      /* Hide side panel/overlay on mobile (mobile uses top strip links) */
       .sidePanel{display:none}
       .overlay{display:none}
+
       .carousel{padding: 14px; gap: 14px}
       .cardMedia{height: clamp(280px, 78vw, 560px)}
       .labelMedia{height: clamp(200px, 62vw, 340px)}
@@ -470,7 +486,7 @@
       </a>
       <a class="iconBtn" href="https://wa.me/+4915212111139" aria-label="WhatsApp">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M21 12a8.9 8.9 0 0 1-13.6 7.6L3 21l1.5-4.2A9 9 0 1 1 21 12Z"/>
+          <path d="M21 12a8.9 8.9 0 0 1-13.6 7.6L3 21l1.5-4.2A9 9 9 0 1 1 21 12Z"/>
           <path d="M8.5 8.5c.5 4 3 6.5 7 7"/>
         </svg>
       </a>
@@ -639,7 +655,7 @@
         </a>
         <a class="iconBtn" href="https://wa.me/+4915212111139" aria-label="WhatsApp">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M21 12a8.9 8.9 0 0 1-13.6 7.6L3 21l1.5-4.2A9 9 0 1 1 21 12Z"/>
+            <path d="M21 12a8.9 8.9 0 0 1-13.6 7.6L3 21l1.5-4.2A9 9 9 0 1 1 21 12Z"/>
             <path d="M8.5 8.5c.5 4 3 6.5 7 7"/>
           </svg>
         </a>
@@ -654,12 +670,12 @@
     const closeBtn = document.getElementById('closeBtn');
 
     function openPanel(){
-      overlay.classList.add('show');
-      sidePanel.classList.add('open');
+      overlay?.classList.add('show');
+      sidePanel?.classList.add('open');
     }
     function closePanel(){
-      overlay.classList.remove('show');
-      sidePanel.classList.remove('open');
+      overlay?.classList.remove('show');
+      sidePanel?.classList.remove('open');
     }
 
     menuBtn?.addEventListener('click', () => {
