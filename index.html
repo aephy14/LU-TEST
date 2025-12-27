@@ -137,6 +137,36 @@
 
     .topbar-spacer{width:60px; height:60px}
 
+    /* ✅ ADDED: BW toggle button (same size as spacer column) */
+    .bwBtn{
+      width:52px; height:52px;
+      border-radius: 999px;
+      border: 1px solid rgba(171,163,241,.34);
+      background: rgba(0,0,0,.10);
+      color: var(--text);
+      font-family: var(--font-display);
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      cursor:pointer;
+      display:grid;
+      place-items:center;
+      transition: transform .15s ease, filter .15s ease, background .15s ease, box-shadow .15s ease;
+      box-shadow:
+        0 18px 46px rgba(0,0,0,.24),
+        0 0 0 6px rgba(171,163,241,.10);
+      justify-self:end;
+    }
+    .bwBtn:hover{filter: brightness(1.06)}
+    .bwBtn:active{transform: translateY(1px)}
+    .bwBtn:focus-visible{
+      outline:none;
+      box-shadow:
+        0 18px 46px rgba(0,0,0,.32),
+        0 0 0 4px rgba(245,228,130,.45),
+        0 0 0 8px rgba(171,163,241,.12);
+    }
+
     /* Side panel */
     .overlay{
       position:fixed; inset:0;
@@ -458,6 +488,69 @@
     @media (prefers-reduced-motion: reduce){
       *{scroll-behavior:auto !important; transition:none !important}
     }
+
+    /* =========================
+       ✅ ADDED: BW COMIC MODE
+       ========================= */
+    body.bw{
+      --bg:#ffffff;
+      --text:#0b0b0b;
+      --text-weak: rgba(0,0,0,.78);
+      --panel:#ffffff;
+      --panel2:#ffffff;
+      --line: rgba(0,0,0,.9);
+      --shadow: none;
+
+      color: var(--text);
+      background:#fff !important;
+    }
+
+    body.bw .topbar,
+    body.bw .softPanel,
+    body.bw .sidePanel,
+    body.bw .nav a,
+    body.bw .btn,
+    body.bw .hamburger,
+    body.bw .bwBtn,
+    body.bw .iconBtn,
+    body.bw .footerLinks a,
+    body.bw .newsletter-box,
+    body.bw .newsletter-form input{
+      background:#fff !important;
+      border:2px solid #000 !important;
+      box-shadow:none !important;
+    }
+
+    body.bw .topbar{backdrop-filter:none !important}
+    body.bw .burger span{background:#000 !important; box-shadow:none !important}
+    body.bw .hero p{color: rgba(0,0,0,.78) !important}
+    body.bw .footerLinks{color:#000 !important}
+    body.bw a{color:#000 !important}
+
+    body.bw .accent-matcha,
+    body.bw .accent-protein{color:#000 !important}
+
+    /* Make imagery feel like comic panels */
+    body.bw img{filter: grayscale(1) contrast(1.25) brightness(1.05)}
+
+    /* Marquee becomes white/black too */
+    body.bw .marquee{
+      background:#fff !important;
+      border-top:2px solid #000 !important;
+      border-bottom:2px solid #000 !important;
+    }
+    body.bw .marquee-track{color:#000 !important}
+
+    body.bw footer{
+      background:#fff !important;
+      border-top:2px solid #000 !important;
+    }
+
+    body.bw .btn:hover{
+      background:#000 !important;
+      color:#fff !important;
+      filter:none !important;
+    }
   </style>
 </head>
 <body>
@@ -474,7 +567,8 @@
         <img src="logo.webp" alt="Luma" />
       </a>
 
-      <div class="topbar-spacer" aria-hidden="true"></div>
+      <!-- ✅ CHANGED: replaced the spacer with BW toggle button -->
+      <button class="bwBtn" id="bwBtn" type="button" aria-pressed="false" aria-label="Toggle black and white mode">BW</button>
     </div>
   </header>
 
@@ -670,6 +764,29 @@
       if (!a) return;
       closePanel();
     });
+  </script>
+
+  <script>
+    // ✅ ADDED: BW toggle (persists)
+    (function(){
+      const btn = document.getElementById('bwBtn');
+      if(!btn) return;
+
+      function setBW(on){
+        document.body.classList.toggle('bw', !!on);
+        btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+        btn.textContent = on ? 'CLR' : 'BW';
+      }
+
+      const saved = localStorage.getItem('luma_bw');
+      if(saved === '1') setBW(true);
+
+      btn.addEventListener('click', () => {
+        const on = !document.body.classList.contains('bw');
+        setBW(on);
+        localStorage.setItem('luma_bw', on ? '1' : '0');
+      });
+    })();
   </script>
 
   <script>
