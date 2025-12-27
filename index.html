@@ -3,17 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Luma Blog — science-backed insights on matcha, gut health, and functional nutrition in NZ." />
-  <title>Luma Blog</title>
-
-  <!-- Optional but good SEO -->
-  <link rel="canonical" href="https://lumafood.com/blog/" />
-
-  <!-- OG tags (put in <head>) -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Luma Blog" />
-  <meta property="og:description" content="Science-backed insights on matcha, gut health, and functional nutrition in NZ." />
-  <meta property="og:url" content="https://lumafood.com/blog/" />
+  <meta name="description" content="LumaFood" />
+  <title>LumaFood</title>
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Fredoka:wght@400;500;600;700&display=swap');
@@ -114,12 +105,6 @@
       filter: drop-shadow(0 10px 22px rgba(0,0,0,.22));
     }
 
-    /* ✅ BLOG ONLY: shrink logo */
-    .topbar .logo img{
-      height: 44px;
-      max-height: 44px;
-    }
-
     .topbar-spacer{width:44px; height:44px}
 
     /* Mobile top menu */
@@ -216,6 +201,9 @@
     main{min-height: calc(100vh - 64px)}
     .hero{padding: 18px 0 10px}
 
+    .accent-matcha{color:#31704e}
+    .accent-protein{color:#fa2239}
+
     .hero h1{
       font-family: var(--font-display);
       margin: 0;
@@ -246,6 +234,7 @@
       overflow:hidden;
     }
 
+    /* Home carousel */
     .carousel{
       display:grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -266,7 +255,7 @@
     }
 
     .cardMedia{
-      height: clamp(260px, 26vw, 520px);
+      height: clamp(320px, 32vw, 620px);
       padding: 0;
       display:flex;
       align-items:stretch;
@@ -306,7 +295,77 @@
     .btn:hover{background: rgba(255,255,255,.14); filter: brightness(1.02)}
     .btn:active{transform: translateY(1px)}
 
+    /* Contact-only Send button (kept for consistency across site styles) */
+    .btn-send{
+      border: none;
+      background: linear-gradient(135deg, #31704e, #4c9a6a);
+      color: #fff;
+      padding: 13px 20px;
+      border-radius: 16px;
+      box-shadow: 0 12px 28px rgba(0,0,0,.28);
+    }
+
+    /* Marquee banner (continuous) */
+    .marquee{width:100%; overflow:hidden; background:#000; border-top:1px solid rgba(255,255,255,.14); border-bottom:1px solid rgba(255,255,255,.14)}
+    .marquee-inner{display:flex; width:max-content}
+    .marquee-track{
+      display:flex;
+      flex-wrap:nowrap;
+      gap:96px;
+      white-space:nowrap;
+      padding:14px 0;
+      will-change:transform;
+      animation: marquee 36s linear infinite;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(18px, 1.8vw, 22px);
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:#fff;
+    }
+    .marquee-track span{flex:0 0 auto; display:inline-block;}
+    @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
+
+    /* Newsletter */
+    .newsletter{padding: 48px 0 36px}
+    .newsletter-box{
+      border-radius: 28px;
+      border: 1px solid rgba(171,163,241,.18);
+      background:
+        radial-gradient(700px 420px at 0% 0%, rgba(171,163,241,.22), transparent 55%),
+        linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,.08));
+      padding: 28px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.28);
+      text-align:center;
+    }
+    .newsletter-box h2{
+      font-family:"Baloo 2","Plus Jakarta Sans",system-ui;
+      margin:0 0 8px;
+      font-size: clamp(26px, 3vw, 36px);
+    }
+    .newsletter-box p{margin:0 0 18px; color: var(--text-weak)}
+
+    .newsletter-form{display:flex; gap:12px; justify-content:center; flex-wrap:wrap;}
+    .newsletter-form input{
+      min-width: 240px;
+      flex:1 1 260px;
+      border-radius: 999px;
+      border: 1px solid rgba(171,163,241,.22);
+      background: rgba(0,0,0,.12);
+      padding: 14px 18px;
+      font-size: 16px;
+      color: var(--text);
+      outline:none;
+    }
+    .newsletter-form input::placeholder{color: rgba(171,163,241,.55)}
+
+    .newsletter-msg{flex: 1 1 100%; font-size: 14px; color: var(--text-weak); margin-top: 4px}
+    .newsletter-msg.ok{color:#f5e482}
+    .newsletter-msg.err{color:#ff0f39}
+
+    /* Footer */
     footer{padding: 22px 0 34px; border-top: 1px solid rgba(171,163,241,.12); background: linear-gradient(to top, rgba(0,0,0,.18), rgba(0,0,0,0))}
+
     .footerInner{
       width:100%;
       max-width: var(--max-wide);
@@ -320,9 +379,11 @@
     }
 
     .footerLinks{display:flex; gap: 12px; flex-wrap:wrap; font-weight: 600; color: rgba(171,163,241,.86)}
+
     .footerLinks a{padding: 8px 12px; border-radius: 999px; border: 1px solid rgba(171,163,241,.14); background: rgba(0,0,0,.10)}
     .footerLinks a:hover{background: rgba(0,0,0,.16)}
 
+    /* Responsive */
     @media (max-width: 720px){
       .topbar-inner{grid-template-columns: 56px 1fr 0px}
       .topbar-spacer{display:none}
@@ -330,7 +391,11 @@
       .sidePanel{display:none}
       .overlay{display:none}
       .carousel{padding: 14px; gap: 14px}
-      .cardMedia{height: clamp(220px, 70vw, 460px)}
+      .cardMedia{height: clamp(280px, 78vw, 560px)}
+    }
+
+    @media (min-width: 980px){
+      .carousel.home{grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; padding: 18px}
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -348,9 +413,8 @@
         </div>
       </button>
 
-      <!-- ✅ blog lives in /blog/ so go up one level for logo + home link -->
-      <a class="logo" href="../" aria-label="Home">
-        <img src="../logo.webp" alt="Luma" />
+      <a class="logo" href="./" aria-label="Home">
+        <img src="logo.webp" alt="Luma" />
       </a>
 
       <div class="topbar-spacer" aria-hidden="true"></div>
@@ -358,11 +422,11 @@
 
     <nav class="mobileMenu" aria-label="Mobile menu">
       <div class="menuRow">
-        <a class="btn" href="../">Home</a>
-        <a class="btn" href="../products/">Products</a>
-        <a class="btn" href="../about/">About</a>
-        <a class="btn" href="../contact/">Contact</a>
-        <a class="btn" href="./">Blog</a>
+        <a class="btn" href="./">Home</a>
+        <a class="btn" href="./products/">Products</a>
+        <a class="btn" href="./about/">About</a>
+        <a class="btn" href="./contact/">Contact</a>
+        <a class="btn" href="./blog/">Blog</a>
       </div>
     </nav>
   </header>
@@ -372,7 +436,7 @@
   <aside class="sidePanel" id="sidePanel" aria-label="Menu panel">
     <div class="panelTop">
       <div class="panelLogo">
-        <img src="../logo.webp" alt="Luma" />
+        <img src="logo.webp" alt="Luma" />
       </div>
       <button class="closeBtn" id="closeBtn" aria-label="Close menu">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -383,11 +447,11 @@
     </div>
 
     <nav class="nav" aria-label="Primary">
-      <a href="../"><span>Home</span><span class="dot" aria-hidden="true"></span></a>
-      <a href="../products/"><span>Products</span><span class="dot" aria-hidden="true"></span></a>
-      <a href="../about/"><span>About</span><span class="dot" aria-hidden="true"></span></a>
-      <a href="../contact/"><span>Contact</span><span class="dot" aria-hidden="true"></span></a>
-      <a href="./"><span>Blog</span><span class="dot" aria-hidden="true"></span></a>
+      <a href="./"><span>Home</span><span class="dot" aria-hidden="true"></span></a>
+      <a href="./products/"><span>Products</span><span class="dot" aria-hidden="true"></span></a>
+      <a href="./about/"><span>About</span><span class="dot" aria-hidden="true"></span></a>
+      <a href="./contact/"><span>Contact</span><span class="dot" aria-hidden="true"></span></a>
+      <a href="./blog/"><span>Blog</span><span class="dot" aria-hidden="true"></span></a>
     </nav>
 
     <div class="panelBottom" aria-label="Social">
@@ -419,45 +483,79 @@
   </aside>
 
   <main>
+    <!-- HOME ONLY -->
     <section>
       <div class="wrap wrap-wide">
         <div class="hero">
-          <h1>Blog</h1>
-          <p>Science-backed insights on matcha, gut health, and functional nutrition in NZ.</p>
+          <h1>High Protein Bread, <span class="accent-matcha">Matcha Soda</span> and <span class="accent-protein">Protein Ice Tea.</span></h1>
+          <p>We're on a mission to create food and drinks using wholefoods and healthy ingredients. Functional products for busy people.</p>
         </div>
 
-        <div class="softPanel" aria-label="Blog posts">
-          <div class="carousel">
+        <div class="softPanel" aria-label="Featured products">
+          <div class="carousel home">
             <article class="card">
               <div class="cardMedia">
-                <img loading="lazy" decoding="async" alt="Matcha health benefits" src="../assets/images/home/hero-matcha.webp" />
+                <img loading="lazy" decoding="async" alt="Luma high protein bread" src="assets/images/home/hero-bread.webp" />
               </div>
-              <div class="ctaRow">
-                <a class="btn" href="./2025-10-24-the-science-backed-health-benefits-of-matcha/">Read: Matcha Benefits</a>
-              </div>
+              <div class="ctaRow"><a class="btn" href="./products/">Order Protein Bread</a></div>
             </article>
-
             <article class="card">
               <div class="cardMedia">
-                <img loading="lazy" decoding="async" alt="Matcha soda vs coffee" src="../assets/images/home/hero-matcha.webp" />
+                <img loading="lazy" decoding="async" alt="Luma matcha soda" src="assets/images/home/hero-matcha.webp" />
               </div>
-              <div class="ctaRow">
-                <a class="btn" href="./2025-09-16-matcha-soda-vs-coffee-nz/">Read: Matcha Soda vs Coffee</a>
+              <div class="ctaRow"><a class="btn" href="./products/">Order Matcha Soda</a></div>
+            </article>
+            <article class="card">
+              <div class="cardMedia">
+                <img loading="lazy" decoding="async" alt="Luma protein ice tea" src="assets/images/home/hero-ice-tea.webp" />
               </div>
+              <div class="ctaRow"><a class="btn" href="./products/">Order Protein Ice Tea</a></div>
             </article>
           </div>
         </div>
       </div>
+
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-inner">
+          <div class="marquee-track">
+            <span>Enjoy life healthy</span><span>Enjoy life healthy</span><span>Enjoy life healthy</span><span>Enjoy life healthy</span>
+            <span>Enjoy life healthy</span><span>Enjoy life healthy</span><span>Enjoy life healthy</span><span>Enjoy life healthy</span>
+          </div>
+          <div class="marquee-track" aria-hidden="true">
+            <span>Enjoy life healthy</span><span>Enjoy life healthy</span><span>Enjoy life healthy</span><span>Enjoy life healthy</span>
+            <span>Enjoy life healthy</span><span>Enjoy life healthy</span><span>Enjoy life healthy</span><span>Enjoy life healthy</span>
+          </div>
+        </div>
+      </div>
+
+      <section class="newsletter">
+        <div class="wrap wrap-narrow">
+          <div class="newsletter-box">
+            <h2>Join the Luma list</h2>
+            <p>New products, early drops, and functional food ideas. No spam.</p>
+            <form class="newsletter-form" action="https://api.web3forms.com/submit" method="POST">
+              <input type="hidden" name="access_key" value="82bdae8a-79ae-4e1a-a927-596d378240e1" />
+              <input type="hidden" name="subject" value="New Luma Newsletter Signup" />
+              <input type="hidden" name="from_name" value="LumaFood" />
+              <input type="hidden" name="redirect" value="false" />
+              <input type="checkbox" name="botcheck" class="hidden" style="display:none">
+              <input type="email" name="email" required placeholder="Your email" />
+              <div class="newsletter-msg" aria-live="polite"></div>
+              <button class="btn btn-send" type="submit">Subscribe</button>
+            </form>
+          </div>
+        </div>
+      </section>
     </section>
   </main>
 
   <footer>
     <div class="footerInner">
       <div class="footerLinks" aria-label="Footer links">
-        <a href="../terms/">TOS</a>
-        <a href="../returns/">Returns</a>
-        <a href="../privacy/">Privacy</a>
-        <a href="./">Blog</a>
+        <a href="./terms/">TOS</a>
+        <a href="./returns/">Returns</a>
+        <a href="./privacy/">Privacy</a>
+        <a href="./blog/">Blog</a>
       </div>
 
       <div class="panelBottom" aria-label="Footer social">
@@ -505,17 +603,55 @@
     }
 
     menuBtn?.addEventListener('click', () => {
+      // Only open side panel on desktop; mobile uses top menu.
       if (window.matchMedia('(max-width: 720px)').matches) return;
       openPanel();
     });
     closeBtn?.addEventListener('click', closePanel);
     overlay?.addEventListener('click', closePanel);
 
+    // Close panel after navigating
     sidePanel?.addEventListener('click', (e) => {
       const a = e.target.closest('a');
       if (!a) return;
       closePanel();
     });
+  </script>
+
+  <script>
+    // Newsletter (Web3Forms) – inline success/error handling (supports multiple forms)
+    (function(){
+      const forms = Array.from(document.querySelectorAll('.newsletter-form'));
+      if(!forms.length) return;
+
+      forms.forEach((form) => {
+        const msg = form.querySelector('.newsletter-msg');
+        if(!msg) return;
+
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          msg.textContent = '';
+          msg.className = 'newsletter-msg';
+
+          const fd = new FormData(form);
+          try{
+            const res = await fetch(form.action, { method:'POST', body: fd });
+            const data = await res.json().catch(() => ({}));
+            if(res.ok && (data.success === true || data.message)){
+              msg.textContent = 'Thanks — you\'re on the list.';
+              msg.classList.add('ok');
+              form.reset();
+            }else{
+              msg.textContent = 'Hmm — that didn\'t work. Try again.';
+              msg.classList.add('err');
+            }
+          }catch(err){
+            msg.textContent = 'Network error — please try again.';
+            msg.classList.add('err');
+          }
+        });
+      });
+    })();
   </script>
 </body>
 </html>
