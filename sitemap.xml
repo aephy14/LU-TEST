@@ -8,6 +8,15 @@
 
   <!-- Core pages -->
   <url>
+    <loc>https://lumafood.com/products/</loc>
+  </url>
+  <url>
+    <loc>https://lumafood.com/about/</loc>
+  </url>
+  <url>
+    <loc>https://lumafood.com/contact/</loc>
+  </url>
+  <url>
     <loc>https://lumafood.com/blog/</loc>
   </url>
 
