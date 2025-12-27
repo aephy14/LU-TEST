@@ -6,9 +6,15 @@
   <meta name="description" content="LumaFood" />
   <title>LumaFood</title>
 
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Fredoka:wght@400;500;600;700&display=swap');
+  <!-- Perf: remove render-blocking @import + preconnect fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Fredoka:wght@400;500;600;700&display=swap">
 
+  <!-- Perf: preload likely LCP image (no new files required) -->
+  <link rel="preload" as="image" href="assets/images/home/hero-bread.webp" fetchpriority="high">
+
+  <style>
     :root{
       --font-body: "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       --font-display: "Fredoka", "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
@@ -496,16 +502,19 @@
           <div class="carousel home">
             <article class="card">
               <div class="cardMedia">
-                <img loading="lazy" decoding="async" alt="Luma high protein bread" src="assets/images/home/hero-bread.webp" />
+                <!-- Perf: eager + high priority for LCP (no new files) -->
+                <img loading="eager" decoding="async" fetchpriority="high" alt="Luma high protein bread" src="assets/images/home/hero-bread.webp" />
               </div>
               <div class="ctaRow"><a class="btn" href="./products/">Order Protein Bread</a></div>
             </article>
+
             <article class="card">
               <div class="cardMedia">
                 <img loading="lazy" decoding="async" alt="Luma matcha soda" src="assets/images/home/hero-matcha.webp" />
               </div>
               <div class="ctaRow"><a class="btn" href="./products/">Order Matcha Soda</a></div>
             </article>
+
             <article class="card">
               <div class="cardMedia">
                 <img loading="lazy" decoding="async" alt="Luma protein ice tea" src="assets/images/home/hero-ice-tea.webp" />
@@ -619,7 +628,6 @@
       if (e.key === 'Escape') closePanel();
     });
 
-    // Close panel after navigating
     sidePanel?.addEventListener('click', (e) => {
       const a = e.target.closest('a');
       if (!a) return;
