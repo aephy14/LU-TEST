@@ -899,8 +899,8 @@
     });
   </script>
 
-  <!-- ============================
-       CART TOGGLE + COUNT (added)
+    <!-- ============================
+       CART TOGGLE + COUNT
        ============================ -->
   <script>
     const CART_KEY = "luma_cart_v1";
@@ -929,6 +929,7 @@
       cartDrawer?.setAttribute("aria-hidden","false");
       cartOverlay?.setAttribute("aria-hidden","false");
     }
+
     function closeCart(){
       cartDrawer?.classList.remove("open");
       cartOverlay?.classList.remove("show");
@@ -936,22 +937,34 @@
       cartOverlay?.setAttribute("aria-hidden","true");
     }
 
-    cartFab?.addEventListener("click", () => { updateCartCount(); openCart(); });
+    cartFab?.addEventListener("click", () => {
+      updateCartCount();
+      openCart();
+    });
+
     cartClose?.addEventListener("click", closeCart);
     cartOverlay?.addEventListener("click", closeCart);
-    window.addEventListener("keydown", (e) => { if(e.key === "Escape") closeCart(); });
+
+    window.addEventListener("keydown", (e) => {
+      if(e.key === "Escape") closeCart();
+    });
 
     updateCartCount();
+
     document.addEventListener("click", (e) => {
       const btn = e.target.closest(".add-to-cart");
       if(!btn) return;
       setTimeout(updateCartCount, 0);
     });
+
     window.addEventListener("storage", updateCartCount);
   </script>
 
-  <!-- Your cart logic (MUST be after the cart UI exists) -->
-  <script src="../js/cart.js" defer></script>
+  <!-- OPTIONAL: fetch live prices -->
+  <script src="../js/prices.js"></script>
+
+  <!-- REQUIRED: cart logic -->
+  <script src="../js/cart.js"></script>
 
 </body>
 </html>
