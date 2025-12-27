@@ -439,6 +439,21 @@
       .topbar-inner{grid-template-columns: 56px 1fr 0px}
       .topbar-spacer{display:none}
 
+      /* Use side panel menu on mobile */
+      .mobileMenu{display:none}
+      .sidePanel{display:flex}
+      .overlay{display:block}
+
+      .carousel{padding: 14px; gap: 14px}
+      .cardMedia{height: clamp(280px, 78vw, 560px)}
+    }
+
+    /* Prevent overlay from blocking clicks unless open */
+    .overlay{display:block}
+    .overlay{pointer-events:none}
+    .overlay.show{pointer-events:auto}
+      .topbar-spacer{display:none}
+
       /* Use the side panel menu on mobile too */
       .mobileMenu{display:none}
       .sidePanel{display:flex}
@@ -477,7 +492,7 @@
 
   <header class="topbar">
     <div class="topbar-inner">
-      <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false">
         <div class="burger" aria-hidden="true">
           <span></span><span></span><span></span>
         </div>
@@ -705,7 +720,28 @@
       togglePanel();
     });
 
-    closeBtn?.addEventListener(
+    closeBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      closePanel();
+    });
+
+    overlay?.addEventListener('click', closePanel);
+
+    // Close after navigating
+    sidePanel?.addEventListener('click', (e) => {
+      const a = e.target.closest('a');
+      if (!a) return;
+      closePanel();
+    });
+
+    // Esc key closes
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closePanel();
+    });
+
+    // Safety: on load, ensure closed
+    closePanel();
+  </script>
 
   <script>
     // Newsletter (Web3Forms) – inline success/error handling (supports multiple forms)
