@@ -269,6 +269,7 @@
       display:flex;
       align-items:stretch;
       justify-content:stretch;
+      position: relative; /* ✅ required for note overlay */
     }
     .cardMedia img{
       width:100%;
@@ -276,6 +277,42 @@
       object-fit: cover;
       object-position: center;
       display:block;
+    }
+
+    /* ✅ NEW: stylised note overlay (only used where you add the .note element) */
+    .note{
+      position:absolute;
+      left: 14px;
+      bottom: 14px;
+      z-index: 2;
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.18);
+      background:
+        radial-gradient(18px 18px at 18% 30%, rgba(245,228,130,.55), transparent 60%),
+        radial-gradient(22px 22px at 82% 78%, rgba(49,112,78,.55), transparent 60%),
+        linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.18));
+      backdrop-filter: blur(10px);
+      box-shadow:
+        0 16px 44px rgba(0,0,0,.40),
+        0 0 0 6px rgba(171,163,241,.10);
+      color: #fff;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-size: 12px;
+      line-height: 1;
+      pointer-events:none;
+    }
+    .note .badge{
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(171,163,241,.95);
+      box-shadow: 0 0 0 6px rgba(171,163,241,.12);
     }
 
     /* Card description between hero image and label */
@@ -384,6 +421,8 @@
       .carousel{padding: 14px; gap: 14px}
       .cardMedia{height: clamp(280px, 78vw, 560px)}
       .labelMedia{height: clamp(200px, 62vw, 340px)}
+
+      .note{left: 12px; bottom: 12px; padding: 9px 11px}
     }
 
     @media (min-width: 980px){
@@ -508,6 +547,8 @@
                 <img loading="lazy" decoding="async"
                   alt="Luma Sugar Free Matcha Soda – organic matcha drink NZ"
                   src="../assets/images/products/matcha-soda/sugarfree/hero.webp" />
+                <!-- ✅ NOTE OVERLAY -->
+                <div class="note" aria-hidden="true"><span class="badge"></span>330ml × 6</div>
               </div>
               <div class="cardDesc">
                 Zero sugar matcha soda made with organic matcha. Carbonated and built for clean energy and calm focus — a functional drink option.
@@ -525,6 +566,8 @@
                 <img loading="lazy" decoding="async"
                   alt="Luma Matcha Soda – organic matcha drink NZ"
                   src="../assets/images/products/matcha-soda/original/hero.webp" />
+                <!-- ✅ NOTE OVERLAY -->
+                <div class="note" aria-hidden="true"><span class="badge"></span>330ml × 6</div>
               </div>
               <div class="cardDesc">
                 Organic matcha soda with a gentle sweetness. Refreshing, functional, and made for everyday balance — an alternative soft drinks.
@@ -549,6 +592,8 @@
                 <img loading="lazy" decoding="async"
                   alt="Luma Protein Bread Plain – high protein bread NZ"
                   src="../assets/images/products/protein-bread/plain/hero.webp" />
+                <!-- ✅ NOTE OVERLAY -->
+                <div class="note" aria-hidden="true"><span class="badge"></span>750g</div>
               </div>
               <div class="cardDesc">
                 High protein bread in New Zealand, made for busy people who want more from everyday food. Filling, soft, and designed to support active routines.
@@ -566,6 +611,8 @@
                 <img loading="lazy" decoding="async"
                   alt="Luma Seeded Protein Bread – nut and seed bread NZ"
                   src="../assets/images/products/protein-bread/seeded/hero.webp" />
+                <!-- ✅ NOTE OVERLAY -->
+                <div class="note" aria-hidden="true"><span class="badge"></span>750g</div>
               </div>
               <div class="cardDesc">
                 Seeded protein bread with seedy goodness. More crunch, more satisfaction — a tasty seed filled bread option to hit those high-protein goals.
@@ -590,6 +637,8 @@
                 <img loading="lazy" decoding="async"
                   alt="Luma Protein Ice Tea Fruit – high protein iced tea NZ"
                   src="../assets/images/products/protein-ice-tea/fruit/hero.webp" />
+                <!-- ✅ NOTE OVERLAY -->
+                <div class="note" aria-hidden="true"><span class="badge"></span>330ml × 6</div>
               </div>
               <div class="cardDesc">
                 Protein ice tea with refreshing fruit flavour. Light, easy-drinking hydration without that milky flavour — ideal post-gym or on the go.
@@ -607,6 +656,8 @@
                 <img loading="lazy" decoding="async"
                   alt="Luma Protein Ice Tea Peach – high protein iced tea NZ"
                   src="../assets/images/products/protein-ice-tea/peach/hero.webp" />
+                <!-- ✅ NOTE OVERLAY -->
+                <div class="note" aria-hidden="true"><span class="badge"></span>330ml × 6</div>
               </div>
               <div class="cardDesc">
                 Peach protein ice tea with a smooth finish. A clean protein drink alternative that supports high-protein goals without heavy sweetness.
