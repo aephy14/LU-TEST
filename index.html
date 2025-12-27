@@ -673,56 +673,39 @@
   </footer>
 
   <script>
+    // Navigation (hamburger) – reliable on all screen sizes
     const overlay = document.getElementById('overlay');
     const sidePanel = document.getElementById('sidePanel');
     const menuBtn = document.getElementById('menuBtn');
     const closeBtn = document.getElementById('closeBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
+
+    function isPanelOpen(){
+      return !!sidePanel?.classList.contains('open');
+    }
 
     function openPanel(){
       overlay?.classList.add('show');
       sidePanel?.classList.add('open');
+      menuBtn?.setAttribute('aria-expanded', 'true');
     }
+
     function closePanel(){
       overlay?.classList.remove('show');
       sidePanel?.classList.remove('open');
+      menuBtn?.setAttribute('aria-expanded', 'false');
     }
 
-    menuBtn?.addEventListener('click', () => {
-      openPanel();
-    });
-        setMobileMenu(!isOpen);
-        return;
-      }
-      openPanel();
+    function togglePanel(){
+      isPanelOpen() ? closePanel() : openPanel();
+    }
+
+    // Click handlers
+    menuBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      togglePanel();
     });
 
-    // Desktop panel close actions
-    closeBtn?.addEventListener('click', closePanel);
-    overlay?.addEventListener('click', closePanel);
-
-    // Close desktop panel after navigating
-    sidePanel?.addEventListener('click', (e) => {
-      const a = e.target.closest('a');
-      if (!a) return;
-      closePanel();
-    });
-
-    // Close mobile menu after navigating
-    mobileMenu?.addEventListener('click', (e) => {
-      const a = e.target.closest('a');
-      if (!a) return;
-      if (window.matchMedia('(max-width: 720px)').matches) setMobileMenu(false);
-    });
-
-    // Keep state sane on resize
-    window.addEventListener('resize', () => {
-      if (!mobileMenu) return;
-      if (!window.matchMedia('(max-width: 720px)').matches) {
-        setMobileMenu(false);
-      }
-    });
-  </script>
+    closeBtn?.addEventListener(
 
   <script>
     // Newsletter (Web3Forms) – inline success/error handling (supports multiple forms)
