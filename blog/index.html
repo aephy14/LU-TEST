@@ -6,16 +6,15 @@
   <meta name="description" content="Luma Blog — Insights on matcha, gut health, and functional nutrition in NZ." />
   <title>Luma Blog</title>
 
-  <!-- Optional but good SEO -->
   <link rel="canonical" href="https://lumafood.com/blog/" />
 
-  <!-- OG tags (put in <head>) -->
+  <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Luma Blog" />
-  <meta property="og:description" content="Personal insights on matcha, gut health, and functional nutrition in NZ." />
+  <meta property="og:description" content="Insights on matcha, gut health, and functional nutrition in NZ." />
   <meta property="og:url" content="https://lumafood.com/blog/" />
 
-  <!-- Fonts (moved out of CSS @import) -->
+  <!-- Fonts (SEO + performance safe) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Fredoka:wght@400;500;600;700&display=swap">
@@ -28,12 +27,10 @@
       --text:#aba3f1;
       --text-weak: rgba(171,163,241,.82);
       --panel: rgba(0,0,0,.14);
-      --panel2: rgba(255,255,255,.08);
       --line: rgba(171,163,241,.22);
       --shadow: 0 20px 70px rgba(0,0,0,.35);
       --radius: 22px;
       --max-wide: 1600px;
-      --max-narrow: 1120px;
       --pad: clamp(14px, 2.2vw, 28px);
     }
 
@@ -51,40 +48,33 @@
     }
 
     a{color:inherit; text-decoration:none}
-    button{font-family:inherit}
     img{max-width:100%; height:auto}
-
-    .wrap{width:100%; margin:0 auto; padding:var(--pad)}
-    .wrap-wide{max-width:var(--max-wide)}
-    .wrap-narrow{max-width:var(--max-narrow)}
 
     /* Header */
     .topbar{
-      position: sticky;
-      top: 0;
-      z-index: 50;
+      position:sticky;
+      top:0;
+      z-index:50;
       backdrop-filter: blur(14px);
       background:
         linear-gradient(180deg, rgba(186,91,88,.88), rgba(186,91,88,.35)),
         radial-gradient(600px 200px at 50% 0%, rgba(245,228,130,.25), transparent 70%);
-      border-bottom: 1px solid rgba(171,163,241,.16);
+      border-bottom:1px solid rgba(171,163,241,.16);
     }
 
     .topbar-inner{
-      width:100%;
-      max-width: var(--max-wide);
+      max-width:var(--max-wide);
       margin:0 auto;
-      padding: 6px var(--pad);
+      padding:6px var(--pad);
       display:grid;
-      grid-template-columns: 60px auto 60px; /* changed */
+      grid-template-columns:60px auto 60px;
       align-items:center;
-      gap: 8px;
     }
 
     .hamburger{
-      width:52px; height:52px; /* changed */
-      border-radius: 999px;
-      border: 1px solid rgba(171,163,241,.34); /* changed */
+      width:52px;height:52px;
+      border-radius:999px;
+      border:1px solid rgba(171,163,241,.34);
       background:
         radial-gradient(18px 18px at 30% 25%, rgba(245,228,130,.55), transparent 60%),
         radial-gradient(22px 22px at 70% 75%, rgba(49,112,78,.55), transparent 60%),
@@ -92,472 +82,199 @@
       box-shadow:
         0 18px 46px rgba(0,0,0,.32),
         0 0 0 6px rgba(171,163,241,.10);
-      display:grid; place-items:center;
+      display:grid;
+      place-items:center;
       cursor:pointer;
-      transition: transform .15s ease, filter .15s ease;
-    }
-    .hamburger:hover{filter: brightness(1.06)}
-    .hamburger:active{transform: translateY(1px)}
-    .hamburger:focus-visible{
-      outline:none;
-      box-shadow:
-        0 18px 46px rgba(0,0,0,.32),
-        0 0 0 4px rgba(245,228,130,.45),
-        0 0 0 8px rgba(171,163,241,.12);
     }
 
-    .burger{
-      width:22px; /* changed */
-      height:16px; /* changed */
-      position:relative;
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-    }
-    .burger span{
-      position:relative;
-      left:0; right:0;
-      height:2px;
-      border-radius:999px;
-      background: rgba(255,255,255,.92); /* changed */
-      box-shadow: 0 1px 0 rgba(0,0,0,.25);
-      opacity:1; /* changed */
-    }
+    .burger{width:22px;height:16px;display:flex;flex-direction:column;justify-content:space-between}
+    .burger span{height:2px;background:#fff;border-radius:999px}
 
-    .logo{
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      pointer-events:auto;
-      justify-self: center; /* changed */
-    }
-    .logo img{
-      height: 84px;
-      width:auto;
-      display:block;
-      filter: drop-shadow(0 10px 22px rgba(0,0,0,.22));
-    }
+    .logo{justify-self:center}
+    .logo img{height:44px}
 
-    /* ✅ BLOG ONLY: shrink logo (kept) */
-    .topbar .logo img{
-      height: 44px;
-      max-height: 44px;
-    }
-
-    .topbar-spacer{width:60px; height:60px} /* changed */
-
-    /* Mobile top menu */
-    .mobileMenu{
-      display:none;
-      padding: 0 var(--pad) 14px;
-      width:100%;
-      max-width: var(--max-wide);
-      margin: 0 auto;
-    }
-    .mobileMenu .menuRow{display:flex; gap:10px; flex-wrap:wrap}
+    .topbar-spacer{width:60px;height:60px}
 
     /* Side panel */
-    .overlay{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,.40);
-      backdrop-filter: blur(6px);
-      z-index: 60;
-      opacity:0;
-      pointer-events:none;
-      transition: opacity .18s ease;
-    }
-    .overlay.show{opacity:1; pointer-events:auto}
+    .overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:.2s}
+    .overlay.show{opacity:1;pointer-events:auto}
 
     .sidePanel{
       position:fixed;
-      top: 14px;
-      left: 14px;
-      bottom: 14px;
-      width: min(360px, calc(100vw - 28px));
-      border-radius: 26px;
-      background:
-        radial-gradient(900px 600px at 0% 0%, rgba(171,163,241,.20), transparent 55%),
-        linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,.08));
-      border: 1px solid rgba(171,163,241,.16);
-      box-shadow: var(--shadow);
-      z-index: 70;
-      transform: translateX(-110%);
-      transition: transform .22s ease;
-      padding: 16px;
+      top:14px;left:14px;bottom:14px;
+      width:min(360px,calc(100vw - 28px));
+      border-radius:26px;
+      background:linear-gradient(180deg,rgba(0,0,0,.22),rgba(0,0,0,.08));
+      border:1px solid rgba(171,163,241,.16);
+      box-shadow:var(--shadow);
+      transform:translateX(-110%);
+      transition:.25s;
+      padding:16px;
       display:flex;
       flex-direction:column;
-      gap: 14px;
+      gap:14px;
     }
-    .sidePanel.open{transform: translateX(0)}
+    .sidePanel.open{transform:translateX(0)}
 
-    .panelTop{display:flex; justify-content:space-between; align-items:center; gap:10px}
-    .panelLogo{display:flex; align-items:center; gap:12px}
-    .panelLogo img{height:34px; width:auto; display:block}
-
-    .closeBtn{
-      width:40px; height:40px;
-      border-radius: 999px;
-      border: 1px solid rgba(171,163,241,.22);
-      background: rgba(0,0,0,.12);
-      cursor:pointer;
-      display:grid; place-items:center;
-    }
-    .closeBtn svg{width:18px; height:18px}
-
-    .nav{display:flex; flex-direction:column; gap:10px; margin-top:6px}
+    .nav{display:flex;flex-direction:column;gap:10px}
     .nav a{
-      border: 1px solid rgba(171,163,241,.18);
-      background: rgba(255,255,255,.06);
-      border-radius: 999px;
-      padding: 10px 12px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(171,163,241,.18);
+      background:rgba(255,255,255,.06);
+      font-weight:600;
       display:flex;
       justify-content:space-between;
-      align-items:center;
-      font-weight: 600;
-      letter-spacing: .02em;
     }
-    .nav a:hover{background: rgba(255,255,255,.09)}
-
-    .nav a .dot{
-      width:10px; height:10px; border-radius:999px;
-      background: rgba(171,163,241,.75);
-      box-shadow: 0 0 0 6px rgba(171,163,241,.10);
-    }
-
-    .panelBottom{margin-top:auto; display:flex; gap:10px; flex-wrap:wrap}
-
-    .iconBtn{
-      width:44px; height:44px;
-      border-radius: 999px;
-      border: 1px solid rgba(171,163,241,.18);
-      background: rgba(0,0,0,.10);
-      display:grid; place-items:center;
-    }
-    .iconBtn:hover{background: rgba(0,0,0,.16)}
-    .iconBtn svg{width:18px; height:18px}
 
     /* Layout */
-    main{min-height: calc(100vh - 64px)}
-    .hero{padding: 18px 0 10px}
-
-    .hero h1{
-      font-family: var(--font-display);
-      margin: 0;
-      font-size: clamp(34px, 4.7vw, 70px);
-      line-height: 1.02;
-      letter-spacing: -0.02em;
-      text-align:left;
-      text-wrap: balance;
-    }
-
-    .hero p{
-      margin: 14px 0 0;
-      max-width: 980px;
-      font-size: clamp(16px, 2.0vw, 22px);
-      line-height: 1.35;
-      color: var(--text-weak);
-    }
+    main{min-height:calc(100vh - 64px)}
+    .wrap{max-width:var(--max-wide);margin:0 auto;padding:var(--pad)}
+    .hero h1{font-family:var(--font-display);margin:0;font-size:clamp(34px,4.7vw,70px)}
+    .hero p{color:var(--text-weak);max-width:960px}
 
     .softPanel{
-      margin-top: 18px;
-      border-radius: var(--radius);
-      border: 1px solid rgba(171,163,241,.14);
-      background:
-        radial-gradient(1400px 800px at 0% 0%, rgba(171,163,241,.45), transparent 55%),
-        radial-gradient(1200px 700px at 100% 0%, rgba(245,228,130,.25), transparent 60%),
-        linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,.10));
-      box-shadow: 0 24px 80px rgba(0,0,0,.35);
-      overflow:hidden;
+      margin-top:18px;
+      border-radius:var(--radius);
+      border:1px solid rgba(171,163,241,.14);
+      background:linear-gradient(180deg,rgba(0,0,0,.22),rgba(0,0,0,.10));
+      box-shadow:0 24px 80px rgba(0,0,0,.35);
     }
 
     .carousel{
       display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-      padding: 24px;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:24px;
+      padding:24px;
     }
+
     .card{
-      min-width: 0;
-      border-radius: 26px;
-      background:
-        radial-gradient(120% 120% at 10% 10%, rgba(255,255,255,.18), transparent 45%),
-        radial-gradient(120% 120% at 90% 90%, rgba(0,0,0,.35), transparent 55%),
-        linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.28));
-      border: 1px solid rgba(171,163,241,.14);
+      border-radius:26px;
+      border:1px solid rgba(171,163,241,.14);
       overflow:hidden;
+      background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(0,0,0,.28));
       display:flex;
       flex-direction:column;
     }
 
-    .cardMedia{
-      height: clamp(260px, 26vw, 520px);
-      padding: 0;
-      display:flex;
-      align-items:stretch;
-      justify-content:stretch;
-    }
-    .cardMedia img{
-      width:100%;
-      height:100%;
-      object-fit: cover;
-      object-position: center;
-      display:block;
+    .cardMedia{display:block}
+    .cardMedia img{width:100%;height:100%;object-fit:cover}
+
+    .imgCap{
+      margin:10px 14px 0;
+      font-size:14px;
+      line-height:1.35;
+      color:var(--text-weak);
     }
 
-    .card .ctaRow{
-      padding: 14px 14px 16px;
+    .ctaRow{
+      padding:14px;
+      border-top:1px solid rgba(171,163,241,.12);
       display:flex;
       justify-content:center;
-      align-items:center;
-      border-top: 1px solid rgba(171,163,241,.12);
-      background: rgba(0,0,0,.08);
     }
 
     .btn{
-      font-family: var(--font-display);
-      border: 1px solid rgba(171,163,241,.28);
-      background: rgba(255,255,255,.10);
-      color: var(--text);
-      padding: 14px 22px;
-      border-radius: 999px;
-      font-weight: 800;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      font-size: 14px;
-      cursor:pointer;
-      transition: transform .15s ease, filter .15s ease, background .15s ease;
-    }
-    .btn:hover{background: rgba(255,255,255,.14); filter: brightness(1.02)}
-    .btn:active{transform: translateY(1px)}
-
-    footer{padding: 22px 0 34px; border-top: 1px solid rgba(171,163,241,.12); background: linear-gradient(to top, rgba(0,0,0,.18), rgba(0,0,0,0))}
-    .footerInner{
-      width:100%;
-      max-width: var(--max-wide);
-      margin: 0 auto;
-      padding: 0 var(--pad);
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap: 10px;
-      flex-wrap:wrap;
+      font-family:var(--font-display);
+      border:1px solid rgba(171,163,241,.28);
+      background:rgba(255,255,255,.10);
+      padding:14px 22px;
+      border-radius:999px;
+      font-weight:800;
+      letter-spacing:.08em;
+      text-transform:uppercase;
     }
 
-    .footerLinks{display:flex; gap: 12px; flex-wrap:wrap; font-weight: 600; color: rgba(171,163,241,.86)}
-    .footerLinks a{padding: 8px 12px; border-radius: 999px; border: 1px solid rgba(171,163,241,.14); background: rgba(0,0,0,.10)}
-    .footerLinks a:hover{background: rgba(0,0,0,.16)}
-
-    @media (max-width: 720px){
-      /* keep logo centered + use hamburger panel on mobile */
-      .topbar-inner{grid-template-columns: 60px auto 60px}
-      .topbar-spacer{display:block}
-      .mobileMenu{display:none}
-
-      .sidePanel{
-        top: 10px;
-        left: 10px;
-        right: 10px;
-        bottom: 10px;
-        width: auto;
-      }
-
-      .carousel{padding: 14px; gap: 14px}
-      .cardMedia{height: clamp(220px, 70vw, 460px)}
-    }
-
-    @media (prefers-reduced-motion: reduce){
-      *{scroll-behavior:auto !important; transition:none !important}
-    }
+    footer{padding:22px 0;border-top:1px solid rgba(171,163,241,.12)}
   </style>
 </head>
 <body>
 
-  <header class="topbar">
-    <div class="topbar-inner">
-      <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false">
-        <div class="burger" aria-hidden="true">
-          <span></span><span></span><span></span>
-        </div>
-      </button>
+<header class="topbar">
+  <div class="topbar-inner">
+    <button class="hamburger" id="menuBtn"><div class="burger"><span></span><span></span><span></span></div></button>
+    <a class="logo" href="../"><img src="../logo.webp" alt="LumaFood logo"></a>
+    <div class="topbar-spacer"></div>
+  </div>
+</header>
 
-      <!-- ✅ blog lives in /blog/ so go up one level for logo + home link -->
-      <a class="logo" href="../" aria-label="Home">
-        <img src="../logo.webp" alt="Luma" />
-      </a>
+<div class="overlay" id="overlay"></div>
 
-      <div class="topbar-spacer" aria-hidden="true"></div>
+<aside class="sidePanel" id="sidePanel">
+  <nav class="nav">
+    <a href="../">Home</a>
+    <a href="../products/">Products</a>
+    <a href="../about/">About</a>
+    <a href="../contact/">Contact</a>
+    <a href="./">Blog</a>
+  </nav>
+</aside>
+
+<main>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Blog</h1>
+      <p>Insights on matcha, gut health, and functional nutrition in NZ.</p>
     </div>
 
-    <nav class="mobileMenu" aria-label="Mobile menu">
-      <div class="menuRow">
-        <a class="btn" href="../">Home</a>
-        <a class="btn" href="../products/">Products</a>
-        <a class="btn" href="../about/">About</a>
-        <a class="btn" href="../contact/">Contact</a>
-        <a class="btn" href="./">Blog</a>
-      </div>
-    </nav>
-  </header>
+    <div class="softPanel">
+      <div class="carousel">
 
-  <div class="overlay" id="overlay" aria-hidden="true"></div>
-
-  <aside class="sidePanel" id="sidePanel" aria-label="Menu panel">
-    <div class="panelTop">
-      <div class="panelLogo">
-        <img src="../logo.webp" alt="Luma" />
-      </div>
-      <button class="closeBtn" id="closeBtn" aria-label="Close menu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M18 6 6 18" />
-          <path d="M6 6 18 18" />
-        </svg>
-      </button>
-    </div>
-
-    <nav class="nav" aria-label="Primary">
-      <a href="../"><span>Home</span><span class="dot" aria-hidden="true"></span></a>
-      <a href="../products/"><span>Products</span><span class="dot" aria-hidden="true"></span></a>
-      <a href="../about/"><span>About</span><span class="dot" aria-hidden="true"></span></a>
-      <a href="../contact/"><span>Contact</span><span class="dot" aria-hidden="true"></span></a>
-      <a href="./"><span>Blog</span><span class="dot" aria-hidden="true"></span></a>
-    </nav>
-
-    <div class="panelBottom" aria-label="Social">
-      <a class="iconBtn" href="https://lumafood.com/m.me/886409911227941" aria-label="Messenger">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M21 11.5a8.5 8.5 0 0 1-12.7 7.4L3 21l1.7-5.3A8.5 8.5 0 1 1 21 11.5Z"/>
-        </svg>
-      </a>
-      <a class="iconBtn" href="https://instagram.com/lumafoodnz" aria-label="Instagram">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect x="3" y="3" width="18" height="18" rx="5"/>
-          <circle cx="12" cy="12" r="4"/>
-          <path d="M17.5 6.5h.01"/>
-        </svg>
-      </a>
-      <a class="iconBtn" href="#" aria-label="TikTok">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M14 3v11a4 4 0 1 1-4-4"/>
-          <path d="M14 7a6 6 0 0 0 6 6"/>
-        </svg>
-      </a>
-      <a class="iconBtn" href="https://wa.me/+4915212111139" aria-label="WhatsApp">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M21 12a8.9 8.9 0 0 1-13.6 7.6L3 21l1.5-4.2A9 9 0 1 1 21 12Z"/>
-          <path d="M8.5 8.5c.5 4 3 6.5 7 7"/>
-        </svg>
-      </a>
-    </div>
-  </aside>
-
-  <main>
-    <section>
-      <div class="wrap wrap-wide">
-        <div class="hero">
-          <h1>Blog</h1>
-          <p>Insights on matcha, gut health, and functional nutrition in NZ.</p>
-        </div>
-
-        <div class="softPanel" aria-label="Blog posts">
-          <div class="carousel">
-            <article class="card">
-              <div class="cardMedia">
-                <img loading="lazy" decoding="async" alt="Matcha health benefits" src="../assets/images/home/hero-matcha.webp" />
-              </div>
-              <div class="ctaRow">
-                <a class="btn" href="./2025-10-24-the-health-benefits-of-matcha/">Read: Matcha Benefits</a>
-              </div>
-            </article>
-
-            <article class="card">
-              <div class="cardMedia">
-                <img loading="lazy" decoding="async" alt="Matcha soda vs coffee" src="../assets/images/home/hero-matcha.webp" />
-              </div>
-              <div class="ctaRow">
-                <a class="btn" href="./2025-09-16-matcha-soda-vs-coffee-nz/">Read: Matcha Soda vs Coffee</a>
-              </div>
-            </article>
+        <article class="card">
+          <a class="cardMedia" href="./2025-10-24-the-health-benefits-of-matcha/">
+            <img
+              src="../assets/images/home/hero-matcha.webp"
+              width="1200"
+              height="1200"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+              alt="Matcha health benefits in New Zealand — calm energy, antioxidants and focus"
+            >
+          </a>
+          <p class="imgCap">Matcha benefits: calm focus, antioxidants, and smoother energy.</p>
+          <div class="ctaRow">
+            <a class="btn" href="./2025-10-24-the-health-benefits-of-matcha/">Read: Matcha Benefits</a>
           </div>
-        </div>
-      </div>
-    </section>
-  </main>
+        </article>
 
-  <footer>
-    <div class="footerInner">
-      <div class="footerLinks" aria-label="Footer links">
-        <a href="../terms/">TOS</a>
-        <a href="../returns/">Returns</a>
-        <a href="../privacy/">Privacy</a>
-        <a href="./">Blog</a>
-      </div>
+        <article class="card">
+          <a class="cardMedia" href="./2025-09-16-matcha-soda-vs-coffee-nz/">
+            <img
+              src="../assets/images/home/hero-matcha.webp"
+              width="1200"
+              height="1200"
+              loading="lazy"
+              decoding="async"
+              alt="Matcha soda vs coffee in NZ — smoother energy, fewer jitters and better focus"
+            >
+          </a>
+          <p class="imgCap">Matcha soda vs coffee: caffeine feel, focus, and taste compared.</p>
+          <div class="ctaRow">
+            <a class="btn" href="./2025-09-16-matcha-soda-vs-coffee-nz/">Read: Matcha Soda vs Coffee</a>
+          </div>
+        </article>
 
-      <div class="panelBottom" aria-label="Footer social">
-        <a class="iconBtn" href="https://lumafood.com/m.me/886409911227941" aria-label="Messenger">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M21 11.5a8.5 8.5 0 0 1-12.7 7.4L3 21l1.7-5.3A8.5 8.5 0 1 1 21 11.5Z"/>
-          </svg>
-        </a>
-        <a class="iconBtn" href="https://instagram.com/lumafoodnz" aria-label="Instagram">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="3" y="3" width="18" height="18" rx="5"/>
-            <circle cx="12" cy="12" r="4"/>
-            <path d="M17.5 6.5h.01"/>
-          </svg>
-        </a>
-        <a class="iconBtn" href="#" aria-label="TikTok">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M14 3v11a4 4 0 1 1-4-4"/>
-            <path d="M14 7a6 6 0 0 0 6 6"/>
-          </svg>
-        </a>
-        <a class="iconBtn" href="https://wa.me/+4915212111139" aria-label="WhatsApp">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M21 12a8.9 8.9 0 0 1-13.6 7.6L3 21l1.5-4.2A9 9 9 0 1 1 21 12Z"/>
-            <path d="M8.5 8.5c.5 4 3 6.5 7 7"/>
-          </svg>
-        </a>
       </div>
     </div>
-  </footer>
+  </div>
+</main>
 
-  <script>
-    const overlay = document.getElementById('overlay');
-    const sidePanel = document.getElementById('sidePanel');
-    const menuBtn = document.getElementById('menuBtn');
-    const closeBtn = document.getElementById('closeBtn');
+<footer>
+  <div class="wrap">
+    <a href="../terms/">TOS</a> ·
+    <a href="../returns/">Returns</a> ·
+    <a href="../privacy/">Privacy</a>
+  </div>
+</footer>
 
-    function openPanel(){
-      overlay?.classList.add('show');
-      sidePanel?.classList.add('open');
-      menuBtn?.setAttribute('aria-expanded','true');
-      overlay?.setAttribute('aria-hidden','false');
-    }
-    function closePanel(){
-      overlay?.classList.remove('show');
-      sidePanel?.classList.remove('open');
-      menuBtn?.setAttribute('aria-expanded','false');
-      overlay?.setAttribute('aria-hidden','true');
-    }
+<script>
+  const menuBtn=document.getElementById('menuBtn');
+  const panel=document.getElementById('sidePanel');
+  const overlay=document.getElementById('overlay');
+  menuBtn.onclick=()=>{panel.classList.toggle('open');overlay.classList.toggle('show')}
+  overlay.onclick=()=>{panel.classList.remove('open');overlay.classList.remove('show')}
+</script>
 
-    menuBtn?.addEventListener('click', () => {
-      const isOpen = sidePanel?.classList.contains('open');
-      if(isOpen) closePanel();
-      else openPanel();
-    });
-
-    closeBtn?.addEventListener('click', closePanel);
-    overlay?.addEventListener('click', closePanel);
-
-    window.addEventListener('keydown', (e) => {
-      if(e.key === 'Escape') closePanel();
-    });
-
-    sidePanel?.addEventListener('click', (e) => {
-      const a = e.target.closest('a');
-      if (!a) return;
-      closePanel();
-    });
-  </script>
 </body>
 </html>
