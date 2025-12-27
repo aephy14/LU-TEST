@@ -675,24 +675,26 @@
     const sidePanel = document.getElementById('sidePanel');
     const menuBtn = document.getElementById('menuBtn');
     const closeBtn = document.getElementById('closeBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
 
     function openPanel(){
-      overlay.classList.add('show');
-      sidePanel.classList.add('open');
+      overlay?.classList.add('show');
+      sidePanel?.classList.add('open');
     }
     function closePanel(){
-      overlay.classList.remove('show');
-      sidePanel.classList.remove('open');
+      overlay?.classList.remove('show');
+      sidePanel?.classList.remove('open');
     }
 
-    // Mobile: hamburger toggles the collapsible top menu
-    const mobileMenu = document.getElementById('mobileMenu');
     function setMobileMenu(open){
       if(!mobileMenu) return;
       mobileMenu.classList.add('is-collapsible');
       mobileMenu.classList.toggle('open', !!open);
       menuBtn?.setAttribute('aria-expanded', open ? 'true' : 'false');
     }
+
+    // Init (mobile menu closed by default)
+    setMobileMenu(false);
 
     menuBtn?.addEventListener('click', () => {
       if (window.matchMedia('(max-width: 720px)').matches) {
@@ -703,7 +705,7 @@
       openPanel();
     });
 
-    // Close desktop panel
+    // Desktop panel close actions
     closeBtn?.addEventListener('click', closePanel);
     overlay?.addEventListener('click', closePanel);
 
@@ -727,9 +729,6 @@
       if (!window.matchMedia('(max-width: 720px)').matches) {
         setMobileMenu(false);
       }
-    });
-      if (!a) return;
-      closePanel();
     });
   </script>
 
