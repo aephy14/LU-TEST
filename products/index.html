@@ -432,6 +432,96 @@
     @media (prefers-reduced-motion: reduce){
       *{scroll-behavior:auto !important; transition:none !important}
     }
+
+    /* ============================
+       CART (added — minimal changes)
+       ============================ */
+
+    .cartFab{
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 1000;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 999px;
+      box-shadow: 0 18px 46px rgba(0,0,0,.32), 0 0 0 6px rgba(171,163,241,.10);
+    }
+    .cartCount{
+      min-width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      display: inline-grid;
+      place-items: center;
+      font-weight: 900;
+      font-size: 12px;
+      background: rgba(0,0,0,.25);
+      border: 1px solid rgba(255,255,255,.22);
+      color: #fff;
+    }
+
+    .cartOverlay{
+      position: fixed;
+      inset: 0;
+      z-index: 1001;
+      background: rgba(0,0,0,.45);
+      backdrop-filter: blur(6px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s ease;
+    }
+    .cartOverlay.show{
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .cartDrawer{
+      position: fixed;
+      right: 14px;
+      top: 14px;
+      bottom: 14px;
+      width: min(520px, calc(100vw - 28px));
+      z-index: 1002;
+      transform: translateX(110%);
+      transition: transform .22s ease;
+      border-radius: 26px;
+      overflow: auto;
+
+      border: 1px solid rgba(171,163,241,.18);
+      background:
+        radial-gradient(700px 420px at 0% 0%, rgba(171,163,241,.22), transparent 55%),
+        linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,.08));
+      box-shadow: 0 20px 60px rgba(0,0,0,.28);
+    }
+    .cartDrawer.open{ transform: translateX(0); }
+
+    .cartDrawerTop{
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(171,163,241,.14);
+      backdrop-filter: blur(12px);
+      background: rgba(0,0,0,.14);
+    }
+    .cartClose{
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      border: 1px solid rgba(171,163,241,.22);
+      background: rgba(0,0,0,.12);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-weight: 900;
+    }
   </style>
 
   <!-- SEO: ItemList schema -->
@@ -745,6 +835,40 @@
     </div>
   </footer>
 
+  <!-- ============================
+       CART MARKUP (added)
+       ============================ -->
+
+  <button class="btn btn-cta cartFab" id="cartFab" type="button" aria-haspopup="dialog" aria-controls="cartDrawer">
+    Cart <span class="cartCount" id="cartCount">0</span>
+  </button>
+
+  <div class="cartOverlay" id="cartOverlay" aria-hidden="true"></div>
+
+  <aside class="cartDrawer" id="cartDrawer" aria-hidden="true">
+    <div class="cartDrawerTop">
+      <strong style="font-family:var(--font-display); letter-spacing:.08em; text-transform:uppercase;">Cart</strong>
+      <button class="cartClose" id="cartClose" type="button" aria-label="Close cart">✕</button>
+    </div>
+
+    <section class="wrap wrap-narrow" style="margin-top:0;">
+      <div style="text-align:left;">
+        <div id="cartItems" style="display:grid; gap:10px; margin:12px 0;"></div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;">
+          <div id="cartTotal" style="font-weight:800;">Total: —</div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn" type="button" id="clearCartBtn">Clear</button>
+            <button class="btn btn-cta" type="button" id="checkoutBtn">Checkout</button>
+          </div>
+        </div>
+
+        <p id="cartMsg" class="newsletter-msg" style="margin-top:10px;"></p>
+      </div>
+    </section>
+  </aside>
+
   <script>
     const overlay = document.getElementById('overlay');
     const sidePanel = document.getElementById('sidePanel');
@@ -773,6 +897,60 @@
       closePanel();
     });
   </script>
+
+  <!-- ============================
+       CART TOGGLE + COUNT (added)
+       ============================ -->
+  <script>
+    const CART_KEY = "luma_cart_v1";
+
+    function getCartCount(){
+      try{
+        const cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+        return cart.reduce((sum, i) => sum + (i.qty || 0), 0);
+      }catch(e){ return 0; }
+    }
+
+    function updateCartCount(){
+      const el = document.getElementById("cartCount");
+      if(!el) return;
+      el.textContent = String(getCartCount());
+    }
+
+    const cartFab = document.getElementById("cartFab");
+    const cartDrawer = document.getElementById("cartDrawer");
+    const cartOverlay = document.getElementById("cartOverlay");
+    const cartClose = document.getElementById("cartClose");
+
+    function openCart(){
+      cartDrawer?.classList.add("open");
+      cartOverlay?.classList.add("show");
+      cartDrawer?.setAttribute("aria-hidden","false");
+      cartOverlay?.setAttribute("aria-hidden","false");
+    }
+    function closeCart(){
+      cartDrawer?.classList.remove("open");
+      cartOverlay?.classList.remove("show");
+      cartDrawer?.setAttribute("aria-hidden","true");
+      cartOverlay?.setAttribute("aria-hidden","true");
+    }
+
+    cartFab?.addEventListener("click", () => { updateCartCount(); openCart(); });
+    cartClose?.addEventListener("click", closeCart);
+    cartOverlay?.addEventListener("click", closeCart);
+    window.addEventListener("keydown", (e) => { if(e.key === "Escape") closeCart(); });
+
+    updateCartCount();
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest(".add-to-cart");
+      if(!btn) return;
+      setTimeout(updateCartCount, 0);
+    });
+    window.addEventListener("storage", updateCartCount);
+  </script>
+
+  <!-- Your cart logic (MUST be after the cart UI exists) -->
+  <script src="../js/cart.js" defer></script>
 
 </body>
 </html>
