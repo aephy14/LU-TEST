@@ -2,20 +2,21 @@
 // Fetch Stripe prices from Cloudflare Pages Function and inject into the UI.
 
 (() => {
-  // ✅ Your Pages Function is at: /prices  (because file is functions/prices.js)
+  // Pages Function route: /prices  (because file is functions/prices.js)
   const PRICES_ENDPOINT = "/prices";
 
-  // Optional: format currency nicely
+  // Format currency nicely
   function fmt(amount, currency) {
     const n = Number(amount);
-    if (!Number.isFinite(n)) return `- ${currency || "NZD"}`;
+    const c = (currency || "NZD").toUpperCase();
+    if (!Number.isFinite(n)) return `—`; // keep placeholder
     try {
       return new Intl.NumberFormat("en-NZ", {
         style: "currency",
-        currency: (currency || "NZD").toUpperCase(),
+        currency: c,
       }).format(n);
     } catch {
-      return `${n.toFixed(2)} ${(currency || "NZD").toUpperCase()}`;
+      return `${n.toFixed(2)} ${c}`;
     }
   }
 
@@ -26,57 +27,52 @@
   }
 
   function applyPrices(prices) {
-    // You have buttons like: <button class="btn add-to-cart" data-price="price_...">
-    // We will look for a sibling element: [data-price-label] OR inject one just before the button.
-    const buttons = document.querySelectorAll(".add-to-cart[data-price]");
-    buttons.forEach((btn) => {
-      const priceId = btn.getAttribute("data-price");
+    // ✅ New approach:
+    // Your HTML has: <div class="price" data-price-id="price_...">— <small>NZD</small></div>
+    // Update those directly (no injection).
+    const priceEls = document.querySelectorAll(".price[data-price-id]");
+
+    priceEls.forEach((el) => {
+      const priceId = el.getAttribute("data-price-id");
       const p = prices?.[priceId];
 
-      // Find existing label in same CTA row
+      // If no price found, keep whatever placeholder is already there
+      if (!p) return;
+
+      const currency = (p.currency || "NZD").toUpperCase();
+      el.innerHTML = `${fmt(p.amount, currency)} <small>${currency}</small>`;
+    });
+
+    // Optional fallback for older markup (if any buttons exist without .price blocks):
+    // If you ever remove the .price divs, this still injects a label.
+    const buttons = document.querySelectorAll(".add-to-cart[data-price]");
+    buttons.forEach((btn) => {
       const cta = btn.closest(".ctaRow");
-      let label = cta?.querySelector("[data-price-label]");
+      if (!cta) return;
 
-      // If not present, create it to the left of the button
-      if (!label && cta) {
-        label = document.createElement("div");
-        label.setAttribute("data-price-label", "true");
-        label.style.fontWeight = "900";
-        label.style.letterSpacing = ".02em";
-        label.style.color = "rgba(255,255,255,.92)";
-        label.style.padding = "10px 12px";
-        label.style.borderRadius = "999px";
-        label.style.border = "1px solid rgba(255,255,255,.18)";
-        label.style.background = "rgba(0,0,0,.22)";
-        label.style.backdropFilter = "blur(10px)";
-        label.style.whiteSpace = "nowrap";
+      // If a .price already exists, do nothing.
+      if (cta.querySelector(".price[data-price-id]")) return;
 
-        // Ensure CTA row lays out nicely
-        cta.style.justifyContent = "space-between";
-        cta.style.gap = "10px";
+      const priceId = btn.getAttribute("data-price");
+      const p = prices?.[priceId];
+      if (!p) return;
 
-        cta.prepend(label);
-      }
-
-      if (!label) return;
-
-      if (!p) {
-        label.textContent = "- NZD";
-        return;
-      }
-
-      label.textContent = fmt(p.amount, p.currency);
+      const currency = (p.currency || "NZD").toUpperCase();
+      const label = document.createElement("div");
+      label.className = "price";
+      label.setAttribute("data-price-id", priceId);
+      label.innerHTML = `${fmt(p.amount, currency)} <small>${currency}</small>`;
+      cta.prepend(label);
     });
   }
 
-  // Run after DOM is ready
   window.addEventListener("DOMContentLoaded", async () => {
     try {
       const prices = await loadPrices();
       applyPrices(prices);
     } catch (e) {
-      // Keep placeholders; also log so you can debug in console
       console.warn("[prices.js] Failed to load/apply prices:", e);
+      // Keep placeholders (— NZD) in the HTML
     }
   });
 })();
