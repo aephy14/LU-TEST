@@ -1,7 +1,7 @@
 // /js/cart.js
 // LumaFood cart + Stripe Checkout (Cloudflare Pages Functions)
-// Expects backend endpoint: POST /checkout
-// Expects body shape: { items: [{ price: "price_...", qty: 1 }, ...] }
+// Uses GET /prices to calculate totals in-cart
+// POST /checkout expects: { items: [{ price: "price_...", qty: 1 }, ...] }
 
 (() => {
   const CART_KEY = "luma_cart_v1";
@@ -11,6 +11,10 @@
   const cartMsgEl = document.getElementById("cartMsg");
   const clearBtn = document.getElementById("clearCartBtn");
   const checkoutBtn = document.getElementById("checkoutBtn");
+
+  // priceId -> { amount: "26.00", currency: "NZD" }
+  let PRICE_MAP = null; // null = not loaded yet
+  let PRICE_MAP_LOADING = null;
 
   function loadCart() {
     try {
@@ -47,7 +51,51 @@
     render();
   }
 
-  function render() {
+  async function ensurePricesLoaded() {
+    if (PRICE_MAP) return PRICE_MAP;
+    if (PRICE_MAP_LOADING) return PRICE_MAP_LOADING;
+
+    PRICE_MAP_LOADING = (async () => {
+      try {
+        const res = await fetch("/prices", { headers: { "Accept": "application/json" } });
+        const text = await res.text();
+        let data;
+        try {
+          data = JSON.parse(text);
+        } catch {
+          console.error("[cart.js] /prices returned non-JSON:", text);
+          return null;
+        }
+
+        if (!res.ok) {
+          console.error("[cart.js] /prices error:", data);
+          return null;
+        }
+
+        PRICE_MAP = data && typeof data === "object" ? data : null;
+        return PRICE_MAP;
+      } catch (e) {
+        console.error("[cart.js] /prices fetch failed:", e);
+        return null;
+      } finally {
+        PRICE_MAP_LOADING = null;
+      }
+    })();
+
+    return PRICE_MAP_LOADING;
+  }
+
+  function fmtMoney(amount, currency) {
+    // amount is number in major units (e.g. 26.00)
+    try {
+      return new Intl.NumberFormat("en-NZ", { style: "currency", currency }).format(amount);
+    } catch {
+      // fallback
+      return `${currency} ${amount.toFixed(2)}`;
+    }
+  }
+
+  async function render() {
     const cart = loadCart();
 
     if (!cartItemsEl || !cartTotalEl) return;
@@ -64,6 +112,24 @@
       return;
     }
 
+    // Try load prices so we can compute totals
+    const prices = await ensurePricesLoaded();
+
+    // Determine currency (default NZD)
+    let currency = "NZD";
+    if (prices) {
+      for (const item of cart) {
+        const p = prices[item.priceId];
+        if (p && p.currency) {
+          currency = String(p.currency).toUpperCase();
+          break;
+        }
+      }
+    }
+
+    let subtotal = 0;
+    let missingCount = 0;
+
     cart.forEach((item) => {
       const row = document.createElement("div");
       row.style.display = "flex";
@@ -76,9 +142,38 @@
       row.style.padding = "10px 12px";
 
       const left = document.createElement("div");
-      left.innerHTML = `<div style="font-weight:800;">${escapeHtml(
-        item.label || "Item"
-      )}</div>`;
+      left.style.display = "grid";
+      left.style.gap = "6px";
+
+      const title = document.createElement("div");
+      title.style.fontWeight = "800";
+      title.textContent = item.label || "Item";
+
+      // Line price (if we have it)
+      const lineMeta = document.createElement("div");
+      lineMeta.style.opacity = ".82";
+      lineMeta.style.fontSize = "13px";
+
+      const p = prices ? prices[item.priceId] : null;
+      const qty = Number(item.qty || 0);
+
+      if (p && p.amount != null) {
+        const unit = Number(p.amount);
+        if (!Number.isNaN(unit)) {
+          const line = unit * qty;
+          subtotal += line;
+          lineMeta.textContent = `${fmtMoney(unit, currency)} each • Line: ${fmtMoney(line, currency)}`;
+        } else {
+          missingCount += 1;
+          lineMeta.textContent = "Price unavailable";
+        }
+      } else {
+        missingCount += 1;
+        lineMeta.textContent = "Price unavailable";
+      }
+
+      left.appendChild(title);
+      left.appendChild(lineMeta);
 
       const right = document.createElement("div");
       right.style.display = "flex";
@@ -91,11 +186,11 @@
       minus.textContent = "−";
       minus.addEventListener("click", () => setQty(item.priceId, (item.qty || 0) - 1));
 
-      const qty = document.createElement("div");
-      qty.style.minWidth = "26px";
-      qty.style.textAlign = "center";
-      qty.style.fontWeight = "800";
-      qty.textContent = String(item.qty || 0);
+      const qtyEl = document.createElement("div");
+      qtyEl.style.minWidth = "26px";
+      qtyEl.style.textAlign = "center";
+      qtyEl.style.fontWeight = "800";
+      qtyEl.textContent = String(qty);
 
       const plus = document.createElement("button");
       plus.className = "btn";
@@ -104,7 +199,7 @@
       plus.addEventListener("click", () => setQty(item.priceId, (item.qty || 0) + 1));
 
       right.appendChild(minus);
-      right.appendChild(qty);
+      right.appendChild(qtyEl);
       right.appendChild(plus);
 
       row.appendChild(left);
@@ -112,7 +207,20 @@
       cartItemsEl.appendChild(row);
     });
 
-    cartTotalEl.textContent = "Total calculated at checkout";
+    if (!prices) {
+      cartTotalEl.textContent = "Total: —";
+      if (cartMsgEl) {
+        cartMsgEl.textContent = "Couldn’t load prices. Total will be calculated at checkout.";
+        cartMsgEl.classList.add("err");
+      }
+      return;
+    }
+
+    if (missingCount > 0) {
+      cartTotalEl.textContent = `Subtotal: ${fmtMoney(subtotal, currency)} (some items missing prices)`;
+    } else {
+      cartTotalEl.textContent = `Subtotal: ${fmtMoney(subtotal, currency)}`;
+    }
   }
 
   // Add-to-cart buttons anywhere on page:
@@ -134,7 +242,7 @@
 
   clearBtn?.addEventListener("click", clearCart);
 
-  // ✅ Stripe Checkout (Cloudflare Pages Function)
+  // Stripe Checkout (Cloudflare Pages Function)
   checkoutBtn?.addEventListener("click", async () => {
     const cart = loadCart();
     if (cart.length === 0) {
@@ -156,7 +264,6 @@
         }),
       });
 
-      // Read once, then parse (prevents "unexpected end of data" surprises)
       const text = await res.text();
       let data;
       try {
@@ -166,12 +273,8 @@
         throw new Error("Checkout returned non-JSON response.");
       }
 
-      if (!res.ok) {
-        throw new Error(data?.error || "Checkout failed.");
-      }
-      if (!data?.url) {
-        throw new Error("Checkout returned no URL.");
-      }
+      if (!res.ok) throw new Error(data?.error || "Checkout failed.");
+      if (!data?.url) throw new Error("Checkout returned no URL.");
 
       window.location.href = data.url;
     } catch (err) {
@@ -184,15 +287,6 @@
     }
   });
 
+  // Initial render
   render();
-
-  // Helpers
-  function escapeHtml(str) {
-    return String(str)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-  }
 })();
