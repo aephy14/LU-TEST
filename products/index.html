@@ -418,6 +418,13 @@
       .labelMedia{height: clamp(200px, 62vw, 340px)}
 
       .note{left: 12px; bottom: 12px; padding: 9px 11px}
+
+      /* ✅ NEW: make cart CTA bigger on mobile */
+      .cartFab{
+        right: 12px;
+        bottom: 12px;
+        padding: 15px 18px;
+      }
     }
 
     @media (min-width: 980px){
@@ -432,29 +439,63 @@
        CART (added — minimal changes)
        ============================ */
 
+    /* ✅ UPDATED: make the floating cart CTA very visible */
     .cartFab{
       position: fixed;
       right: 16px;
       bottom: 16px;
       z-index: 1000;
+
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 12px 16px;
+
+      padding: 14px 18px;
       border-radius: 999px;
-      box-shadow: 0 18px 46px rgba(0,0,0,.32), 0 0 0 6px rgba(171,163,241,.10);
+
+      border: 1px solid rgba(171,163,241,.50);
+      color: #fff;
+      background:
+        radial-gradient(18px 18px at 22% 28%, rgba(245,228,130,.90), transparent 60%),
+        radial-gradient(22px 22px at 78% 72%, rgba(49,112,78,.85), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.18), rgba(0,0,0,.25));
+
+      box-shadow:
+        0 26px 70px rgba(0,0,0,.45),
+        0 0 0 8px rgba(171,163,241,.14);
+
+      transform: translateZ(0);
     }
+
+    .cartFab:hover{
+      filter: brightness(1.06);
+      transform: translateY(-1px);
+    }
+
+    .cartFab:active{
+      transform: translateY(0px);
+      filter: brightness(1.02);
+    }
+
+    /* ✅ UPDATED: higher-contrast count bubble */
     .cartCount{
-      min-width: 22px;
-      height: 22px;
+      min-width: 26px;
+      height: 26px;
+      padding: 0 7px;
       border-radius: 999px;
+
       display: inline-grid;
       place-items: center;
+
       font-weight: 900;
       font-size: 12px;
-      background: rgba(0,0,0,.25);
-      border: 1px solid rgba(255,255,255,.22);
-      color: #fff;
+      letter-spacing: .02em;
+
+      color: #0b0d10;
+      background: rgba(245,228,130,.95);
+      border: 1px solid rgba(255,255,255,.35);
+
+      box-shadow: 0 10px 24px rgba(0,0,0,.28);
     }
 
     .cartOverlay{
@@ -610,7 +651,7 @@
       </a>
       <a class="iconBtn" href="https://wa.me/+4915212111139" aria-label="WhatsApp">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M21 12a8.9 8.9 0 0 1-13.6 7.6L3 21l1.5-4.2A9 9 9 0 1 1 21 12Z"/>
+          <path d="M21 12a8.9 8.9 0 0 1-13.6 7.6L3 21l1.5-4.2A9 9 0 1 1 21 12Z"/>
           <path d="M8.5 8.5c.5 4 3 6.5 7 7"/>
         </svg>
       </a>
@@ -817,7 +858,7 @@
         </a>
         <a class="iconBtn" href="https://wa.me/+4915212111139" aria-label="WhatsApp">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M21 12a8.9 8.9 0 0 1-13.6 7.6L3 21l1.5-4.2A9 9 9 0 1 1 21 12Z"/>
+            <path d="M21 12a8.9 8.9 0 0 1-13.6 7.6L3 21l1.5-4.2A9 9 0 1 1 21 12Z"/>
             <path d="M8.5 8.5c.5 4 3 6.5 7 7"/>
           </svg>
         </a>
