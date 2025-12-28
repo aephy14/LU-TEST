@@ -1,4 +1,5 @@
-import Stripe from "stripe";
+// functions/checkout.js
+// Cloudflare Pages Function (Edge): create a Stripe Checkout Session via REST API (no Stripe SDK)
 
 export async function onRequestPost({ request, env }) {
   if (!env?.STRIPE_SECRET_KEY) {
@@ -7,10 +8,6 @@ export async function onRequestPost({ request, env }) {
       { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }
-
-  const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
-    apiVersion: "2023-10-16",
-  });
 
   let body;
   try {
@@ -23,7 +20,6 @@ export async function onRequestPost({ request, env }) {
   }
 
   const items = Array.isArray(body?.items) ? body.items : null;
-
   if (!items || items.length === 0) {
     return new Response(
       JSON.stringify({ error: "No items provided." }),
@@ -32,7 +28,7 @@ export async function onRequestPost({ request, env }) {
   }
 
   // Validate + sanitize
-  const line_items = [];
+  const valid = [];
   for (const item of items) {
     const price = typeof item?.price === "string" ? item.price : "";
     const qty = Number(item?.qty);
@@ -40,34 +36,55 @@ export async function onRequestPost({ request, env }) {
     if (!price.startsWith("price_")) continue;
     if (!Number.isFinite(qty) || qty <= 0) continue;
 
-    line_items.push({
-      price,
-      quantity: Math.floor(qty),
-    });
+    valid.push({ price, qty: Math.floor(qty) });
   }
 
-  if (line_items.length === 0) {
+  if (valid.length === 0) {
     return new Response(
       JSON.stringify({ error: "No valid items provided." }),
       { status: 400, headers: { "Content-Type": "application/json" } }
     );
   }
 
+  // Stripe expects application/x-www-form-urlencoded for this endpoint
+  const params = new URLSearchParams();
+  params.append("mode", "payment");
+  params.append("success_url", "https://lumafood.com/success/");
+  params.append("cancel_url", "https://lumafood.com/products/");
+  params.append("shipping_address_collection[allowed_countries][]", "NZ");
+
+  // Optional settings (uncomment if you want)
+  // params.append("billing_address_collection", "required");
+  // params.append("allow_promotion_codes", "true");
+
+  valid.forEach((item, i) => {
+    params.append(`line_items[${i}][price]`, item.price);
+    params.append(`line_items[${i}][quantity]`, String(item.qty));
+  });
+
   try {
-    const session = await stripe.checkout.sessions.create({
-      mode: "payment",
-      line_items,
-      success_url: "https://lumafood.com/success/",
-      cancel_url: "https://lumafood.com/products/",
-      shipping_address_collection: {
-        allowed_countries: ["NZ"],
+    const res = await fetch("https://api.stripe.com/v1/checkout/sessions", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${env.STRIPE_SECRET_KEY}`,
+        "Content-Type": "application/x-www-form-urlencoded",
       },
-      // Optional but useful:
-      // billing_address_collection: "required",
-      // allow_promotion_codes: true,
+      body: params.toString(),
     });
 
-    return new Response(JSON.stringify({ url: session.url }), {
+    const data = await res.json();
+
+    if (!res.ok || !data?.url) {
+      return new Response(
+        JSON.stringify({
+          error: "Failed to create Stripe Checkout session.",
+          detail: data?.error?.message || JSON.stringify(data),
+        }),
+        { status: 500, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    return new Response(JSON.stringify({ url: data.url }), {
       headers: { "Content-Type": "application/json" },
     });
   } catch (err) {
