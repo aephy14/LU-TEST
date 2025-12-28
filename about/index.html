@@ -7,10 +7,13 @@
   <meta name="description" content="Meet LumaFood founder Alex and why Luma exists: functional food and drinks made with whole ingredients in New Zealand." />
   <link rel="canonical" href="https://lumafood.com/about/" />
   <meta name="robots" content="index,follow" />
+
+  <!-- Fonts (moved out of CSS @import for performance) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Fredoka:wght@400;500;600;700&display=swap">
+
   <style>
-
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Fredoka:wght@400;500;600;700&display=swap');
-
     :root{
       --font-body: "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       --font-display: "Fredoka", "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
@@ -48,7 +51,7 @@
     .wrap-wide{max-width:var(--max-wide)}
     .wrap-narrow{max-width:var(--max-narrow)}
 
-    /* Header */
+    /* Header (matches Contact) */
     .topbar{
       position: sticky;
       top: 0;
@@ -66,25 +69,39 @@
       margin:0 auto;
       padding: 6px var(--pad);
       display:grid;
-      grid-template-columns: 44px 1fr 44px;
+      grid-template-columns: 60px auto 60px;
       align-items:center;
       gap: 8px;
     }
 
     .hamburger{
-      width:36px; height:36px;
+      width:52px; height:52px;
       border-radius: 999px;
-      border: 1px solid rgba(171,163,241,.22);
-      background: rgba(0,0,0,.10);
-      box-shadow: 0 8px 22px rgba(0,0,0,.18);
+      border: 1px solid rgba(171,163,241,.34);
+      background:
+        radial-gradient(18px 18px at 30% 25%, rgba(245,228,130,.55), transparent 60%),
+        radial-gradient(22px 22px at 70% 75%, rgba(49,112,78,.55), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.16), rgba(0,0,0,.16));
+      box-shadow:
+        0 18px 46px rgba(0,0,0,.32),
+        0 0 0 6px rgba(171,163,241,.10);
       display:grid; place-items:center;
       cursor:pointer;
+      transition: transform .15s ease, filter .15s ease;
     }
+    .hamburger:hover{filter: brightness(1.06)}
     .hamburger:active{transform: translateY(1px)}
+    .hamburger:focus-visible{
+      outline:none;
+      box-shadow:
+        0 18px 46px rgba(0,0,0,.32),
+        0 0 0 4px rgba(245,228,130,.45),
+        0 0 0 8px rgba(171,163,241,.12);
+    }
 
     .burger{
-      width:18px;
-      height:14px;
+      width:22px;
+      height:16px;
       position:relative;
       display:flex;
       flex-direction:column;
@@ -95,11 +112,18 @@
       left:0; right:0;
       height:2px;
       border-radius:999px;
-      background: var(--text);
-      opacity:.9;
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 1px 0 rgba(0,0,0,.25);
+      opacity:1;
     }
 
-    .logo{display:flex; justify-content:center; align-items:center; pointer-events:auto}
+    .logo{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      pointer-events:auto;
+      justify-self:center;
+    }
     .logo img{
       height: 84px;
       width:auto;
@@ -107,19 +131,9 @@
       filter: drop-shadow(0 10px 22px rgba(0,0,0,.22));
     }
 
-    .topbar-spacer{width:44px; height:44px}
+    .topbar-spacer{width:60px; height:60px}
 
-    /* Mobile top menu */
-    .mobileMenu{
-      display:none;
-      padding: 0 var(--pad) 14px;
-      width:100%;
-      max-width: var(--max-wide);
-      margin: 0 auto;
-    }
-    .mobileMenu .menuRow{display:flex; gap:10px; flex-wrap:wrap}
-
-    /* Side panel */
+    /* Side panel (matches Contact) */
     .overlay{
       position:fixed; inset:0;
       background: rgba(0,0,0,.40);
@@ -199,6 +213,7 @@
     .iconBtn:hover{background: rgba(0,0,0,.16)}
     .iconBtn svg{width:18px; height:18px}
 
+    /* Page */
     main{min-height: calc(100vh - 64px)}
 
     .hero{padding: 18px 0 10px}
@@ -219,18 +234,6 @@
       color: var(--text-weak);
     }
 
-    .softPanel{
-      margin-top: 18px;
-      border-radius: var(--radius);
-      border: 1px solid rgba(171,163,241,.14);
-      background:
-        radial-gradient(1400px 800px at 0% 0%, rgba(171,163,241,.45), transparent 55%),
-        radial-gradient(1200px 700px at 100% 0%, rgba(245,228,130,.25), transparent 60%),
-        linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,.10));
-      box-shadow: 0 24px 80px rgba(0,0,0,.35);
-      overflow:hidden;
-    }
-
     .content{padding: 26px 0 36px}
     .content .block{
       border-radius: var(--radius);
@@ -248,102 +251,6 @@
       color: var(--text-weak);
       white-space: pre-wrap;
     }
-
-    /* Contact info + form */
-    .infoGrid{
-      margin-top: 14px;
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    .infoCard{
-      border-radius: 18px;
-      border: 1px solid rgba(171,163,241,.18);
-      background: rgba(0,0,0,.10);
-      padding: 12px;
-      display:flex;
-      gap: 10px;
-      align-items:flex-start;
-    }
-    .infoCard .meta{
-      display:flex;
-      flex-direction:column;
-      gap: 4px;
-      min-width:0;
-    }
-    .infoLabel{
-      font-weight: 800;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      font-size: 12px;
-      color: rgba(171,163,241,.86);
-    }
-    .infoValue{
-      font-weight: 650;
-      color: var(--text);
-      word-break: break-word;
-    }
-    .chipBtn{
-      margin-top: 6px;
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(171,163,241,.22);
-      background: rgba(255,255,255,.06);
-      padding: 10px 12px;
-      font-weight: 700;
-      cursor:pointer;
-      width: fit-content;
-    }
-    .chipBtn:hover{background: rgba(255,255,255,.10)}
-    .chipBtn svg{width:16px; height:16px}
-
-    .formGrid{margin-top: 16px; display:grid; grid-template-columns: 1fr 1fr; gap: 12px}
-    .field{
-      border-radius: 18px;
-      border: 1px solid rgba(171,163,241,.18);
-      background: rgba(0,0,0,.10);
-      padding: 12px 12px;
-      color: var(--text);
-      outline:none;
-      font-size: 16px;
-    }
-    .field::placeholder{color: rgba(171,163,241,.55)}
-    .formGrid .full{grid-column: 1 / -1}
-    .formActions{margin-top: 12px; display:flex; justify-content:flex-end}
-
-    .btn{
-      font-family: var(--font-display);
-      border: 1px solid rgba(171,163,241,.28);
-      background: rgba(255,255,255,.10);
-      color: var(--text);
-      padding: 14px 22px;
-      border-radius: 999px;
-      font-weight: 800;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      font-size: 14px;
-      cursor:pointer;
-      transition: transform .15s ease, filter .15s ease, background .15s ease;
-    }
-    .btn:hover{background: rgba(255,255,255,.14); filter: brightness(1.02)}
-    .btn:active{transform: translateY(1px)}
-
-    .btn-send{
-      border: none;
-      background: linear-gradient(135deg, #31704e, #4c9a6a);
-      color: #fff;
-      padding: 13px 20px;
-      border-radius: 16px;
-      box-shadow: 0 12px 28px rgba(0,0,0,.28);
-    }
-    .btn-send:hover{
-      background: linear-gradient(135deg, #2b6143, #4c9a6a);
-      transform: translateY(-1px);
-      filter: none;
-    }
-    .btn-send:active{transform: translateY(0); box-shadow: 0 8px 18px rgba(0,0,0,.22)}
 
     /* Newsletter */
     .newsletter{padding: 48px 0 36px}
@@ -380,6 +287,38 @@
     .newsletter-msg.ok{color:#f5e482}
     .newsletter-msg.err{color:#ff0f39}
 
+    .btn{
+      font-family: var(--font-display);
+      border: 1px solid rgba(171,163,241,.28);
+      background: rgba(255,255,255,.10);
+      color: var(--text);
+      padding: 14px 22px;
+      border-radius: 999px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-size: 14px;
+      cursor:pointer;
+      transition: transform .15s ease, filter .15s ease, background .15s ease;
+    }
+    .btn:hover{background: rgba(255,255,255,.14); filter: brightness(1.02)}
+    .btn:active{transform: translateY(1px)}
+
+    .btn-send{
+      border: none;
+      background: linear-gradient(135deg, #31704e, #4c9a6a);
+      color: #fff;
+      padding: 13px 20px;
+      border-radius: 16px;
+      box-shadow: 0 12px 28px rgba(0,0,0,.28);
+    }
+    .btn-send:hover{
+      background: linear-gradient(135deg, #2b6143, #4c9a6a);
+      transform: translateY(-1px);
+      filter: none;
+    }
+    .btn-send:active{transform: translateY(0); box-shadow: 0 8px 18px rgba(0,0,0,.22)}
+
     /* Footer */
     footer{padding: 22px 0 34px; border-top: 1px solid rgba(171,163,241,.12); background: linear-gradient(to top, rgba(0,0,0,.18), rgba(0,0,0,0))}
     .footerInner{
@@ -397,30 +336,29 @@
     .footerLinks a{padding: 8px 12px; border-radius: 999px; border: 1px solid rgba(171,163,241,.14); background: rgba(0,0,0,.10)}
     .footerLinks a:hover{background: rgba(0,0,0,.16)}
 
-    @media (max-width: 980px){
-      .formGrid{grid-template-columns: 1fr}
-      .infoGrid{grid-template-columns: 1fr}
-    }
-
     @media (max-width: 720px){
-      .topbar-inner{grid-template-columns: 56px 1fr 0px}
-      .topbar-spacer{display:none}
-      .mobileMenu{display:block}
-      .sidePanel{display:none}
-      .overlay{display:none}
+      .topbar-inner{grid-template-columns: 60px auto 60px}
+      .topbar-spacer{display:block}
+
+      .sidePanel{
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        width: auto;
+      }
     }
 
     @media (prefers-reduced-motion: reduce){
       *{scroll-behavior:auto !important; transition:none !important}
     }
-
   </style>
 </head>
 <body>
 
   <header class="topbar">
     <div class="topbar-inner">
-      <button class="hamburger" id="menuBtn" aria-label="Open menu">
+      <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false">
         <div class="burger" aria-hidden="true">
           <span></span><span></span><span></span>
         </div>
@@ -432,16 +370,6 @@
 
       <div class="topbar-spacer" aria-hidden="true"></div>
     </div>
-
-    <nav class="mobileMenu" aria-label="Mobile menu">
-      <div class="menuRow">
-        <a class="btn" href="../">Home</a>
-        <a class="btn" href="../products/">Products</a>
-        <a class="btn" href="../about/">About</a>
-        <a class="btn" href="../contact/">Contact</a>
-        <a class="btn" href="../blog/">Blog</a>
-      </div>
-    </nav>
   </header>
 
   <div class="overlay" id="overlay" aria-hidden="true"></div>
@@ -495,17 +423,16 @@
     </div>
   </aside>
 
+  <main>
+    <section class="wrap wrap-narrow">
+      <div class="hero">
+        <h1>About</h1>
+        <p>Why Luma exists — functional food and drinks using whole ingredients.</p>
+      </div>
 
-<main>
-  <section class="wrap wrap-narrow">
-    <div class="hero">
-      <h1>About</h1>
-      <p>Why Luma exists — functional food and drinks using whole ingredients.</p>
-    </div>
-
-    <div class="content">
-      <div class="block">
-        <p>I’m Alex, a Kiwi who grew up in NZ before taking off to Berlin for 10 years. I’ve come home in 2025 and I wanted to bring back some of my favourite food products from there.
+      <div class="content">
+        <div class="block">
+          <p>I’m Alex, a Kiwi who grew up in NZ before taking off to Berlin for 10 years. I’ve come home in 2025 and I wanted to bring back some of my favourite food products from there.
 
 I’ve always had gut issues, and in Germany I found Matcha, which has compounds that can nourish beneficial gut bacteria.
 
@@ -514,64 +441,61 @@ Matcha is rich in polyphenols which is &quot;good&quot; bacteria like Lactobacil
 Pairing that with Protein ice-tea and nut and seed heavy protein rich brown bread gave me the best body and belly health I ever had.
 
 I want to bring that back to NZ (for selfish reasons — I want more). But also to share products I’m passionate about with my fellow Kiwis.</p>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-
-  <section class="newsletter">
-    <div class="wrap wrap-narrow">
-      <div class="newsletter-box">
-        <h2>Join the Luma list</h2>
-        <p>New products, early drops, and functional food ideas. No spam.</p>
-        <form class="newsletter-form" action="https://api.web3forms.com/submit" method="POST">
-          <input type="hidden" name="access_key" value="82bdae8a-79ae-4e1a-a927-596d378240e1" />
-          <input type="hidden" name="subject" value="New Luma Newsletter Signup" />
-          <input type="hidden" name="from_name" value="LumaFood" />
-          <input type="hidden" name="redirect" value="false" />
-          <input type="checkbox" name="botcheck" class="hidden" style="display:none">
-          <input type="email" name="email" required placeholder="Your email" />
-          <div class="newsletter-msg" aria-live="polite"></div>
-          <button class="btn btn-send" type="submit">Subscribe</button>
-        </form>
+    <section class="newsletter">
+      <div class="wrap wrap-narrow">
+        <div class="newsletter-box">
+          <h2>Join the Luma list</h2>
+          <p>New products, early drops, and functional food ideas. No spam.</p>
+          <form class="newsletter-form" action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="82bdae8a-79ae-4e1a-a927-596d378240e1" />
+            <input type="hidden" name="subject" value="New Luma Newsletter Signup" />
+            <input type="hidden" name="from_name" value="LumaFood" />
+            <input type="hidden" name="redirect" value="false" />
+            <input type="checkbox" name="botcheck" class="hidden" style="display:none">
+            <input type="email" name="email" required placeholder="Your email" />
+            <div class="newsletter-msg" aria-live="polite"></div>
+            <button class="btn btn-send" type="submit">Subscribe</button>
+          </form>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <script>
-    (function(){
-      const forms = Array.from(document.querySelectorAll('.newsletter-form'));
-      if(!forms.length) return;
-      forms.forEach((form) => {
-        const msg = form.querySelector('.newsletter-msg');
-        if(!msg) return;
-        form.addEventListener('submit', async (e) => {
-          e.preventDefault();
-          msg.textContent = '';
-          msg.className = 'newsletter-msg';
-          const fd = new FormData(form);
-          try{
-            const res = await fetch(form.action, { method:'POST', body: fd });
-            const data = await res.json().catch(() => ({}));
-            if(res.ok && (data.success === true || data.message)){
-              msg.textContent = "Thanks — you're on the list.";
-              msg.classList.add('ok');
-              form.reset();
-            }else{
-              msg.textContent = "Hmm — that didn't work. Try again.";
+    <script>
+      (function(){
+        const forms = Array.from(document.querySelectorAll('.newsletter-form'));
+        if(!forms.length) return;
+        forms.forEach((form) => {
+          const msg = form.querySelector('.newsletter-msg');
+          if(!msg) return;
+          form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            msg.textContent = '';
+            msg.className = 'newsletter-msg';
+            const fd = new FormData(form);
+            try{
+              const res = await fetch(form.action, { method:'POST', body: fd });
+              const data = await res.json().catch(() => ({}));
+              if(res.ok && (data.success === true || data.message)){
+                msg.textContent = "Thanks — you're on the list.";
+                msg.classList.add('ok');
+                form.reset();
+              }else{
+                msg.textContent = "Hmm — that didn't work. Try again.";
+                msg.classList.add('err');
+              }
+            }catch(err){
+              msg.textContent = "Network error — please try again.";
               msg.classList.add('err');
             }
-          }catch(err){
-            msg.textContent = "Network error — please try again.";
-            msg.classList.add('err');
-          }
+          });
         });
-      });
-    })();
-  </script>
-
-</main>
-
+      })();
+    </script>
+  </main>
 
   <footer>
     <div class="footerInner">
@@ -603,14 +527,13 @@ I want to bring that back to NZ (for selfish reasons — I want more). But also 
         </a>
         <a class="iconBtn" href="#" aria-label="WhatsApp">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M21 12a8.9 8.9 0 0 1-13.6 7.6L3 21l1.5-4.2A9 9 9 0 1 1 21 12Z"/>
+            <path d="M21 12a8.9 8.9 0 0 1-13.6 7.6L3 21l1.5-4.2A9 9 0 1 1 21 12Z"/>
             <path d="M8.5 8.5c.5 4 3 6.5 7 7"/>
           </svg>
         </a>
       </div>
     </div>
   </footer>
-
 
   <script>
     const overlay = document.getElementById('overlay');
@@ -621,18 +544,29 @@ I want to bring that back to NZ (for selfish reasons — I want more). But also 
     function openPanel(){
       overlay?.classList.add('show');
       sidePanel?.classList.add('open');
+      menuBtn?.setAttribute('aria-expanded','true');
+      overlay?.setAttribute('aria-hidden','false');
     }
     function closePanel(){
       overlay?.classList.remove('show');
       sidePanel?.classList.remove('open');
+      menuBtn?.setAttribute('aria-expanded','false');
+      overlay?.setAttribute('aria-hidden','true');
     }
 
     menuBtn?.addEventListener('click', () => {
-      if (window.matchMedia('(max-width: 720px)').matches) return;
-      openPanel();
+      const isOpen = sidePanel?.classList.contains('open');
+      if(isOpen) closePanel();
+      else openPanel();
     });
+
     closeBtn?.addEventListener('click', closePanel);
     overlay?.addEventListener('click', closePanel);
+
+    window.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape') closePanel();
+    });
+
     sidePanel?.addEventListener('click', (e) => {
       const a = e.target.closest('a');
       if (!a) return;
