@@ -582,23 +582,184 @@
     }
   </style>
 
-  <!-- SEO: ItemList schema -->
+  <!-- SEO: ItemList + Products schema -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    "name": "LumaFood Products",
-    "url": "https://lumafood.com/products/",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Matcha Soda (Sugar Free)", "url": "https://lumafood.com/products/" },
-      { "@type": "ListItem", "position": 2, "name": "Matcha Soda (Original)", "url": "https://lumafood.com/products/" },
-      { "@type": "ListItem", "position": 3, "name": "Protein Bread (Plain)", "url": "https://lumafood.com/products/" },
-      { "@type": "ListItem", "position": 4, "name": "Protein Bread (Seeded)", "url": "https://lumafood.com/products/" },
-      { "@type": "ListItem", "position": 5, "name": "Protein Ice Tea (Fruit)", "url": "https://lumafood.com/products/" },
-      { "@type": "ListItem", "position": 6, "name": "Protein Ice Tea (Peach)", "url": "https://lumafood.com/products/" }
-    ]
-  }
-  </script>
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://lumafood.com/products/#webpage",
+      "url": "https://lumafood.com/products/",
+      "name": "Products | LumaFood",
+      "description": "Shop LumaFood in New Zealand: organic Matcha Soda (original & sugar free), high-protein multigrain Protein Bread (plain & seeded), and Protein Ice Tea (fruit & peach). Functional ingredients, real flavour.",
+      "inLanguage": "en-NZ"
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://lumafood.com/products/#itemlist",
+      "name": "LumaFood Products",
+      "url": "https://lumafood.com/products/",
+      "itemListOrder": "https://schema.org/ItemListOrderAscending",
+      "numberOfItems": 6,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "url": "https://lumafood.com/products/#matcha-sugarfree",
+          "name": "Matcha Soda (Sugar Free) — 330ml × 6"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "url": "https://lumafood.com/products/#matcha-original",
+          "name": "Matcha Soda (Original) — 330ml × 6"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "url": "https://lumafood.com/products/#bread-plain",
+          "name": "Protein Bread (Plain) — 750g"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "url": "https://lumafood.com/products/#bread-seeded",
+          "name": "Protein Bread (Seeded) — 750g"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "url": "https://lumafood.com/products/#ice-tea-fruit",
+          "name": "Protein Ice Tea (Fruit) — 330ml × 6"
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "url": "https://lumafood.com/products/#ice-tea-peach",
+          "name": "Protein Ice Tea (Peach) — 330ml × 6"
+        }
+      ]
+    },
+
+    {
+      "@type": "Product",
+      "@id": "https://lumafood.com/products/#matcha-sugarfree-product",
+      "name": "Luma Sugar Free Matcha Soda (330ml × 6)",
+      "description": "Zero sugar matcha soda made with organic matcha. Carbonated and built for clean energy and calm focus — a functional drink option.",
+      "brand": { "@type": "Brand", "name": "LumaFood" },
+      "category": "Beverages",
+      "image": [
+        "https://lumafood.com/assets/images/products/matcha-soda/sugarfree/hero.webp",
+        "https://lumafood.com/assets/images/products/matcha-soda/sugarfree/label.webp"
+      ],
+      "sku": "MATCHA-SF-6X330",
+      "offers": {
+        "@type": "Offer",
+        "url": "https://lumafood.com/products/",
+        "priceCurrency": "NZD",
+        "price": "26.00",
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition"
+      }
+    },
+
+    {
+      "@type": "Product",
+      "@id": "https://lumafood.com/products/#matcha-original-product",
+      "name": "Luma Matcha Soda (330ml × 6)",
+      "description": "Organic matcha soda with a gentle sweetness. Refreshing, functional, and made for everyday balance — an alternative to soft drinks.",
+      "brand": { "@type": "Brand", "name": "LumaFood" },
+      "category": "Beverages",
+      "image": [
+        "https://lumafood.com/assets/images/products/matcha-soda/original/hero.webp",
+        "https://lumafood.com/assets/images/products/matcha-soda/original/label.webp"
+      ],
+      "sku": "MATCHA-OG-6X330",
+      "offers": {
+        "@type": "Offer",
+        "url": "https://lumafood.com/products/",
+        "priceCurrency": "NZD",
+        "price": "20.00",
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition"
+      }
+    },
+
+    {
+      "@type": "Product",
+      "@id": "https://lumafood.com/products/#bread-plain-product",
+      "name": "Luma Protein Bread (Plain) — 750g",
+      "description": "High protein bread made for busy people who want more from everyday food. Filling, soft, and designed to support active routines.",
+      "brand": { "@type": "Brand", "name": "LumaFood" },
+      "category": "Bakery",
+      "image": [
+        "https://lumafood.com/assets/images/products/protein-bread/plain/hero.webp",
+        "https://lumafood.com/assets/images/products/protein-bread/plain/label.webp"
+      ],
+      "sku": "BREAD-PLAIN-750",
+      "offers": {
+        "@type": "Offer",
+        "url": "https://lumafood.com/products/",
+        "priceCurrency": "NZD",
+        "price": "12.50",
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition"
+      }
+    },
+
+    {
+      "@type": "Product",
+      "@id": "https://lumafood.com/products/#bread-seeded-product",
+      "name": "Luma Protein Bread (Seeded) — 750g",
+      "description": "Seeded protein bread with crunchy seeds for extra satisfaction — a tasty seeded bread option to support high-protein goals.",
+      "brand": { "@type": "Brand", "name": "LumaFood" },
+      "category": "Bakery",
+      "image": [
+        "https://lumafood.com/assets/images/products/protein-bread/seeded/hero.webp",
+        "https://lumafood.com/assets/images/products/protein-bread/seeded/label.webp"
+      ],
+      "sku": "BREAD-SEEDED-750",
+      "offers": {
+        "@type": "Offer",
+        "url": "https://lumafood.com/products/",
+        "priceCurrency": "NZD",
+        "price": "14.00",
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition"
+      }
+    },
+
+    {
+      "@type": "Product",
+      "@id": "https://lumafood.com/products/#ice-tea-fruit-product",
+      "name": "Luma Protein Ice Tea (Fruit) (330ml × 6)",
+      "description": "Protein ice tea with refreshing fruit flavour. Light, easy-drinking hydration — ideal post-gym or on the go.",
+      "brand": { "@type": "Brand", "name": "LumaFood" },
+      "category": "Beverages",
+      "image": [
+        "https://lumafood.com/assets/images/products/protein-ice-tea/fruit/hero.webp",
+        "https://lumafood.com/assets/images/products/protein-ice-tea/fruit/label.webp"
+      ],
+      "sku": "ICETEA-FRUIT-6X330"
+    },
+
+    {
+      "@type": "Product",
+      "@id": "https://lumafood.com/products/#ice-tea-peach-product",
+      "name": "Luma Protein Ice Tea (Peach) (330ml × 6)",
+      "description": "Peach protein ice tea with a smooth finish — a clean protein drink alternative without heavy sweetness.",
+      "brand": { "@type": "Brand", "name": "LumaFood" },
+      "category": "Beverages",
+      "image": [
+        "https://lumafood.com/assets/images/products/protein-ice-tea/peach/hero.webp",
+        "https://lumafood.com/assets/images/products/protein-ice-tea/peach/label.webp"
+      ],
+      "sku": "ICETEA-PEACH-6X330"
+    }
+  ]
+}
+</script>
 </head>
 
 <body>
@@ -690,7 +851,9 @@
         <h2 class="sectionTitle matcha">Matcha</h2>
         <div class="softPanel">
           <div class="carousel two">
-            <article class="card">
+
+            <!-- ✅ ADDED ID: matcha-sugarfree -->
+            <article class="card" id="matcha-sugarfree">
               <div class="cardMedia">
                 <img loading="lazy" decoding="async"
                   alt="Luma Sugar Free Matcha Soda – organic matcha drink NZ"
@@ -713,7 +876,8 @@
               </div>
             </article>
 
-            <article class="card">
+            <!-- ✅ ADDED ID: matcha-original -->
+            <article class="card" id="matcha-original">
               <div class="cardMedia">
                 <img loading="lazy" decoding="async"
                   alt="Luma Matcha Soda – organic matcha drink NZ"
@@ -735,6 +899,7 @@
                 </button>
               </div>
             </article>
+
           </div>
         </div>
       </section>
@@ -743,7 +908,9 @@
         <h2 class="sectionTitle">Protein Bread</h2>
         <div class="softPanel">
           <div class="carousel two">
-            <article class="card">
+
+            <!-- ✅ ADDED ID: bread-plain -->
+            <article class="card" id="bread-plain">
               <div class="cardMedia">
                 <img loading="lazy" decoding="async"
                   alt="Luma Protein Bread Plain – high protein bread NZ"
@@ -766,7 +933,8 @@
               </div>
             </article>
 
-            <article class="card">
+            <!-- ✅ ADDED ID: bread-seeded -->
+            <article class="card" id="bread-seeded">
               <div class="cardMedia">
                 <img loading="lazy" decoding="async"
                   alt="Luma Seeded Protein Bread – nut and seed bread NZ"
@@ -788,6 +956,7 @@
                 </button>
               </div>
             </article>
+
           </div>
         </div>
       </section>
@@ -796,7 +965,9 @@
         <h2 class="sectionTitle ice-tea">Protein Ice Tea</h2>
         <div class="softPanel">
           <div class="carousel two">
-            <article class="card">
+
+            <!-- ✅ ADDED ID: ice-tea-fruit -->
+            <article class="card" id="ice-tea-fruit">
               <div class="cardMedia">
                 <img loading="lazy" decoding="async"
                   alt="Luma Protein Ice Tea Fruit – high protein iced tea NZ"
@@ -817,7 +988,8 @@
               </div>
             </article>
 
-            <article class="card">
+            <!-- ✅ ADDED ID: ice-tea-peach -->
+            <article class="card" id="ice-tea-peach">
               <div class="cardMedia">
                 <img loading="lazy" decoding="async"
                   alt="Luma Protein Ice Tea Peach – high protein iced tea NZ"
@@ -837,6 +1009,7 @@
                 <a class="btn" href="#">Coming Soon Protein Ice Tea (Peach)</a>
               </div>
             </article>
+
           </div>
         </div>
       </section>
