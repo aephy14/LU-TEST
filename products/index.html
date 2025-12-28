@@ -84,7 +84,6 @@
       gap: 8px;
     }
 
-    /* ✅ UPDATED: accented hamburger (same style as home/contact/blog) */
     .hamburger{
       width:52px; height:52px;
       border-radius: 999px;
@@ -419,11 +418,11 @@
 
       .note{left: 12px; bottom: 12px; padding: 9px 11px}
 
-      /* ✅ NEW: make cart CTA bigger on mobile */
+      /* ✅ bigger on mobile */
       .cartFab{
         right: 12px;
         bottom: 12px;
-        padding: 15px 18px;
+        padding: 16px 18px;
       }
     }
 
@@ -436,10 +435,10 @@
     }
 
     /* ============================
-       CART (added — minimal changes)
+       CART (high-visibility CTA)
        ============================ */
 
-    /* ✅ UPDATED: make the floating cart CTA very visible */
+    /* ✅ FIXED: make it SOLID + high contrast (not see-through) */
     .cartFab{
       position: fixed;
       right: 16px;
@@ -450,38 +449,45 @@
       align-items: center;
       gap: 10px;
 
-      padding: 14px 18px;
+      padding: 16px 20px;
       border-radius: 999px;
 
-      border: 1px solid rgba(171,163,241,.50);
-      color: #fff;
-      background:
-        radial-gradient(18px 18px at 22% 28%, rgba(245,228,130,.90), transparent 60%),
-        radial-gradient(22px 22px at 78% 72%, rgba(49,112,78,.85), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.18), rgba(0,0,0,.25));
+      /* Solid pill */
+      background: #ffffff;
+      color: #0b0d10;
 
+      /* Strong outline + shadow so it pops on any background */
+      border: 2px solid rgba(0,0,0,.20);
       box-shadow:
-        0 26px 70px rgba(0,0,0,.45),
-        0 0 0 8px rgba(171,163,241,.14);
+        0 22px 60px rgba(0,0,0,.42),
+        0 0 0 8px rgba(255,255,255,.18);
 
+      /* Keep your “luma” feel but without transparency */
+      font-family: var(--font-display);
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+
+      cursor: pointer;
       transform: translateZ(0);
     }
 
     .cartFab:hover{
-      filter: brightness(1.06);
       transform: translateY(-1px);
+      box-shadow:
+        0 26px 70px rgba(0,0,0,.46),
+        0 0 0 10px rgba(255,255,255,.20);
     }
 
     .cartFab:active{
       transform: translateY(0px);
-      filter: brightness(1.02);
     }
 
-    /* ✅ UPDATED: higher-contrast count bubble */
+    /* ✅ Solid, bold count that reads instantly */
     .cartCount{
-      min-width: 26px;
-      height: 26px;
-      padding: 0 7px;
+      min-width: 28px;
+      height: 28px;
+      padding: 0 8px;
       border-radius: 999px;
 
       display: inline-grid;
@@ -489,11 +495,11 @@
 
       font-weight: 900;
       font-size: 12px;
-      letter-spacing: .02em;
 
-      color: #0b0d10;
-      background: rgba(245,228,130,.95);
-      border: 1px solid rgba(255,255,255,.35);
+      /* Dark bubble on white pill */
+      background: #0b0d10;
+      color: #ffffff;
+      border: 1px solid rgba(0,0,0,.25);
 
       box-shadow: 0 10px 24px rgba(0,0,0,.28);
     }
@@ -684,11 +690,7 @@
                   src="../assets/images/products/matcha-soda/sugarfree/label.webp" />
               </div>
               <div class="ctaRow">
-                <button
-                  class="btn add-to-cart"
-                  type="button"
-                  data-price="price_1SisR9RsV1vNh8uNeSx6PUq0"
-                >
+                <button class="btn add-to-cart" type="button" data-price="price_1SisR9RsV1vNh8uNeSx6PUq0">
                   Add Matcha Sugarfree
                 </button>
               </div>
@@ -710,11 +712,7 @@
                   src="../assets/images/products/matcha-soda/original/label.webp" />
               </div>
               <div class="ctaRow">
-                <button
-                  class="btn add-to-cart"
-                  type="button"
-                  data-price="price_1SisVwRsV1vNh8uNNA5g86vb"
-                >
+                <button class="btn add-to-cart" type="button" data-price="price_1SisVwRsV1vNh8uNNA5g86vb">
                   Add Matcha (Original)
                 </button>
               </div>
@@ -743,11 +741,7 @@
                   src="../assets/images/products/protein-bread/plain/label.webp" />
               </div>
               <div class="ctaRow">
-                <button
-                  class="btn add-to-cart"
-                  type="button"
-                  data-price="price_1SishaRsV1vNh8uNZVzRQvMd"
-                >
+                <button class="btn add-to-cart" type="button" data-price="price_1SishaRsV1vNh8uNZVzRQvMd">
                   Add Protein Bread (Plain)
                 </button>
               </div>
@@ -769,11 +763,7 @@
                   src="../assets/images/products/protein-bread/seeded/label.webp" />
               </div>
               <div class="ctaRow">
-                <button
-                  class="btn add-to-cart"
-                  type="button"
-                  data-price="price_1SisjCRsV1vNh8uNzdxJ7pFR"
-                >
+                <button class="btn add-to-cart" type="button" data-price="price_1SisjCRsV1vNh8uNzdxJ7pFR">
                   Add Protein Bread (Seeded)
                 </button>
               </div>
