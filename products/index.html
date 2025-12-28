@@ -338,13 +338,35 @@
       display:block;
     }
 
+    /* ✅ UPDATED: allow price + button stacked nicely */
     .ctaRow{
       padding: 14px 14px 16px;
       display:flex;
+      flex-direction:column;
       justify-content:center;
       align-items:center;
+      gap: 10px;
       border-top: 1px solid rgba(171,163,241,.12);
       background: rgba(0,0,0,.08);
+    }
+
+    /* ✅ NEW: visible price styling */
+    .price{
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 18px;
+      letter-spacing: .04em;
+      color: #ffffff;
+      text-shadow: 0 10px 26px rgba(0,0,0,.45);
+    }
+    .price small{
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 12px;
+      opacity: .85;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-left: 6px;
     }
 
     .btn{
@@ -438,7 +460,6 @@
        CART (high-visibility CTA)
        ============================ */
 
-    /* ✅ FIXED: make it SOLID + high contrast (not see-through) */
     .cartFab{
       position: fixed;
       right: 16px;
@@ -452,17 +473,14 @@
       padding: 16px 20px;
       border-radius: 999px;
 
-      /* Solid pill */
       background: #ffffff;
       color: #0b0d10;
 
-      /* Strong outline + shadow so it pops on any background */
       border: 2px solid rgba(0,0,0,.20);
       box-shadow:
         0 22px 60px rgba(0,0,0,.42),
         0 0 0 8px rgba(255,255,255,.18);
 
-      /* Keep your “luma” feel but without transparency */
       font-family: var(--font-display);
       font-weight: 900;
       letter-spacing: .08em;
@@ -483,7 +501,6 @@
       transform: translateY(0px);
     }
 
-    /* ✅ Solid, bold count that reads instantly */
     .cartCount{
       min-width: 28px;
       height: 28px;
@@ -496,7 +513,6 @@
       font-weight: 900;
       font-size: 12px;
 
-      /* Dark bubble on white pill */
       background: #0b0d10;
       color: #ffffff;
       border: 1px solid rgba(0,0,0,.25);
@@ -690,6 +706,7 @@
                   src="../assets/images/products/matcha-soda/sugarfree/label.webp" />
               </div>
               <div class="ctaRow">
+                <div class="price" data-price-id="price_1SisR9RsV1vNh8uNeSx6PUq0">— <small>NZD</small></div>
                 <button class="btn add-to-cart" type="button" data-price="price_1SisR9RsV1vNh8uNeSx6PUq0">
                   Add Matcha Sugarfree
                 </button>
@@ -712,6 +729,7 @@
                   src="../assets/images/products/matcha-soda/original/label.webp" />
               </div>
               <div class="ctaRow">
+                <div class="price" data-price-id="price_1SisVwRsV1vNh8uNNA5g86vb">— <small>NZD</small></div>
                 <button class="btn add-to-cart" type="button" data-price="price_1SisVwRsV1vNh8uNNA5g86vb">
                   Add Matcha (Original)
                 </button>
@@ -741,6 +759,7 @@
                   src="../assets/images/products/protein-bread/plain/label.webp" />
               </div>
               <div class="ctaRow">
+                <div class="price" data-price-id="price_1SishaRsV1vNh8uNZVzRQvMd">— <small>NZD</small></div>
                 <button class="btn add-to-cart" type="button" data-price="price_1SishaRsV1vNh8uNZVzRQvMd">
                   Add Protein Bread (Plain)
                 </button>
@@ -763,6 +782,7 @@
                   src="../assets/images/products/protein-bread/seeded/label.webp" />
               </div>
               <div class="ctaRow">
+                <div class="price" data-price-id="price_1SisjCRsV1vNh8uNzdxJ7pFR">— <small>NZD</small></div>
                 <button class="btn add-to-cart" type="button" data-price="price_1SisjCRsV1vNh8uNzdxJ7pFR">
                   Add Protein Bread (Seeded)
                 </button>
@@ -791,7 +811,10 @@
                   alt="Luma Protein Ice Tea Fruit label"
                   src="../assets/images/products/protein-ice-tea/fruit/label.webp" />
               </div>
-              <div class="ctaRow"><a class="btn" href="#">Coming Soon Protein Ice Tea (Fruit)</a></div>
+              <div class="ctaRow">
+                <div class="price">Coming Soon</div>
+                <a class="btn" href="#">Coming Soon Protein Ice Tea (Fruit)</a>
+              </div>
             </article>
 
             <article class="card">
@@ -809,7 +832,10 @@
                   alt="Luma Protein Ice Tea Peach label"
                   src="../assets/images/products/protein-ice-tea/peach/label.webp" />
               </div>
-              <div class="ctaRow"><a class="btn" href="#">Coming Soon Protein Ice Tea (Peach)</a></div>
+              <div class="ctaRow">
+                <div class="price">Coming Soon</div>
+                <a class="btn" href="#">Coming Soon Protein Ice Tea (Peach)</a>
+              </div>
             </article>
           </div>
         </div>
