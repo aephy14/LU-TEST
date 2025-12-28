@@ -269,7 +269,7 @@
       display:flex;
       align-items:stretch;
       justify-content:stretch;
-      position: relative; /* ✅ required for note overlay */
+      position: relative;
     }
     .cardMedia img{
       width:100%;
@@ -279,7 +279,6 @@
       display:block;
     }
 
-    /* ✅ NEW: stylised note overlay (only used where you add the .note element) */
     .note{
       position:absolute;
       left: 14px;
@@ -315,7 +314,6 @@
       box-shadow: 0 0 0 6px rgba(171,163,241,.12);
     }
 
-    /* Card description between hero image and label */
     .cardDesc{
       padding: 14px 16px;
       font-size: 15px;
@@ -407,14 +405,11 @@
     .footerLinks a:hover{background: rgba(0,0,0,.16)}
 
     @media (max-width: 720px){
-      /* ✅ UPDATED: ensures logo is centered on mobile (same pattern as other pages) */
       .topbar-inner{grid-template-columns: 56px 1fr 0px}
       .topbar-spacer{display:none}
 
-      /* Keep mobile strip nav as-is */
       .mobileMenu{display:block}
 
-      /* Hide side panel/overlay on mobile (mobile uses top strip links) */
       .sidePanel{display:none}
       .overlay{display:none}
 
@@ -637,7 +632,6 @@
                 <img loading="lazy" decoding="async"
                   alt="Luma Sugar Free Matcha Soda – organic matcha drink NZ"
                   src="../assets/images/products/matcha-soda/sugarfree/hero.webp" />
-                <!-- ✅ NOTE OVERLAY -->
                 <div class="note" aria-hidden="true"><span class="badge"></span>330ml × 6</div>
               </div>
               <div class="cardDesc">
@@ -649,14 +643,14 @@
                   src="../assets/images/products/matcha-soda/sugarfree/label.webp" />
               </div>
               <div class="ctaRow">
-                <button 
+                <button
                   class="btn add-to-cart"
                   type="button"
                   data-price="price_1SisR9RsV1vNh8uNeSx6PUq0"
                 >
                   Add Matcha Sugarfree
                 </button>
-             </div>
+              </div>
             </article>
 
             <article class="card">
@@ -664,7 +658,6 @@
                 <img loading="lazy" decoding="async"
                   alt="Luma Matcha Soda – organic matcha drink NZ"
                   src="../assets/images/products/matcha-soda/original/hero.webp" />
-                <!-- ✅ NOTE OVERLAY -->
                 <div class="note" aria-hidden="true"><span class="badge"></span>330ml × 6</div>
               </div>
               <div class="cardDesc">
@@ -683,8 +676,8 @@
                 >
                   Add Matcha (Original)
                 </button>
-             </div>
-             </article>
+              </div>
+            </article>
           </div>
         </div>
       </section>
@@ -698,7 +691,6 @@
                 <img loading="lazy" decoding="async"
                   alt="Luma Protein Bread Plain – high protein bread NZ"
                   src="../assets/images/products/protein-bread/plain/hero.webp" />
-                <!-- ✅ NOTE OVERLAY -->
                 <div class="note" aria-hidden="true"><span class="badge"></span>750g</div>
               </div>
               <div class="cardDesc">
@@ -718,14 +710,13 @@
                   Add Protein Bread (Plain)
                 </button>
               </div>
-              </article>
+            </article>
 
             <article class="card">
               <div class="cardMedia">
                 <img loading="lazy" decoding="async"
                   alt="Luma Seeded Protein Bread – nut and seed bread NZ"
                   src="../assets/images/products/protein-bread/seeded/hero.webp" />
-                <!-- ✅ NOTE OVERLAY -->
                 <div class="note" aria-hidden="true"><span class="badge"></span>750g</div>
               </div>
               <div class="cardDesc">
@@ -745,7 +736,7 @@
                   Add Protein Bread (Seeded)
                 </button>
               </div>
-              </article>
+            </article>
           </div>
         </div>
       </section>
@@ -759,7 +750,6 @@
                 <img loading="lazy" decoding="async"
                   alt="Luma Protein Ice Tea Fruit – high protein iced tea NZ"
                   src="../assets/images/products/protein-ice-tea/fruit/hero.webp" />
-                <!-- ✅ NOTE OVERLAY -->
                 <div class="note" aria-hidden="true"><span class="badge"></span>330ml × 6</div>
               </div>
               <div class="cardDesc">
@@ -778,7 +768,6 @@
                 <img loading="lazy" decoding="async"
                   alt="Luma Protein Ice Tea Peach – high protein iced tea NZ"
                   src="../assets/images/products/protein-ice-tea/peach/hero.webp" />
-                <!-- ✅ NOTE OVERLAY -->
                 <div class="note" aria-hidden="true"><span class="badge"></span>330ml × 6</div>
               </div>
               <div class="cardDesc">
@@ -870,6 +859,7 @@
     </section>
   </aside>
 
+  <!-- MENU SCRIPT (unchanged) -->
   <script>
     const overlay = document.getElementById('overlay');
     const sidePanel = document.getElementById('sidePanel');
@@ -899,65 +889,64 @@
     });
   </script>
 
-    <!-- ============================
-       CART TOGGLE + COUNT
-       ============================ -->
+  <!-- CART TOGGLE + COUNT (fixed: no global collisions with cart.js) -->
   <script>
-    const CART_KEY = "luma_cart_v1";
+    (() => {
+      const CART_KEY_LOCAL = "luma_cart_v1";
 
-    function getCartCount(){
-      try{
-        const cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
-        return cart.reduce((sum, i) => sum + (i.qty || 0), 0);
-      }catch(e){ return 0; }
-    }
+      const cartFabEl = document.getElementById("cartFab");
+      const cartDrawerEl = document.getElementById("cartDrawer");
+      const cartOverlayEl = document.getElementById("cartOverlay");
+      const cartCloseEl = document.getElementById("cartClose");
+      const cartCountEl = document.getElementById("cartCount");
 
-    function updateCartCount(){
-      const el = document.getElementById("cartCount");
-      if(!el) return;
-      el.textContent = String(getCartCount());
-    }
+      function getCartCount(){
+        try{
+          const cart = JSON.parse(localStorage.getItem(CART_KEY_LOCAL) || "[]");
+          return cart.reduce((sum, i) => sum + (i.qty || 0), 0);
+        }catch(e){ return 0; }
+      }
 
-    const cartFab = document.getElementById("cartFab");
-    const cartDrawer = document.getElementById("cartDrawer");
-    const cartOverlay = document.getElementById("cartOverlay");
-    const cartClose = document.getElementById("cartClose");
+      function updateCartCount(){
+        if(!cartCountEl) return;
+        cartCountEl.textContent = String(getCartCount());
+      }
 
-    function openCart(){
-      cartDrawer?.classList.add("open");
-      cartOverlay?.classList.add("show");
-      cartDrawer?.setAttribute("aria-hidden","false");
-      cartOverlay?.setAttribute("aria-hidden","false");
-    }
+      function openCart(){
+        cartDrawerEl?.classList.add("open");
+        cartOverlayEl?.classList.add("show");
+        cartDrawerEl?.setAttribute("aria-hidden","false");
+        cartOverlayEl?.setAttribute("aria-hidden","false");
+      }
 
-    function closeCart(){
-      cartDrawer?.classList.remove("open");
-      cartOverlay?.classList.remove("show");
-      cartDrawer?.setAttribute("aria-hidden","true");
-      cartOverlay?.setAttribute("aria-hidden","true");
-    }
+      function closeCart(){
+        cartDrawerEl?.classList.remove("open");
+        cartOverlayEl?.classList.remove("show");
+        cartDrawerEl?.setAttribute("aria-hidden","true");
+        cartOverlayEl?.setAttribute("aria-hidden","true");
+      }
 
-    cartFab?.addEventListener("click", () => {
+      cartFabEl?.addEventListener("click", () => {
+        updateCartCount();
+        openCart();
+      });
+
+      cartCloseEl?.addEventListener("click", closeCart);
+      cartOverlayEl?.addEventListener("click", closeCart);
+
+      window.addEventListener("keydown", (e) => {
+        if(e.key === "Escape") closeCart();
+      });
+
+      document.addEventListener("click", (e) => {
+        const btn = e.target.closest(".add-to-cart");
+        if(!btn) return;
+        setTimeout(updateCartCount, 0);
+      });
+
       updateCartCount();
-      openCart();
-    });
-
-    cartClose?.addEventListener("click", closeCart);
-    cartOverlay?.addEventListener("click", closeCart);
-
-    window.addEventListener("keydown", (e) => {
-      if(e.key === "Escape") closeCart();
-    });
-
-    updateCartCount();
-
-    document.addEventListener("click", (e) => {
-      const btn = e.target.closest(".add-to-cart");
-      if(!btn) return;
-      setTimeout(updateCartCount, 0);
-    });
-
-    window.addEventListener("storage", updateCartCount);
+      window.addEventListener("storage", updateCartCount);
+    })();
   </script>
 
   <!-- OPTIONAL: fetch live prices -->
