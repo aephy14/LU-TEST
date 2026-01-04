@@ -432,6 +432,7 @@
 }
 
 .galleryPanel{
+  position: relative; /* ✅ REQUIRED for absolute buttons */
   margin-top: 16px;
   border-radius: var(--radius);
   border: 1px solid rgba(171,163,241,.14);
@@ -445,9 +446,13 @@
 
 .galleryStrip{
   width:100%;
-  overflow:hidden;
+  overflow-x: auto;          /* ✅ allow scroll */
+  overflow-y: hidden;
   padding: 16px;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
+.galleryStrip::-webkit-scrollbar{height:0} /* ✅ hides scrollbar */
 
 .galleryInner{
   display:flex;
