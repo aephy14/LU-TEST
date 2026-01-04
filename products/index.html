@@ -458,12 +458,19 @@
 /* Secondary CTA (Buy more) */
 .btn-secondary{
   background: rgba(0,0,0,.14);
-  border: 1px solid rgba(255,255,255,.22);
-  color: #fff;
+  border: 2px solid #31740e; /* ✅ green ring */
+  color: #ffffff;
+  box-shadow:
+    0 0 0 6px rgba(49,116,14,.18), /* soft outer glow */
+    0 14px 40px rgba(0,0,0,.35);
 }
+
 .btn-secondary:hover{
-  background: rgba(255,255,255,.12);
-  filter: brightness(1.04);
+  background: rgba(49,116,14,.14);
+  box-shadow:
+    0 0 0 8px rgba(49,116,14,.24),
+    0 18px 52px rgba(0,0,0,.45);
+  filter: brightness(1.05);
 }
 
 /* BW mode */
