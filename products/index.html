@@ -1349,5 +1349,28 @@ body.bw .price small{ color:#fff !important; opacity:.9 !important; }
   <!-- REQUIRED: cart logic -->
   <script src="../js/cart.js?v=4"></script>
 
+<script>
+  // ✅ Make label images clickable without changing HTML
+  (function(){
+    const imgs = document.querySelectorAll('.labelMedia img');
+    imgs.forEach((img) => {
+      // Skip if already wrapped in a link
+      if (img.closest('a')) return;
+
+      const src = img.getAttribute('src');
+      if (!src) return;
+
+      const a = document.createElement('a');
+      a.href = src;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.setAttribute('aria-label', (img.alt ? `Open larger: ${img.alt}` : 'Open label larger'));
+
+      img.parentNode.insertBefore(a, img);
+      a.appendChild(img);
+    });
+  })();
+</script>
+  
 </body>
 </html>
