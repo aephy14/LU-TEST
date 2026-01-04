@@ -1,6 +1,14 @@
 // functions/checkout.js
 // Cloudflare Pages Function (Edge): create a Stripe Checkout Session via REST API (no Stripe SDK)
 
+// ✅ SECURITY: Only allow THESE Stripe Price IDs (prevents price tampering)
+const ALLOWED_PRICES = new Set([
+  "price_1SisR9RsV1vNh8uNeSx6PUq0", // Matcha (single)
+  "price_1SisVwRsV1vNh8uNNA5g86vb", // Matcha 6-pack
+  "price_1SishaRsV1vNh8uNZVzRQvMd", // Protein Bread (Plain)
+  "price_1SisjCRsV1vNh8uNzdxJ7pFR", // Protein Bread (Seeded)
+]);
+
 export async function onRequestPost({ request, env }) {
   if (!env?.STRIPE_SECRET_KEY) {
     return new Response(
@@ -27,13 +35,18 @@ export async function onRequestPost({ request, env }) {
     );
   }
 
+  // ✅ Origin-safe URLs (works on pages.dev previews + prod)
+  const origin = new URL(request.url).origin;
+
   // Validate + sanitize
   const valid = [];
   for (const item of items) {
     const price = typeof item?.price === "string" ? item.price : "";
     const qty = Number(item?.qty);
 
-    if (!price.startsWith("price_")) continue;
+    // ✅ SECURITY: only allow known Stripe price IDs
+    if (!ALLOWED_PRICES.has(price)) continue;
+
     if (!Number.isFinite(qty) || qty <= 0) continue;
 
     valid.push({ price, qty: Math.floor(qty) });
@@ -49,8 +62,8 @@ export async function onRequestPost({ request, env }) {
   // Stripe expects application/x-www-form-urlencoded for this endpoint
   const params = new URLSearchParams();
   params.append("mode", "payment");
-  params.append("success_url", "https://lumafood.com/success/");
-  params.append("cancel_url", "https://lumafood.com/products/");
+  params.append("success_url", `${origin}/success/`);
+  params.append("cancel_url", `${origin}/products/`);
   params.append("shipping_address_collection[allowed_countries][]", "NZ");
 
   // Optional settings (uncomment if you want)
