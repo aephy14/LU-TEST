@@ -1193,7 +1193,7 @@ body.bw footer{
           <div id="cartTotal" style="font-weight:800;">Total: —</div>
 
           <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <button class="btn" type="button" id="clearCartBtn">Clear</button>
+            <button class="btn" type="button" id="buyMoreBtn">Buy more</button>
             <button class="btn btn-cta" type="button" id="checkoutBtn">Checkout</button>
           </div>
         </div>
@@ -1268,65 +1268,76 @@ body.bw footer{
     });
   </script>
 
-  <!-- CART TOGGLE + COUNT (fixed: no global collisions with cart.js) -->
-  <script>
-    (() => {
-      const CART_KEY_LOCAL = "luma_cart_v1";
+<!-- CART TOGGLE + COUNT + AUTO-OPEN ON ADD -->
+<script>
+  (() => {
+    const CART_KEY_LOCAL = "luma_cart_v1";
 
-      const cartFabEl = document.getElementById("cartFab");
-      const cartDrawerEl = document.getElementById("cartDrawer");
-      const cartOverlayEl = document.getElementById("cartOverlay");
-      const cartCloseEl = document.getElementById("cartClose");
-      const cartCountEl = document.getElementById("cartCount");
+    const cartFabEl = document.getElementById("cartFab");
+    const cartDrawerEl = document.getElementById("cartDrawer");
+    const cartOverlayEl = document.getElementById("cartOverlay");
+    const cartCloseEl = document.getElementById("cartClose");
+    const cartCountEl = document.getElementById("cartCount");
+    const buyMoreBtn = document.getElementById("buyMoreBtn");
 
-      function getCartCount(){
-        try{
-          const cart = JSON.parse(localStorage.getItem(CART_KEY_LOCAL) || "[]");
-          return cart.reduce((sum, i) => sum + (i.qty || 0), 0);
-        }catch(e){ return 0; }
-      }
+    function getCartCount(){
+      try{
+        const cart = JSON.parse(localStorage.getItem(CART_KEY_LOCAL) || "[]");
+        return cart.reduce((sum, i) => sum + (i.qty || 0), 0);
+      }catch(e){ return 0; }
+    }
 
-      function updateCartCount(){
-        if(!cartCountEl) return;
-        cartCountEl.textContent = String(getCartCount());
-      }
+    function updateCartCount(){
+      if(!cartCountEl) return;
+      cartCountEl.textContent = String(getCartCount());
+    }
 
-      function openCart(){
-        cartDrawerEl?.classList.add("open");
-        cartOverlayEl?.classList.add("show");
-        cartDrawerEl?.setAttribute("aria-hidden","false");
-        cartOverlayEl?.setAttribute("aria-hidden","false");
-      }
+    function openCart(){
+      cartDrawerEl?.classList.add("open");
+      cartOverlayEl?.classList.add("show");
+      cartDrawerEl?.setAttribute("aria-hidden","false");
+      cartOverlayEl?.setAttribute("aria-hidden","false");
+    }
 
-      function closeCart(){
-        cartDrawerEl?.classList.remove("open");
-        cartOverlayEl?.classList.remove("show");
-        cartDrawerEl?.setAttribute("aria-hidden","true");
-        cartOverlayEl?.setAttribute("aria-hidden","true");
-      }
+    function closeCart(){
+      cartDrawerEl?.classList.remove("open");
+      cartOverlayEl?.classList.remove("show");
+      cartDrawerEl?.setAttribute("aria-hidden","true");
+      cartOverlayEl?.setAttribute("aria-hidden","true");
+    }
 
-      cartFabEl?.addEventListener("click", () => {
+    // ✅ Cart button opens cart
+    cartFabEl?.addEventListener("click", () => {
+      updateCartCount();
+      openCart();
+    });
+
+    // ✅ Buy more closes cart (CTA)
+    buyMoreBtn?.addEventListener("click", closeCart);
+
+    cartCloseEl?.addEventListener("click", closeCart);
+    cartOverlayEl?.addEventListener("click", closeCart);
+
+    window.addEventListener("keydown", (e) => {
+      if(e.key === "Escape") closeCart();
+    });
+
+    // ✅ KEY CHANGE: auto-open cart on Add to cart click
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest(".add-to-cart");
+      if(!btn) return;
+
+      // let cart.js update localStorage first, then open + update badge
+      setTimeout(() => {
         updateCartCount();
         openCart();
-      });
+      }, 0);
+    });
 
-      cartCloseEl?.addEventListener("click", closeCart);
-      cartOverlayEl?.addEventListener("click", closeCart);
-
-      window.addEventListener("keydown", (e) => {
-        if(e.key === "Escape") closeCart();
-      });
-
-      document.addEventListener("click", (e) => {
-        const btn = e.target.closest(".add-to-cart");
-        if(!btn) return;
-        setTimeout(updateCartCount, 0);
-      });
-
-      updateCartCount();
-      window.addEventListener("storage", updateCartCount);
-    })();
-  </script>
+    updateCartCount();
+    window.addEventListener("storage", updateCartCount);
+  })();
+</script>
 
   <!-- ✅ ADDED: BW toggle (persists) -->
   <script>
