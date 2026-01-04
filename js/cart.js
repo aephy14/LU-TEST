@@ -1,16 +1,64 @@
 // /js/cart.js
 // LumaFood cart + Stripe Checkout (Cloudflare Pages Functions)
 // Uses GET /prices to calculate totals in-cart
-// POST /checkout expects: { items: [{ price: "price_...", qty: 1 }, ...] }
+// POST /checkout expects: { items: [{ price: "price_...", qty: 1 }, ...], shipping: "AKL"|"NZ" }
 
 (() => {
   const CART_KEY = "luma_cart_v1";
+
+  // ✅ NEW: shipping selection persistence
+  const SHIPPING_KEY = "luma_ship_v1";
 
   const cartItemsEl = document.getElementById("cartItems");
   const cartTotalEl = document.getElementById("cartTotal");
   const cartMsgEl = document.getElementById("cartMsg");
   const clearBtn = document.getElementById("clearCartBtn");
   const checkoutBtn = document.getElementById("checkoutBtn");
+
+  // ✅ NEW: shipping UI elements (must exist in the cart drawer markup)
+  const shipAKL = document.getElementById("shipAKL");
+  const shipNZ = document.getElementById("shipNZ");
+  const shipMsgEl = document.getElementById("shipMsg");
+
+  function getShippingChoice() {
+    // prefer saved
+    try {
+      const saved = localStorage.getItem(SHIPPING_KEY);
+      if (saved === "AKL" || saved === "NZ") return saved;
+    } catch {}
+
+    // fallback to DOM state
+    if (shipAKL?.checked) return "AKL";
+    if (shipNZ?.checked) return "NZ";
+    return "";
+  }
+
+  function setShippingChoice(choice) {
+    if (choice !== "AKL" && choice !== "NZ") return;
+    try {
+      localStorage.setItem(SHIPPING_KEY, choice);
+    } catch {}
+
+    if (shipAKL) shipAKL.checked = choice === "AKL";
+    if (shipNZ) shipNZ.checked = choice === "NZ";
+
+    if (shipMsgEl) {
+      shipMsgEl.textContent =
+        choice === "AKL"
+          ? "Auckland delivery selected (free)."
+          : "Rest of NZ delivery selected (paid).";
+      shipMsgEl.className = "newsletter-msg ok";
+    }
+  }
+
+  // Init shipping from storage (if present)
+  (() => {
+    const saved = getShippingChoice();
+    if (saved) setShippingChoice(saved);
+  })();
+
+  shipAKL?.addEventListener("change", () => setShippingChoice("AKL"));
+  shipNZ?.addEventListener("change", () => setShippingChoice("NZ"));
 
   // priceId -> { amount: "26.00", currency: "NZD" }
   let PRICE_MAP = null; // null = not loaded yet
@@ -106,6 +154,8 @@
       cartMsgEl.className = "newsletter-msg";
     }
 
+    // ✅ NEW: if shipping UI exists but no selection saved, don't force anything
+    // (we only enforce at checkout)
     if (cart.length === 0) {
       cartItemsEl.innerHTML = `<div style="opacity:.8;">Your cart is empty.</div>`;
       cartTotalEl.textContent = "Total: —";
@@ -253,6 +303,19 @@
       return;
     }
 
+    // ✅ NEW: enforce shipping selection before checkout
+    const shipping = getShippingChoice();
+    if (!shipping) {
+      if (shipMsgEl) {
+        shipMsgEl.textContent = "Choose Auckland or Rest of NZ delivery to continue.";
+        shipMsgEl.className = "newsletter-msg err";
+      } else if (cartMsgEl) {
+        cartMsgEl.textContent = "Choose Auckland or Rest of NZ delivery to continue.";
+        cartMsgEl.classList.add("err");
+      }
+      return;
+    }
+
     checkoutBtn.disabled = true;
 
     try {
@@ -261,6 +324,7 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           items: cart.map((i) => ({ price: i.priceId, qty: i.qty })),
+          shipping, // ✅ NEW
         }),
       });
 
