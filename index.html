@@ -385,26 +385,45 @@
       box-shadow: 0 12px 28px rgba(0,0,0,.28);
     }
 
-    /* Marquee banner (continuous) */
-    .marquee{width:100%; overflow:hidden; background:#000; border-top:1px solid rgba(255,255,255,.14); border-bottom:1px solid rgba(255,255,255,.14)}
-    .marquee-inner{display:flex; width:max-content}
-    .marquee-track{
-      display:flex;
-      flex-wrap:nowrap;
-      gap:96px;
-      white-space:nowrap;
-      padding:14px 0;
-      will-change:transform;
-      animation: marquee 36s linear infinite;
-      font-family: var(--font-display);
-      font-weight: 800;
-      font-size: clamp(18px, 1.8vw, 22px);
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      color:#fff;
-    }
-    .marquee-track span{flex:0 0 auto; display:inline-block;}
-    @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
+    //* Marquee banner (continuous) */
+.marquee{
+  width:100%;
+  overflow:hidden;
+  background:#000;
+  border-top:1px solid rgba(255,255,255,.14);
+  border-bottom:1px solid rgba(255,255,255,.14);
+}
+
+.marquee-inner{
+  display:flex;
+  width:max-content;
+  will-change:transform;
+  animation: marquee 36s linear infinite;
+}
+
+.marquee-track{
+  display:flex;
+  flex-wrap:nowrap;
+  gap:96px;              /* ✅ controls spacing between phrases */
+  white-space:nowrap;
+  padding:14px 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(18px, 1.8vw, 22px);
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#fff;
+}
+
+.marquee-track span{
+  flex:0 0 auto;
+  display:inline-block;
+}
+
+@keyframes marquee{
+  0%{ transform:translateX(0) }
+  100%{ transform:translateX(-50%) } /* ✅ because we have TWO identical tracks */
+}
 
     /* Newsletter */
     .newsletter{padding: 48px 0 36px}
