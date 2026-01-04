@@ -1,7 +1,7 @@
 // /js/cart.js
 // LumaFood cart + Stripe Checkout (Cloudflare Pages Functions)
 // Uses GET /prices to calculate totals in-cart
-// POST /checkout expects: { items: [{ price: "price_...", qty: 1 }, ...], shipping: "AKL"|"NZ" }
+// POST /checkout expects: { items: [{ price: "price_...", qty: 1 }, ...], shipping_zone: "AKL"|"NZ" }
 
 (() => {
   const CART_KEY = "luma_cart_v1";
@@ -324,7 +324,7 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           items: cart.map((i) => ({ price: i.priceId, qty: i.qty })),
-          shipping, // ✅ NEW
+          shipping_zone: shipping, // ✅ CHANGED KEY (was "shipping")
         }),
       });
 
