@@ -56,16 +56,34 @@ export async function onRequestPost({ request, env }) {
   // ✅ Origin-safe URLs (works on pages.dev previews + prod)
   const origin = new URL(request.url).origin;
 
-  // ✅ Shipping zone (geofence decision happens before checkout)
-  // Expected: "AKL" or "NZ"
-  const shippingZoneRaw = typeof body?.shipping_zone === "string" ? body.shipping_zone.trim().toUpperCase() : "";
-  const shippingZone = shippingZoneRaw === "AKL" ? "AKL" : "NZ"; // default to NZ paid if missing/unknown
+  // ✅ HARD GEOFENCE: only allow NZ checkout (even if someone tries to pass other data)
+  // (Stripe will also enforce via shipping_address_collection, this is just extra defense.)
+  if (body?.country && String(body.country).toUpperCase() !== "NZ") {
+    return new Response(
+      JSON.stringify({ error: "We currently only ship within New Zealand (NZ)." }),
+      { status: 400, headers: { "Content-Type": "application/json" } }
+    );
+  }
+
+  // ✅ Shipping zone (user chooses before checkout)
+  // Required: "AKL" or "NZ"
+  const shippingZoneRaw =
+    typeof body?.shipping_zone === "string" ? body.shipping_zone.trim().toUpperCase() : "";
+
+  if (shippingZoneRaw !== "AKL" && shippingZoneRaw !== "NZ") {
+    return new Response(
+      JSON.stringify({ error: "Missing or invalid shipping_zone. Use 'AKL' or 'NZ'." }),
+      { status: 400, headers: { "Content-Type": "application/json" } }
+    );
+  }
+
+  const shippingZone = shippingZoneRaw; // "AKL" | "NZ"
   const shippingRateId = SHIPPING_RATES[shippingZone];
 
   if (!shippingRateId) {
     return new Response(
-      JSON.stringify({ error: "Invalid shipping_zone. Use 'AKL' or 'NZ'." }),
-      { status: 400, headers: { "Content-Type": "application/json" } }
+      JSON.stringify({ error: "Shipping rate not configured for that zone." }),
+      { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }
 
