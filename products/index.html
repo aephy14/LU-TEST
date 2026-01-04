@@ -670,16 +670,24 @@
     body.bw .footerLinks{color:#000 !important}
     body.bw a{color:#000 !important}
 
-/* ✅ FIX: keep prices readable in BW */
-body.bw .price{ color:#fff !important; }
-body.bw .price small{ color:#fff !important; opacity:.9 !important; }
+/* ✅ FIX: keep prices readable in BW (black on white) */
+body.bw .price{ color:#000 !important; }
+body.bw .price small{ color:#000 !important; opacity:.85 !important; }
 
-    body.bw img{filter: grayscale(1) contrast(1.25) brightness(1.05)}
+/* BW look for MOST images */
+body.bw img{
+  filter: grayscale(1) contrast(1.25) brightness(1.05);
+}
 
-    body.bw footer{
-      background:#fff !important;
-      border-top:2px solid #000 !important;
-    }
+/* ✅ BUT keep product label images in full colour (so green stays green) */
+body.bw .labelMedia img{
+  filter: none !important;
+}
+
+body.bw footer{
+  background:#fff !important;
+  border-top:2px solid #000 !important;
+}
 
     body.bw .btn:hover{
       background:#000 !important;
