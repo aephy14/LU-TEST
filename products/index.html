@@ -416,21 +416,68 @@
     }
 
     .btn{
-      font-family: var(--font-display);
-      border: 1px solid rgba(171,163,241,.28);
-      background: rgba(255,255,255,.10);
-      color: var(--text);
-      padding: 14px 22px;
-      border-radius: 999px;
-      font-weight: 800;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      font-size: 14px;
-      cursor:pointer;
-      transition: transform .15s ease, filter .15s ease, background .15s ease;
-    }
-    .btn:hover{background: rgba(255,255,255,.14); filter: brightness(1.02)}
-    .btn:active{transform: translateY(1px)}
+  font-family: var(--font-display);
+  border: 1px solid rgba(171,163,241,.28);
+  background: rgba(255,255,255,.10);
+  color: var(--text);
+  padding: 14px 22px;
+  border-radius: 999px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-size: 14px;
+  cursor:pointer;
+  transition: transform .15s ease, filter .15s ease, background .15s ease;
+}
+.btn:hover{background: rgba(255,255,255,.14); filter: brightness(1.02)}
+.btn:active{transform: translateY(1px)}
+
+/* ================================
+   ✅ PRIMARY & SECONDARY CTAs
+   ================================ */
+
+/* Primary CTA (Checkout + Cart) */
+.btn-cta{
+  border: 1px solid rgba(171,163,241,.55);
+  background:
+    radial-gradient(140% 160% at 20% 0%, rgba(255,255,255,.30), transparent 48%),
+    linear-gradient(135deg, rgba(186,178,255,.98), rgba(120,92,255,.86));
+  color: #0b0d10;
+  box-shadow:
+    0 22px 70px rgba(0,0,0,.48),
+    0 0 0 10px rgba(171,163,241,.18);
+  transform: translateZ(0);
+}
+.btn-cta:hover{
+  filter: brightness(1.08);
+  box-shadow:
+    0 28px 86px rgba(0,0,0,.55),
+    0 0 0 12px rgba(171,163,241,.22);
+}
+
+/* Secondary CTA (Buy more) */
+.btn-secondary{
+  background: rgba(0,0,0,.14);
+  border: 1px solid rgba(255,255,255,.22);
+  color: #fff;
+}
+.btn-secondary:hover{
+  background: rgba(255,255,255,.12);
+  filter: brightness(1.04);
+}
+
+/* BW mode */
+body.bw .btn-cta{
+  background:#000 !important;
+  color:#fff !important;
+  border:2px solid #000 !important;
+  box-shadow:none !important;
+}
+body.bw .btn-secondary{
+  background:#fff !important;
+  color:#000 !important;
+  border:2px solid #000 !important;
+}
 
     .productSection{margin-top: 18px}
     .sectionTitle{
