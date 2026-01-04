@@ -455,6 +455,17 @@
   animation: galleryScroll 70s linear infinite; /* ✅ slow */
 }
 
+/* Pause animation on hover (desktop) */
+.galleryPanel:hover .galleryInner{ 
+  animation-play-state: paused; 
+}
+
+/* Soft fade edges */
+.galleryStrip{
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
 .galleryTrack{
   display:flex;
   flex-wrap:nowrap;
