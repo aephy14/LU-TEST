@@ -65,20 +65,23 @@ export async function onRequestPost({ request, env }) {
     );
   }
 
-  // ✅ Shipping zone (user chooses before checkout)
-  // Required: "AKL" or "NZ"
-  const shippingZoneRaw =
-    typeof body?.shipping_zone === "string" ? body.shipping_zone.trim().toUpperCase() : "";
+// ✅ Shipping zone (must be explicitly chosen on site)
+// Expected: "AKL" or "NZ"
+const shippingZoneRaw =
+  typeof body?.shipping_zone === "string"
+    ? body.shipping_zone.trim().toUpperCase()
+    : "";
 
-  if (shippingZoneRaw !== "AKL" && shippingZoneRaw !== "NZ") {
-    return new Response(
-      JSON.stringify({ error: "Missing or invalid shipping_zone. Use 'AKL' or 'NZ'." }),
-      { status: 400, headers: { "Content-Type": "application/json" } }
-    );
-  }
+// ✅ IMPORTANT: do NOT default to NZ — force user choice
+if (shippingZoneRaw !== "AKL" && shippingZoneRaw !== "NZ") {
+  return new Response(
+    JSON.stringify({ error: "Choose a delivery option: shipping_zone must be 'AKL' or 'NZ'." }),
+    { status: 400, headers: { "Content-Type": "application/json" } }
+  );
+}
 
-  const shippingZone = shippingZoneRaw; // "AKL" | "NZ"
-  const shippingRateId = SHIPPING_RATES[shippingZone];
+const shippingZone = shippingZoneRaw;
+const shippingRateId = SHIPPING_RATES[shippingZone];
 
   if (!shippingRateId) {
     return new Response(
