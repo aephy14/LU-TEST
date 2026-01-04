@@ -1039,5 +1039,24 @@ body.bw .btn:hover{
       });
     })();
   </script>
+
+  <!-- ✅ Gallery scroll buttons -->
+  <script>
+    (function(){
+      const strip = document.querySelector('.galleryStrip');
+      const buttons = document.querySelectorAll('.galleryBtn');
+      if(!strip || !buttons.length) return;
+
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const dir = Number(btn.dataset.dir) || 1;
+          strip.scrollBy({
+            left: dir * Math.min(window.innerWidth * 0.8, 600),
+            behavior: 'smooth'
+          });
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
