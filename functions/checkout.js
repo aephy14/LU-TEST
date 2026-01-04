@@ -56,14 +56,6 @@ export async function onRequestPost({ request, env }) {
   // ✅ Origin-safe URLs (works on pages.dev previews + prod)
   const origin = new URL(request.url).origin;
 
-  // ✅ HARD GEOFENCE: only allow NZ checkout (even if someone tries to pass other data)
-  // (Stripe will also enforce via shipping_address_collection, this is just extra defense.)
-  if (body?.country && String(body.country).toUpperCase() !== "NZ") {
-    return new Response(
-      JSON.stringify({ error: "We currently only ship within New Zealand (NZ)." }),
-      { status: 400, headers: { "Content-Type": "application/json" } }
-    );
-  }
 
 // ✅ Shipping zone (must be explicitly chosen on site)
 // Expected: "AKL" or "NZ"
