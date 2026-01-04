@@ -9,6 +9,17 @@ const ALLOWED_PRICES = new Set([
   "price_1SisjCRsV1vNh8uNzdxJ7pFR", // Protein Bread (Seeded)
 ]);
 
+// ✅ SHIPPING: Stripe Shipping Rate IDs
+const SHIPPING_RATES = {
+  AKL: "shr_1Sln0KRsV1vNh8uNs1rfjefv", // Auckland shipping (free)
+  NZ:  "shr_1Sln1ZRsV1vNh8uNWX3NC8o8", // Rest of NZ shipping (paid)
+};
+
+// ✅ Limits (basic abuse prevention)
+const MAX_DISTINCT_ITEMS = 12;     // number of different line items
+const MAX_QTY_PER_ITEM = 24;       // max qty per line item
+const MAX_TOTAL_QTY = 60;          // max total qty across cart
+
 export async function onRequestPost({ request, env }) {
   if (!env?.STRIPE_SECRET_KEY) {
     return new Response(
@@ -35,21 +46,47 @@ export async function onRequestPost({ request, env }) {
     );
   }
 
+  if (items.length > MAX_DISTINCT_ITEMS) {
+    return new Response(
+      JSON.stringify({ error: `Too many different items. Max ${MAX_DISTINCT_ITEMS}.` }),
+      { status: 400, headers: { "Content-Type": "application/json" } }
+    );
+  }
+
   // ✅ Origin-safe URLs (works on pages.dev previews + prod)
   const origin = new URL(request.url).origin;
 
+  // ✅ Shipping zone (geofence decision happens before checkout)
+  // Expected: "AKL" or "NZ"
+  const shippingZoneRaw = typeof body?.shipping_zone === "string" ? body.shipping_zone.trim().toUpperCase() : "";
+  const shippingZone = shippingZoneRaw === "AKL" ? "AKL" : "NZ"; // default to NZ paid if missing/unknown
+  const shippingRateId = SHIPPING_RATES[shippingZone];
+
+  if (!shippingRateId) {
+    return new Response(
+      JSON.stringify({ error: "Invalid shipping_zone. Use 'AKL' or 'NZ'." }),
+      { status: 400, headers: { "Content-Type": "application/json" } }
+    );
+  }
+
   // Validate + sanitize
   const valid = [];
+  let totalQty = 0;
+
   for (const item of items) {
     const price = typeof item?.price === "string" ? item.price : "";
-    const qty = Number(item?.qty);
+    const qtyNum = Number(item?.qty);
 
     // ✅ SECURITY: only allow known Stripe price IDs
     if (!ALLOWED_PRICES.has(price)) continue;
 
-    if (!Number.isFinite(qty) || qty <= 0) continue;
+    if (!Number.isFinite(qtyNum) || qtyNum <= 0) continue;
 
-    valid.push({ price, qty: Math.floor(qty) });
+    const qty = Math.floor(qtyNum);
+    const clampedQty = Math.min(qty, MAX_QTY_PER_ITEM);
+
+    totalQty += clampedQty;
+    valid.push({ price, qty: clampedQty });
   }
 
   if (valid.length === 0) {
@@ -59,12 +96,27 @@ export async function onRequestPost({ request, env }) {
     );
   }
 
+  if (totalQty > MAX_TOTAL_QTY) {
+    return new Response(
+      JSON.stringify({ error: `Cart too large. Max total quantity is ${MAX_TOTAL_QTY}.` }),
+      { status: 400, headers: { "Content-Type": "application/json" } }
+    );
+  }
+
   // Stripe expects application/x-www-form-urlencoded for this endpoint
   const params = new URLSearchParams();
   params.append("mode", "payment");
   params.append("success_url", `${origin}/success/`);
   params.append("cancel_url", `${origin}/products/`);
+
+  // ✅ Restrict shipping to NZ only
   params.append("shipping_address_collection[allowed_countries][]", "NZ");
+
+  // ✅ Use exactly ONE shipping option based on shipping_zone
+  params.append("shipping_options[0][shipping_rate]", shippingRateId);
+
+  // Helpful metadata (visible in Stripe dashboard)
+  params.append("metadata[shipping_zone]", shippingZone);
 
   // Optional settings (uncomment if you want)
   // params.append("billing_address_collection", "required");
