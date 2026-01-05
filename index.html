@@ -446,23 +446,20 @@
 
 .galleryStrip{
   width:100%;
-  overflow-x: auto;          /* ✅ allow scroll */
-  overflow-y: hidden;
+  overflow-x:auto;
+  overflow-y:hidden;
   padding: 16px;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
+
+  /* ✅ hides scrollbar (Firefox + others) */
+  scrollbar-width: none;
 }
-.galleryStrip::-webkit-scrollbar{height:0} /* ✅ hides scrollbar */
+.galleryStrip::-webkit-scrollbar{height:0}
 
 .galleryInner{
   display:flex;
-  will-change: transform;
-  animation: galleryScroll 70s linear infinite; /* ✅ slow */
-}
-
-/* Pause animation on hover (desktop) */
-.galleryPanel:hover .galleryInner{ 
-  animation-play-state: paused; 
+  width: max-content; /* ✅ makes real scroll width */
 }
 
 /* Soft fade edges */
@@ -534,12 +531,6 @@ body.bw .galleryBtn{
   background:#fff !important;
   color:#000 !important;
   border:2px solid #000 !important;
-}
-
-/* ✅ We scroll half-width because we duplicate the track */
-@keyframes galleryScroll{
-  0%{ transform: translateX(0) }
-  100%{ transform: translateX(-50%) }
 }
 
 /* BW mode compatibility */
