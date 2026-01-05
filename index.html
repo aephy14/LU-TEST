@@ -1031,23 +1031,71 @@ body.bw .btn:hover{
     })();
   </script>
 
-  <!-- ✅ Gallery scroll buttons -->
-  <script>
-    (function(){
-      const strip = document.querySelector('.galleryStrip');
-      const buttons = document.querySelectorAll('.galleryBtn');
-      if(!strip || !buttons.length) return;
+<!-- ✅ Gallery buttons + auto-scroll (uses real scrollLeft, not transforms) -->
+<script>
+  (function(){
+    const strip = document.querySelector('.galleryStrip');
+    const panel = document.querySelector('.galleryPanel');
+    const buttons = document.querySelectorAll('.galleryBtn');
+    if(!strip || !panel) return;
 
-      buttons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const dir = Number(btn.dataset.dir) || 1;
-          strip.scrollBy({
-            left: dir * Math.min(window.innerWidth * 0.8, 600),
-            behavior: 'smooth'
-          });
+    let raf = null;
+    let last = 0;
+    let paused = false;
+
+    // speed in px per ms (0.22 ≈ 220px/sec)
+    const SPEED = 0.22;
+
+    function tick(t){
+      if(!last) last = t;
+      const dt = t - last;
+      last = t;
+
+      if(!paused){
+        const half = strip.scrollWidth / 2; // Track A + Track B duplicate
+        strip.scrollLeft += dt * SPEED;
+
+        if(strip.scrollLeft >= half){
+          strip.scrollLeft -= half;
+        }
+      }
+
+      raf = requestAnimationFrame(tick);
+    }
+
+    // Pause on hover (desktop)
+    panel.addEventListener('mouseenter', () => { paused = true; });
+    panel.addEventListener('mouseleave', () => { paused = false; });
+
+    // Pause on user interaction
+    ['touchstart','pointerdown','wheel'].forEach(evt => {
+      panel.addEventListener(evt, () => { paused = true; }, {passive:true});
+    });
+    ['touchend','pointerup'].forEach(evt => {
+      panel.addEventListener(evt, () => { paused = false; }, {passive:true});
+    });
+
+    // Buttons scroll the strip
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const dir = Number(btn.dataset.dir) || 1;
+        paused = true;
+
+        strip.scrollBy({
+          left: dir * Math.min(window.innerWidth * 0.75, 520),
+          behavior: 'smooth'
         });
+
+        setTimeout(() => { paused = false; }, 1200);
       });
-    })();
-  </script>
+    });
+
+    // Respect reduced motion
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(!reduce){
+      raf = requestAnimationFrame(tick);
+    }
+  })();
+ </script>
 </body>
 </html>
