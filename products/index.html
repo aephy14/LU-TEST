@@ -432,6 +432,43 @@
     .btn:hover{background: rgba(255,255,255,.14); filter: brightness(1.02)}
     .btn:active{transform: translateY(1px)}
 
+/* Sold out / waitlist toggle */
+.cta-buy,
+.cta-soldout{
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+}
+
+.card[data-cta-state="buy"] .cta-soldout{display:none;}
+.card[data-cta-state="sold_out"] .cta-buy{display:none;}
+
+.btn-waitlist{
+  border:2px solid #fa2239;
+  background:rgba(0,0,0,.14);
+  color:#ffffff;
+  box-shadow:
+    0 0 0 6px rgba(250,34,57,.14),
+    0 14px 40px rgba(0,0,0,.35);
+}
+
+.btn-waitlist:hover{
+  background: rgba(250,34,57,.12);
+  box-shadow:
+    0 0 0 8px rgba(250,34,57,.18),
+    0 18px 52px rgba(0,0,0,.45);
+  filter: brightness(1.04);
+}
+
+body.bw .btn-waitlist{
+  background:#fff !important;
+  color:#000 !important;
+  border:2px solid #000 !important;
+  box-shadow:none !important;
+}
+
     .productSection{margin-top: 18px}
     .sectionTitle{
       font-family: var(--font-display);
@@ -952,7 +989,7 @@
           <div class="carousel two">
 
             <!-- ✅ ADDED ID: matcha-sugarfree -->
-            <article class="card" id="matcha-sugarfree">
+            <article class="card" id="matcha-sugarfree" data-cta-state="sold out">
               <div class="cardMedia">
                 <img loading="lazy" decoding="async"
                   alt="Luma Sugar Free Matcha Soda – organic matcha drink NZ"
@@ -968,11 +1005,22 @@
                   src="../assets/images/products/matcha-soda/sugarfree/label.webp" />
               </div>
               <div class="ctaRow">
-                <div class="price" data-price-id="price_1SisR9RsV1vNh8uNeSx6PUq0">— <small>NZD</small></div>
-                <button class="btn add-to-cart" type="button" data-price="price_1SisR9RsV1vNh8uNeSx6PUq0">
-                  Add Matcha Sugarfree
-                </button>
-              </div>
+
+  <div class="cta-buy">
+    <div class="price" data-price-id="price_1SisR9RsV1vNh8uNeSx6PUq0">— <small>NZD</small></div>
+    <button class="btn add-to-cart" type="button" data-price="price_1SisR9RsV1vNh8uNeSx6PUq0">
+      Add Matcha Sugarfree
+    </button>
+  </div>
+
+  <div class="cta-soldout">
+    <div class="price">Sold out</div>
+    <a class="btn btn-waitlist" href="../contact/">
+      Sold out — Join waitlist
+    </a>
+  </div>
+
+</div>
             </article>
 
             <!-- ✅ ADDED ID: matcha-original -->
@@ -1066,7 +1114,7 @@
           <div class="carousel two">
 
             <!-- ✅ ADDED ID: ice-tea-fruit -->
-            <article class="card" id="ice-tea-fruit">
+            <article class="card" id="ice-tea-fruit" data-cta-state="sold_out">
               <div class="cardMedia">
                 <img loading="lazy" decoding="async"
                   alt="Luma Protein Ice Tea Fruit – high protein iced tea NZ"
@@ -1088,7 +1136,7 @@
             </article>
 
             <!-- ✅ ADDED ID: ice-tea-peach -->
-            <article class="card" id="ice-tea-peach">
+            <article class="card" id="ice-tea-peach" data-cta-state="sold_out>
               <div class="cardMedia">
                 <img loading="lazy" decoding="async"
                   alt="Luma Protein Ice Tea Peach – high protein iced tea NZ"
