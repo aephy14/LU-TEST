@@ -155,8 +155,6 @@
     }
   }
 
-  }
-
   // ── Render ────────────────────────────────────────────────────────────
   async function render() {
     const cart = loadCart();
