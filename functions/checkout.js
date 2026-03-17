@@ -3,7 +3,7 @@
 
 // ✅ SECURITY: Only allow THESE Stripe Price IDs (prevents price tampering)
 const ALLOWED_PRICES = new Set([
-  "price_1SisR9RsV1vNh8uNeSx6PUq0", // Matcha (single)
+  "price_1TBqNRRsV1vNh8uNL6zcmdFL", // Matcha (single)
   "price_1TBqLdRsV1vNh8uNRAY1laKn", // Matcha 6-pack
   "price_1SishaRsV1vNh8uNZVzRQvMd", // Protein Bread (Plain)
   "price_1SisjCRsV1vNh8uNzdxJ7pFR", // Protein Bread (Seeded)
