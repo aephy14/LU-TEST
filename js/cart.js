@@ -8,6 +8,8 @@
   const POSTCODE_KEY = "luma_postcode_v1";
   const ZONE_KEY     = "luma_zone_v1";
 
+    let postcodeRestored = false;
+
   // Read referral code from URL ?ref=... and persist
   (() => {
     try {
@@ -156,11 +158,12 @@
     }
 
     if (shippingSection) shippingSection.style.display = "block";
-    if (postcodeInputEl && !postcodeInputEl.value) {
+   if (postcodeInputEl && !postcodeRestored) {
       try {
         const saved = localStorage.getItem(POSTCODE_KEY) || "";
         if (saved) postcodeInputEl.value = saved;
       } catch {}
+      postcodeRestored = true;
     }
 
     const prices = await ensurePricesLoaded();
