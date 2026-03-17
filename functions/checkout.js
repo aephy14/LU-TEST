@@ -4,7 +4,7 @@
 // ✅ SECURITY: Only allow THESE Stripe Price IDs (prevents price tampering)
 const ALLOWED_PRICES = new Set([
   "price_1SisR9RsV1vNh8uNeSx6PUq0", // Matcha (single)
-  "price_1SisVwRsV1vNh8uNNA5g86vb", // Matcha 6-pack
+  "price_1TBqLdRsV1vNh8uNRAY1laKn", // Matcha 6-pack
   "price_1SishaRsV1vNh8uNZVzRQvMd", // Protein Bread (Plain)
   "price_1SisjCRsV1vNh8uNzdxJ7pFR", // Protein Bread (Seeded)
 ]);
@@ -17,9 +17,9 @@ const RATE_FREE     = "shr_1TBmrpRsV1vNh8uNLaxGmzOG";
 // ✅ FREE SHIPPING threshold + price amounts (cents) for server-side calculation
 const FREE_SHIPPING_THRESHOLD_CENTS = 6000; // $60.00 NZD
 const PRICE_AMOUNTS_CENTS = {
-  "price_1SisR9RsV1vNh8uNeSx6PUq0": 2600, // Matcha Sugarfree 6-pack — $26.00
-  "price_1SisVwRsV1vNh8uNNA5g86vb": 2000, // Matcha Original 6-pack  — $20.00
-  "price_1SishaRsV1vNh8uNZVzRQvMd": 1250, // Protein Bread (Plain)   — $12.50
+  "price_1TBqNRRsV1vNh8uNL6zcmdFL": 3000, // Matcha Sugarfree 6-pack — $30.00
+  "price_1TBqLdRsV1vNh8uNRAY1laKn": 3000, // Matcha Original 6-pack  — $30.00
+  "price_1SishaRsV1vNh8uNZVzRQvMd": 1400, // Protein Bread (Plain)   — $14.00
   "price_1SisjCRsV1vNh8uNzdxJ7pFR": 1400, // Protein Bread (Seeded)  — $14.00
 };
 
