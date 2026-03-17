@@ -1241,8 +1241,18 @@ body.bw footer{
 
   <section class="wrap wrap-narrow" style="margin-top:0;">
   <div style="text-align:left;">
-    <div id="cartItems" style="display:grid; gap:10px; margin:12px 0;"></div>
+ <div id="cartItems" style="display:grid; gap:10px; margin:12px 0;"></div>
 
+    <!-- Postcode → auto-detects Auckland ($8) or Rest of NZ ($15) -->
+    <div id="shippingSection" style="display:none; margin:10px 0 6px;">
+      <div style="font-weight:900; letter-spacing:.06em; text-transform:uppercase; margin-bottom:6px;">Shipping</div>
+      <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+        <input type="text" id="postcodeInput" placeholder="Your postcode" maxlength="4"
+               inputmode="numeric" autocomplete="postal-code"
+               style="width:130px; padding:9px 12px; border-radius:10px; border:1px solid rgba(171,163,241,.3); background:rgba(0,0,0,.15); color:inherit; font-size:15px; font-weight:700; outline:none;">
+        <span id="shippingCostDisplay" style="font-weight:700; font-size:14px;"></span>
+      </div>
+    </div>
 
     <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;">
       <div id="cartTotal" style="font-weight:800;">Total: —</div>
