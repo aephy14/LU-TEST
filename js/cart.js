@@ -268,8 +268,8 @@
 
   // ── Discount banner (24-can bulk) ─────────────────────────────────────
   const CANS_PER_PRICE = {
-    "price_1SisR9RsV1vNh8uNeSx6PUq0": 6,
-    "price_1SisVwRsV1vNh8uNNA5g86vb": 6,
+    "price_1TBqNRRsV1vNh8uNL6zcmdFL": 6,
+    "price_1TBqLdRsV1vNh8uNRAY1laKn": 6,
   };
 
   function renderDiscountBanner(cart) {
