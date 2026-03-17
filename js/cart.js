@@ -120,20 +120,31 @@
   }
 
   // ── Shipping display ──────────────────────────────────────────────────
-  function updateShippingDisplay(subtotal, currency) {
-    const displayEl = document.getElementById("shippingCostDisplay");
-    if (!displayEl) return;
+    function updateShippingDisplay(subtotal, currency) {
+    const el   = document.getElementById("shippingCostDisplay");
+    const hint = document.getElementById("aklPromoHint");
+    if (!el) return;
     const zone = getSavedZone();
-    if (!zone) { displayEl.textContent = ""; return; }
-    if (subtotal >= 60) {
-      displayEl.textContent = "🎉 Free shipping!";
-      displayEl.style.color = "#5ecb3e";
-    } else {
-      const cost  = zone === "AKL" ? 8 : 15;
-      const label = zone === "AKL" ? "Auckland" : "NZ excl Auckland";
-      displayEl.textContent = `${label} — ${fmtMoney(cost, currency)}`;
-      displayEl.style.color = "";
+    if (!zone) {
+      el.textContent = "";
+      if (hint) hint.style.display = "none";
+      return;
     }
+    if (subtotal >= 60) {
+      el.textContent = "🎉 Free shipping!";
+      el.style.color = "#5ecb3e";
+      if (hint) hint.style.display = "none";
+    } else if (zone === "AKL") {
+      el.textContent = `Auckland — ${fmtMoney(8, currency)}`;
+      el.style.color = "";
+      if (hint) hint.style.display = "block";
+    } else {
+      el.textContent = `NZ excl Auckland — ${fmtMoney(15, currency)}`;
+      el.style.color = "";
+      if (hint) hint.style.display = "none";
+    }
+  }
+
   }
 
   // ── Render ────────────────────────────────────────────────────────────
