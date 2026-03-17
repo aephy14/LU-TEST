@@ -49,14 +49,24 @@
   }
 
   // ── Cart storage ──────────────────────────────────────────────────────
+
+    let _memCart = null;
+
+  function saveCart(cart) {
+    try {
+      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+      _memCart = null;
+    } catch {
+      _memCart = cart;
+    }
+  }
+
   function loadCart() {
+    if (_memCart !== null) return _memCart;
     try { return JSON.parse(localStorage.getItem(CART_KEY) || "[]"); }
     catch { return []; }
   }
 
-  function saveCart(cart) {
-    localStorage.setItem(CART_KEY, JSON.stringify(cart));
-  }
 
   function addToCart(priceId, label) {
     const cart = loadCart();
