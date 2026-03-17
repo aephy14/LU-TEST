@@ -9,11 +9,20 @@ const ALLOWED_PRICES = new Set([
   "price_1SisjCRsV1vNh8uNzdxJ7pFR", // Protein Bread (Seeded)
 ]);
 
-// ✅ SHIPPING: Stripe Shipping Rate IDs
-const SHIPPING_RATES = {
-  AKL: "shr_1Sln0KRsV1vNh8uNs1rfjefv", // Auckland shipping (free)
-  NZ:  "shr_1Sln1ZRsV1vNh8uNWX3NC8o8", // Rest of NZ shipping (paid)
+// ✅ SHIPPING: auto-selected by postcode (Auckland $8, Rest of NZ $15, Free if ≥$60)
+const RATE_AUCKLAND = "shr_1TBmt4RsV1vNh8uNRdTkyp1C";
+const RATE_NZ       = "shr_1Sln1ZRsV1vNh8uNWX3NC8o8";
+const RATE_FREE     = "shr_1TBmrpRsV1vNh8uNLaxGmzOG";
+
+// ✅ FREE SHIPPING threshold + price amounts (cents) for server-side calculation
+const FREE_SHIPPING_THRESHOLD_CENTS = 6000; // $60.00 NZD
+const PRICE_AMOUNTS_CENTS = {
+  "price_1SisR9RsV1vNh8uNeSx6PUq0": 2600, // Matcha Sugarfree 6-pack — $26.00
+  "price_1SisVwRsV1vNh8uNNA5g86vb": 2000, // Matcha Original 6-pack  — $20.00
+  "price_1SishaRsV1vNh8uNZVzRQvMd": 1250, // Protein Bread (Plain)   — $12.50
+  "price_1SisjCRsV1vNh8uNzdxJ7pFR": 1400, // Protein Bread (Seeded)  — $14.00
 };
+
 
 // ✅ Limits (basic abuse prevention)
 const MAX_DISTINCT_ITEMS = 12;     // number of different line items
@@ -57,30 +66,17 @@ export async function onRequestPost({ request, env }) {
   const origin = new URL(request.url).origin;
 
 
-// ✅ Shipping zone (must be explicitly chosen on site)
-// Expected: "AKL" or "NZ"
-const shippingZoneRaw =
+// ✅ Shipping zone: auto-detected from postcode in cart
+const shippingZone =
   typeof body?.shipping_zone === "string"
     ? body.shipping_zone.trim().toUpperCase()
     : "";
-
-// ✅ IMPORTANT: do NOT default to NZ — force user choice
-if (shippingZoneRaw !== "AKL" && shippingZoneRaw !== "NZ") {
+if (shippingZone !== "AKL" && shippingZone !== "NZ") {
   return new Response(
-    JSON.stringify({ error: "Choose a delivery option: shipping_zone must be 'AKL' or 'NZ'." }),
+    JSON.stringify({ error: "Enter your postcode to continue." }),
     { status: 400, headers: { "Content-Type": "application/json" } }
   );
 }
-
-const shippingZone = shippingZoneRaw;
-const shippingRateId = SHIPPING_RATES[shippingZone];
-
-  if (!shippingRateId) {
-    return new Response(
-      JSON.stringify({ error: "Shipping rate not configured for that zone." }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
-    );
-  }
 
   // Validate + sanitize
   const valid = [];
@@ -125,11 +121,17 @@ const shippingRateId = SHIPPING_RATES[shippingZone];
   // ✅ Restrict shipping to NZ only
   params.append("shipping_address_collection[allowed_countries][]", "NZ");
 
-  // ✅ Use exactly ONE shipping option based on shipping_zone
+  // ✅ One shipping rate: free if ≥$60, otherwise by postcode-detected zone
+  const subtotalCents = valid.reduce(
+    (sum, item) => sum + (PRICE_AMOUNTS_CENTS[item.price] || 0) * item.qty, 0
+  );
+  const shippingRateId = subtotalCents >= FREE_SHIPPING_THRESHOLD_CENTS
+    ? RATE_FREE
+    : (shippingZone === "AKL" ? RATE_AUCKLAND : RATE_NZ);
   params.append("shipping_options[0][shipping_rate]", shippingRateId);
-
   // Helpful metadata (visible in Stripe dashboard)
   params.append("metadata[shipping_zone]", shippingZone);
+  params.append("metadata[free_shipping]", String(subtotalCents >= FREE_SHIPPING_THRESHOLD_CENTS));
 
   // Optional settings (uncomment if you want)
   // params.append("billing_address_collection", "required");
