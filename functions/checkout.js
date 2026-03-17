@@ -120,6 +120,7 @@ if (shippingZone !== "AKL" && shippingZone !== "NZ") {
 
   // ✅ Restrict shipping to NZ only
   params.append("shipping_address_collection[allowed_countries][]", "NZ");
+  params.append("allow_promotion_codes", "true");
 
   // ✅ One shipping rate: free if ≥$60, otherwise by postcode-detected zone
   const subtotalCents = valid.reduce(
@@ -133,9 +134,7 @@ if (shippingZone !== "AKL" && shippingZone !== "NZ") {
   params.append("metadata[shipping_zone]", shippingZone);
   params.append("metadata[free_shipping]", String(subtotalCents >= FREE_SHIPPING_THRESHOLD_CENTS));
 
-  // Optional settings (uncomment if you want)
   // params.append("billing_address_collection", "required");
-  // params.append("allow_promotion_codes", "true");
 
   valid.forEach((item, i) => {
     params.append(`line_items[${i}][price]`, item.price);
