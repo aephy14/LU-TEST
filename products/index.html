@@ -743,12 +743,48 @@ body.bw footer{
   border-top:2px solid #000 !important;
 }
 
-    body.bw .btn:hover{
+        body.bw .btn:hover{
       background:#000 !important;
       color:#fff !important;
       filter:none !important;
     }
+
+/* Marquee banner */
+.marquee{
+  overflow:hidden;
+  background:#000;
+  border-top:1px solid rgba(255,255,255,.14);
+  border-bottom:1px solid rgba(255,255,255,.14);
+}
+.marquee-inner{
+  display:flex;
+  width:max-content;
+  will-change:transform;
+  animation: marquee 47s linear infinite;
+}
+.marquee-track{
+  display:flex;
+  flex-wrap:nowrap;
+  gap:96px;
+  white-space:nowrap;
+  padding:14px 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(18px, 1.8vw, 22px);
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#fff;
+}
+.marquee-track span{
+  flex:0 0 auto;
+  display:inline-block;
+}
+@keyframes marquee{
+  0%{ transform:translateX(0) }
+  100%{ transform:translateX(-50%) }
+}
   </style>
+
 
   <!-- SEO: ItemList + Products schema -->
   <script type="application/ld+json">
@@ -1064,7 +1100,8 @@ body.bw footer{
               </div>
               <div class="ctaRow">
                 <div class="price" data-price-id="price_1TBqNRRsV1vNh8uNL6zcmdFL">— <small>NZD</small></div>
-                <button class="btn add-to-cart" type="button" price_1TBqNRRsV1vNh8uNL6zcmdFL">
+                <button class="btn add-to-cart" type="button" data-price="price_1TBqNRRsV1vNh8uNL6zcmdFL">
+
                   Add 6xMatcha Sugarfree
                 </button>
               </div>
@@ -1088,7 +1125,7 @@ body.bw footer{
               </div>
               <div class="ctaRow">
                 <div class="price" data-price-id="price_1TBqLdRsV1vNh8uNRAY1laKn">— <small>NZD</small></div>
-                <button class="btn add-to-cart" type="button" price_1TBqLdRsV1vNh8uNRAY1laKn">
+                <button class="btn add-to-cart" type="button" data-price=price_1TBqLdRsV1vNh8uNRAY1laKn">
                   Add 6xMatcha (Original)
                 </button>
               </div>
